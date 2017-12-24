@@ -3,7 +3,7 @@ install: true
 jdk:
 - oraclejdk8
 before_install:
-- nohup bash -c "cd 3_cws_arquitectura_skel/data/ && java -classpath ../lib/hsqldb.jar org.hsqldb.Server"
+- nohup bash -c "cd 3_cws_arquitectura_skel/data/ && ./startup.bat"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 before_script:
