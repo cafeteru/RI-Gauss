@@ -4,13 +4,13 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class BaseRepository<T> {
-
+	
 	public void add(T t) {
-		Jpa.getManager().persist(t);
+		Jpa.getManager().persist( t );
 	}
 
 	public void remove(T t) {
-		Jpa.getManager().remove(t);
+		Jpa.getManager().remove( t );
 	}
 
 	public T findById(Long id) {
@@ -20,8 +20,10 @@ public class BaseRepository<T> {
 	public List<T> findAll() {
 		String entity = type.getName();
 		String query = "select o from " + entity + " o";
-
-		return Jpa.getManager().createQuery(query, type).getResultList();
+		
+		return Jpa.getManager()
+				.createQuery(query, type)
+				.getResultList();
 	}
 
 	/**
@@ -32,16 +34,16 @@ public class BaseRepository<T> {
 
 	public BaseRepository() {
 		this.type = hasckTheTypeOfGenericParamenter();
-	}
+	 }
 
 	/**
 	 * This is a hack to recover the runtime reflective type of <T>
 	 */
 	@SuppressWarnings("unchecked")
 	private Class<T> hasckTheTypeOfGenericParamenter() {
-		ParameterizedType superType = (ParameterizedType) getClass()
-				.getGenericSuperclass();
-		return (Class<T>) superType.getActualTypeArguments()[0];
+		ParameterizedType superType = 
+			(ParameterizedType)	getClass().getGenericSuperclass();
+	    return (Class<T>) superType.getActualTypeArguments()[0];
 	}
-
+	
 }

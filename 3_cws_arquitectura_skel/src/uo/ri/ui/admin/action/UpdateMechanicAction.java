@@ -11,24 +11,24 @@ public class UpdateMechanicAction implements Action {
 
 	@Override
 	public void execute() throws BusinessException {
-
+		
 		// Pedir datos
-		Long id = Console.readLong("Id del mecánico");
-		String nombre = Console.readString("Nombre");
+		Long id = Console.readLong("Id del mecánico"); 
+		String nombre = Console.readString("Nombre"); 
 		String apellidos = Console.readString("Apellidos");
-
+		
 		// Procesar
 		AdminService as = Factory.service.forAdmin();
 
 		MechanicDto m = as.findMechanicById(id);
-		if (m == null) {
+		if ( m == null) {
 			throw new BusinessException("No existe el mecánico");
 		}
 		m.name = nombre;
-		m.surname = apellidos; // el dni es la identidad, no se puede cambiar
-
-		as.updateMechanic(m);
-
+		m.surname = apellidos;  // el dni es la identidad, no se puede cambiar
+		
+		as.updateMechanic( m );
+		
 		// Mostrar resultado
 		Console.println("Mecánico actualizado");
 	}

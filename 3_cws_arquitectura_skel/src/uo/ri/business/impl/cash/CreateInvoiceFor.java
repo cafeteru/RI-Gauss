@@ -6,7 +6,7 @@ import uo.ri.business.dto.InvoiceDto;
 import uo.ri.business.impl.Command;
 import uo.ri.util.exception.BusinessException;
 
-public class CreateInvoiceFor implements Command<InvoiceDto> {
+public class CreateInvoiceFor implements Command<InvoiceDto>{
 
 	private List<Long> idsAveria;
 

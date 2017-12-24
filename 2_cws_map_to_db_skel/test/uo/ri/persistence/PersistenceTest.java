@@ -37,6 +37,7 @@ import uo.ri.model.Vehiculo;
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.Address;
 
+
 public class PersistenceTest {
 
 	private EntityManagerFactory factory;
@@ -62,16 +63,16 @@ public class PersistenceTest {
 		EntityManager mapper = factory.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-
-		Cliente cl = mapper.merge(cliente);
-
-		assertNotNull(cl.getId());
-		assertEquals(cl.getApellidos(), "apellidos");
-		assertEquals(cl.getNombre(), "nombre");
-		assertEquals(cl.getDni(), "dni");
-
+		
+		Cliente cl = mapper.merge( cliente );
+		
+		assertNotNull( cl.getId() );
+		assertEquals( cl.getApellidos(), "apellidos");
+		assertEquals( cl.getNombre(), "nombre");
+		assertEquals( cl.getDni(), "dni");
+		
 		trx.commit();
-		mapper.close();
+		mapper.close();	
 	}
 
 	@Test
@@ -79,18 +80,18 @@ public class PersistenceTest {
 		EntityManager mapper = factory.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-
+		
 		Cliente cl = mapper.merge(cliente);
 		Set<Vehiculo> vehiculos = cl.getVehiculos();
 		Vehiculo v = vehiculos.iterator().next();
-
-		assertTrue(vehiculos.size() == 1);
-		assertSame(v.getCliente(), cl);
-		assertNotNull(v.getId());
-		assertEquals(v.getMarca(), "seat");
-		assertEquals(v.getModelo(), "ibiza");
-		assertEquals(v.getMatricula(), "1234 GJI");
-
+		
+		assertTrue( vehiculos.size() == 1 );
+		assertSame( v.getCliente(), cl);
+		assertNotNull( v.getId());
+		assertEquals( v.getMarca(), "seat" );
+		assertEquals( v.getModelo(), "ibiza" );
+		assertEquals( v.getMatricula(), "1234 GJI" );
+		
 		trx.commit();
 		mapper.close();
 	}
@@ -100,50 +101,50 @@ public class PersistenceTest {
 		EntityManager mapper = factory.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-
-		Sustitucion s = mapper.merge(sustitucion);
+		
+		Sustitucion s = mapper.merge( sustitucion );
 		Repuesto r = s.getRepuesto();
 		Intervencion i = s.getIntervencion();
-
-		assertTrue(r.getSustituciones().contains(s));
-		assertTrue(i.getSustituciones().contains(s));
+		
+		assertTrue( r.getSustituciones().contains(s) ); 
+		assertTrue( i.getSustituciones().contains(s) );
 
 		trx.commit();
-		mapper.close();
+		mapper.close();		
 	}
-
+		
 	@Test
 	public void testTrabajarArreglar() {
 		EntityManager mapper = factory.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
 
-		Sustitucion s = mapper.merge(sustitucion);
+		Sustitucion s = mapper.merge( sustitucion );
 		Intervencion i = s.getIntervencion();
 		Mecanico m = i.getMecanico();
 		Averia a = i.getAveria();
-
-		assertTrue(m.getIntervenciones().contains(i));
-		assertTrue(a.getIntervenciones().contains(i));
-
+		
+		assertTrue( m.getIntervenciones().contains(i) ); 
+		assertTrue( a.getIntervenciones().contains(i) ); 
+		
 		trx.commit();
-		mapper.close();
+		mapper.close();		
 	}
-
+	
 	@Test
 	public void testTener() {
 		EntityManager mapper = factory.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
 
-		Sustitucion s = mapper.merge(sustitucion);
+		Sustitucion s = mapper.merge( sustitucion );
 		Averia a = s.getIntervencion().getAveria();
 		Vehiculo v = a.getVehiculo();
-
-		assertTrue(v.getAverias().contains(a));
-
+		
+		assertTrue( v.getAverias().contains(a) ); 
+		
 		trx.commit();
-		mapper.close();
+		mapper.close();		
 	}
 
 	@Test
@@ -152,16 +153,16 @@ public class PersistenceTest {
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
 
-		Sustitucion s = mapper.merge(sustitucion);
+		Sustitucion s = mapper.merge( sustitucion );
 		Vehiculo v = s.getIntervencion().getAveria().getVehiculo();
 		TipoVehiculo tv = v.getTipo();
 		Cliente c = v.getCliente();
-
-		assertTrue(tv.getVehiculos().contains(v));
-		assertTrue(c.getVehiculos().contains(v));
-
+		
+		assertTrue( tv.getVehiculos().contains(v) ); 
+		assertTrue( c.getVehiculos().contains(v) ); 
+		
 		trx.commit();
-		mapper.close();
+		mapper.close();		
 	}
 
 	@Test
@@ -170,15 +171,15 @@ public class PersistenceTest {
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
 
-		Cargo c = mapper.merge(cargo);
+		Cargo c = mapper.merge( cargo );
 		Factura f = c.getFactura();
 		MedioPago mp = c.getMedioPago();
-
-		assertTrue(mp.getCargos().contains(c));
-		assertTrue(f.getCargos().contains(c));
-
+		
+		assertTrue( mp.getCargos().contains(c) );
+		assertTrue( f.getCargos().contains(c) );
+		
 		trx.commit();
-		mapper.close();
+		mapper.close();		
 	}
 
 	@Test
@@ -187,14 +188,14 @@ public class PersistenceTest {
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
 
-		Sustitucion s = mapper.merge(sustitucion);
+		Sustitucion s = mapper.merge( sustitucion );
 		Averia a = s.getIntervencion().getAveria();
 		Factura f = a.getFactura();
-
-		assertTrue(f.getAverias().contains(a));
-
+		
+		assertTrue( f.getAverias().contains(a) );
+		
 		trx.commit();
-		mapper.close();
+		mapper.close();		
 	}
 
 	@Test
@@ -203,16 +204,16 @@ public class PersistenceTest {
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
 
-		Sustitucion s = mapper.merge(sustitucion);
+		Sustitucion s = mapper.merge( sustitucion );
 		Cliente c = s.getIntervencion().getAveria().getVehiculo().getCliente();
 		Set<MedioPago> medios = c.getMediosPago();
 
-		for (MedioPago mp : medios) {
-			assertSame(mp.getCliente(), c);
+		for(MedioPago mp: medios) {
+			assertSame( mp.getCliente(), c );
 		}
-
+		
 		trx.commit();
-		mapper.close();
+		mapper.close();		
 	}
 
 	protected List<Object> createGraph() throws BusinessException {
@@ -222,41 +223,41 @@ public class PersistenceTest {
 		cliente.setAddress(address);
 		Vehiculo vehiculo = new Vehiculo("1234 GJI", "seat", "ibiza");
 		Association.Poseer.link(cliente, vehiculo);
-
+		
 		TipoVehiculo tipoVehiculo = new TipoVehiculo("coche", 50.0);
 		Association.Clasificar.link(tipoVehiculo, vehiculo);
-
+		
 		Averia averia = new Averia(vehiculo, "falla la junta la trocla");
 		Mecanico mecanico = new Mecanico("dni-mecanico", "nombre", "apellidos");
 		averia.assignTo(mecanico);
-
+	
 		Intervencion intervencion = new Intervencion(mecanico, averia);
 		intervencion.setMinutos(60);
 		averia.markAsFinished();
-
+		
 		Repuesto repuesto = new Repuesto("R1001", "junta la trocla", 100.0);
 		sustitucion = new Sustitucion(repuesto, intervencion);
 		sustitucion.setCantidad(2);
-
+		
 		Bono bono = new Bono("B-100", 100.0);
-		bono.setDescripcion("Voucher just for testing");
+		bono.setDescripcion( "Voucher just for testing" );
 		Association.Pagar.link(bono, cliente);
-
-		TarjetaCredito tarjetaCredito = new TarjetaCredito("1234567");
+		
+		TarjetaCredito tarjetaCredito = new TarjetaCredito( "1234567" );
 		tarjetaCredito.setTipo("Visa");
-		tarjetaCredito.setValidez(DateUtil.inYearsTime(1));
+		tarjetaCredito.setValidez( DateUtil.inYearsTime( 1 ) );
 		Association.Pagar.link(tarjetaCredito, cliente);
-
-		Metalico metalico = new Metalico(cliente);
-
-		Factura factura = new Factura(1L);
-		factura.setFecha(DateUtil.today());
+		
+		Metalico metalico = new Metalico( cliente );
+		
+		Factura factura = new Factura( 1L );
+		factura.setFecha( DateUtil.today() );
 		factura.addAveria(averia);
 
 		cargo = new Cargo(factura, tarjetaCredito, factura.getImporte());
-
+		
 		List<Object> res = new LinkedList<Object>();
-
+		
 		res.add(tipoVehiculo);
 		res.add(repuesto);
 		res.add(mecanico);
@@ -270,31 +271,31 @@ public class PersistenceTest {
 		res.add(intervencion);
 		res.add(sustitucion);
 		res.add(cargo);
-
+		
 		return res;
 	}
-
+	
 	private void persistGraph(List<Object> graph) {
 		EntityManager mapper = factory.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-
-		for (Object o : graph) {
+		
+		for(Object o: graph) {
 			mapper.persist(o);
 		}
 
 		trx.commit();
 		mapper.close();
 	}
-
+	
 	private void removeGraph() {
 		EntityManager mapper = factory.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-
+		
 		List<Object> merged = mergeGraph(mapper);
-
-		for (Object o : merged) {
+		
+		for(Object o: merged) {
 			mapper.remove(o);
 		}
 
@@ -304,25 +305,25 @@ public class PersistenceTest {
 
 	private List<Object> mergeGraph(EntityManager mapper) {
 		List<Object> res = new LinkedList<Object>();
+		
+		res.add( mapper.merge(cargo) );
 
-		res.add(mapper.merge(cargo));
-
-		Sustitucion s = mapper.merge(sustitucion);
-		res.add(s);
-		res.add(s.getRepuesto());
-		res.add(s.getIntervencion());
-		res.add(s.getIntervencion().getMecanico());
-		res.add(s.getIntervencion().getAveria());
-		res.add(s.getIntervencion().getAveria().getVehiculo());
-		res.add(s.getIntervencion().getAveria().getVehiculo().getTipo());
-		res.add(s.getIntervencion().getAveria().getFactura());
-
+		Sustitucion s  = mapper.merge( sustitucion );
+		res.add( s );
+		res.add( s.getRepuesto() );
+		res.add( s.getIntervencion() );
+		res.add( s.getIntervencion().getMecanico() );
+		res.add( s.getIntervencion().getAveria() );
+		res.add( s.getIntervencion().getAveria().getVehiculo() );
+		res.add( s.getIntervencion().getAveria().getVehiculo().getTipo() );
+		res.add( s.getIntervencion().getAveria().getFactura() );
+		
 		Cliente cl = mapper.merge(cliente);
-		res.add(cl);
-		for (MedioPago mp : cl.getMediosPago()) {
-			res.add(mp);
+		res.add( cl );
+		for(MedioPago mp: cl.getMediosPago()) {
+			res.add( mp );
 		}
-
+		
 		return res;
 	}
 

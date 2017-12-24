@@ -5,7 +5,8 @@ import java.util.List;
 import uo.ri.business.repository.AveriaRepository;
 import uo.ri.persistence.jpa.util.BaseRepository;
 
-public class AveriaJpaRepository extends BaseRepository<Averia>
+public class AveriaJpaRepository 
+		extends BaseRepository<Averia> 
 		implements AveriaRepository {
 
 	@Override

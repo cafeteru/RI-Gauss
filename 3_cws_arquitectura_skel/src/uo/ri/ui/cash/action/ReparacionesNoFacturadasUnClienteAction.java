@@ -17,18 +17,18 @@ public class ReparacionesNoFacturadasUnClienteAction implements Action {
 		CashService cs = Factory.service.forCash();
 
 		String dni = Console.readString("DNI de cliente");
-
-		Console.println("\nReparaciones no facturadas del cliente\n");
-
-		List<BreakdownDto> reps = cs.findRepairsByClient(dni);
-
+		
+		Console.println("\nReparaciones no facturadas del cliente\n");  
+		
+		List<BreakdownDto> reps = cs.findRepairsByClient( dni ); 
+		
 		if (reps.size() == 0) {
 			Console.printf("No tiene reparaciones pendientes\n");
 			return;
 		}
-
-		for (BreakdownDto rep : reps) {
-			Printer.printRepairing(rep);
+		
+		for(BreakdownDto rep : reps) {
+			Printer.printRepairing( rep );
 		}
 	}
 

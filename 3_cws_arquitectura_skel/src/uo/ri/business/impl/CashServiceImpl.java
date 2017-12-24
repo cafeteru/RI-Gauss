@@ -19,12 +19,11 @@ public class CashServiceImpl implements CashService {
 	public InvoiceDto createInvoiceFor(List<Long> idsAveria)
 			throws BusinessException {
 
-		return executor.execute(new CreateInvoiceFor(idsAveria));
+		return executor.execute( new CreateInvoiceFor( idsAveria ));
 	}
 
 	@Override
-	public InvoiceDto findInvoice(Long numeroInvoiceDto)
-			throws BusinessException {
+	public InvoiceDto findInvoice(Long numeroInvoiceDto) throws BusinessException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -32,7 +31,7 @@ public class CashServiceImpl implements CashService {
 	@Override
 	public List<PaymentMeanDto> findPayMethodsForInvoice(Long idInvoiceDto)
 			throws BusinessException {
-
+		
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -44,8 +43,7 @@ public class CashServiceImpl implements CashService {
 	}
 
 	@Override
-	public List<BreakdownDto> findRepairsByClient(String dni)
-			throws BusinessException {
+	public List<BreakdownDto> findRepairsByClient(String dni) throws BusinessException {
 		// TODO Auto-generated method stub
 		return null;
 	}

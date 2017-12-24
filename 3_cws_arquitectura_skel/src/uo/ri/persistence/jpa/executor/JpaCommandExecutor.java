@@ -16,12 +16,12 @@ public class JpaCommandExecutor implements CommandExecutor {
 		EntityManager mapper = Jpa.createEntityManager();
 		EntityTransaction trx = mapper.getTransaction();
 		trx.begin();
-
+		
 		T res;
 		try {
 			res = cmd.execute();
 			trx.commit();
-
+			
 		} catch (BusinessException | PersistenceException ex) {
 			if (trx.isActive()) {
 				trx.rollback();
@@ -31,7 +31,7 @@ public class JpaCommandExecutor implements CommandExecutor {
 		if (mapper.isOpen()) {
 			mapper.close();
 		}
-
+		
 		return res;
 	}
 }

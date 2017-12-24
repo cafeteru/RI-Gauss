@@ -3,7 +3,8 @@ package uo.ri.persistence.jpa;
 import uo.ri.business.repository.FacturaRepository;
 import uo.ri.persistence.jpa.util.BaseRepository;
 
-public class FacturaJpaRepository extends BaseRepository<Factura>
+public class FacturaJpaRepository 
+		extends BaseRepository<Factura> 
 		implements FacturaRepository {
 
 	@Override

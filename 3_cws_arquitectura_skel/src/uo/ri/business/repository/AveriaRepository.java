@@ -4,9 +4,8 @@ import java.util.List;
 
 import uo.ri.model.Averia;
 
-public interface AveriaRepository extends Repository<Averia> {
+public interface AveriaRepository extends Repository<Averia>{
 
 	List<Averia> findByIds(List<Long> idsAveria);
-
 	List<Averia> findNoFacturadasByDni(String dni);
 }

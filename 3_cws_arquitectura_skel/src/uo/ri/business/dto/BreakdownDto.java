@@ -3,7 +3,7 @@ package uo.ri.business.dto;
 import java.util.Date;
 
 public class BreakdownDto {
-
+	
 	public long id;
 	public long vehicleId;
 	public String description;

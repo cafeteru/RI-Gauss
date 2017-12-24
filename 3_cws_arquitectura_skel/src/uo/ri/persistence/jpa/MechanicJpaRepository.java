@@ -4,18 +4,19 @@ import java.util.List;
 
 import uo.ri.business.repository.MecanicoRepository;
 
-public class MechanicJpaRepository implements MecanicoRepository {
+public class MechanicJpaRepository 
+		implements MecanicoRepository {
 
 	@Override
 	public void add(Mecanico t) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void remove(Mecanico t) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

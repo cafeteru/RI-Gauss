@@ -13,17 +13,17 @@ import uo.ri.conf.Factory;
 import uo.ri.util.exception.BusinessException;
 
 public class AdminServiceImpl implements AdminService {
-
+	
 	private CommandExecutor executor = Factory.executor.forExecutor();
 
 	@Override
 	public void newMechanic(MechanicDto mecanico) throws BusinessException {
-		new AddMechanic(mecanico).execute();
+		new AddMechanic( mecanico ).execute();
 	}
 
 	@Override
 	public void updateMechanic(MechanicDto mecanico) throws BusinessException {
-		new UpdateMechanic(mecanico).execute();
+		new UpdateMechanic( mecanico ).execute();
 	}
 
 	@Override

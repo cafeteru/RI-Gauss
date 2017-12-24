@@ -4,21 +4,20 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Address {
-
+	
 	private String street;
 	private String city;
 	private String zipCode;
-
-	Address() {
-	}
-
+	
+	Address() {}
+	
 	public Address(String street, String city, String zipCode) {
 		super();
 		this.street = street;
 		this.city = city;
 		this.zipCode = zipCode;
 	}
-
+	
 	public String getStreet() {
 		return street;
 	}
@@ -70,8 +69,7 @@ public class Address {
 
 	@Override
 	public String toString() {
-		return "Address [street=" + street + ", city=" + city + ", zipCode="
-				+ zipCode + "]";
+		return "Address [street=" + street + ", city=" + city + ", zipCode=" + zipCode + "]";
 	}
 
 }

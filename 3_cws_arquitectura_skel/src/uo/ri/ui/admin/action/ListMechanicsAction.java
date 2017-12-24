@@ -14,13 +14,13 @@ public class ListMechanicsAction implements Action {
 
 	@Override
 	public void execute() throws BusinessException {
-
+	
 		AdminService as = Factory.service.forAdmin();
 		List<MechanicDto> mechanics = as.findAllMechanics();
-
-		Console.println("\nListado de mecánicos\n");
-		for (MechanicDto m : mechanics) {
-			Printer.printMechanic(m);
+		
+		Console.println("\nListado de mecánicos\n");  
+		for(MechanicDto m : mechanics) {
+			Printer.printMechanic( m );
 		}
 
 	}
