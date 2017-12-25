@@ -125,7 +125,10 @@ public class Association {
 			mecanico._getAverias().add(averia);
 		}
 
-		public static void unlink(Mecanico mecanico, Averia averia) {
+		public static void unlink(Mecanico mecanico, Averia averia)
+				throws BusinessException {
+			Comprobador.notNull(mecanico);
+			Comprobador.notNull(averia);
 			mecanico._getAverias().remove(averia);
 			averia._setMecanico(null);
 		}
