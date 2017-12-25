@@ -10,49 +10,45 @@ public class AssociationSide {
 	private Object value;
 	private Multiplicity multiplicity;
 	private SideHandler handler;
-	
+
 	private AssociationSide inverse;
-	
+
 	public static AssociationSide One(String role, Object value) {
-		return new AssociationSide(role, value, 
-				Multiplicity.ONE,
-				new OneSideHandler() );
+		return new AssociationSide(role, value, Multiplicity.ONE,
+				new OneSideHandler());
 	}
-	
+
 	public static AssociationSide One(Object value) {
-		return new AssociationSide(null, value, 
-				Multiplicity.ONE,
-				new NonNavigableSideHandler() );
+		return new AssociationSide(null, value, Multiplicity.ONE,
+				new NonNavigableSideHandler());
 	}
-	
+
 	public static AssociationSide Many(Object value) {
-		return new AssociationSide(null, value, 
-				Multiplicity.MANY,
-				new NonNavigableSideHandler() );
+		return new AssociationSide(null, value, Multiplicity.MANY,
+				new NonNavigableSideHandler());
 	}
-	
+
 	public static AssociationSide Many(String role, Object value) {
-		return new AssociationSide(role, value, 
-				Multiplicity.MANY,
-				new ManySideHandler() );
+		return new AssociationSide(role, value, Multiplicity.MANY,
+				new ManySideHandler());
 	}
-	
-	private AssociationSide(String role, Object value, 
+
+	private AssociationSide(String role, Object value,
 			Multiplicity multiplicity, SideHandler handler) {
-		Argument.isNotNull( value );
+		Argument.isNotNull(value);
 		this.role = role;
 		this.value = value;
 		this.multiplicity = multiplicity;
 		this.handler = handler;
 	}
-	
+
 	public Multiplicity getMultiplicity() {
 		return multiplicity;
 	}
 
 	public void setValue() {
 		inverse.getHandler().set(value, inverse.role, inverse.value);
-	}		
+	}
 
 	private SideHandler getHandler() {
 		return handler;
@@ -69,9 +65,8 @@ public class AssociationSide {
 
 	@Override
 	public String toString() {
-		return "AssociationSide [role=" + role + ", value=" + value 
-				+ ", multiplicity=" + multiplicity 
-				+ ", handler=" + handler 
+		return "AssociationSide [role=" + role + ", value=" + value
+				+ ", multiplicity=" + multiplicity + ", handler=" + handler
 				+ ", inverse=" + inverse + "]";
 	}
 

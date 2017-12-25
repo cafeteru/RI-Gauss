@@ -7,75 +7,76 @@ import alb.util.console.Console;
 import alb.util.console.Printer;
 
 /**
- * Manages a menu and its options. 
+ * Manages a menu and its options.
  * 
  * Must be redefined with a concrete menu and its options. The derived class
  * constructor should define the menuOptions array.
  * 
  * See examples.
- *  
+ * 
  * @author alb
  */
-public abstract class BaseMenu implements Action{
+public abstract class BaseMenu implements Action {
 	protected static final int EXIT = 0;
 
 	protected Object[][] menuOptions;
-	private List< Class<Action> > actions = null;
-	
+	private List<Class<Action>> actions = null;
+
 	@Override
 	public void execute() {
 		int opt;
-	
+
 		do {
 			showMenu();
 			opt = getMenuOption();
-			try{
+			try {
 				processOption(opt);
-				
-			}catch(RuntimeException rte){
+
+			} catch (RuntimeException rte) {
 				Printer.printRuntimeException(rte);
 				throw rte; // Quits the app
-				
-			}catch(Exception be){
+
+			} catch (Exception be) {
 				Printer.printBusinessException(be);
 			}
 		} while (opt != EXIT);
 	}
 
 	protected void processOption(int option) throws Exception {
-		if (option == EXIT) return;
-		
+		if (option == EXIT)
+			return;
+
 		Class<Action> actionClass = actions.get(option - 1);
-		if (actionClass == null) return;
-		
-		createInstanceOf( actionClass ).execute();
+		if (actionClass == null)
+			return;
+
+		createInstanceOf(actionClass).execute();
 	}
 
 	protected int getMenuOption() {
 		Integer opt;
-		
+
 		do {
 			Console.print("Opcion: ");
 			opt = Console.readInt();
-			
+
 		} while (opt == null || opt < EXIT);
-	
+
 		return opt;
 	}
 
 	protected void showMenu() {
-		if (actions == null){
+		if (actions == null) {
 			fillActions();
 		}
-		
+
 		int opc = 1;
 		printMenuHeader();
-		for(Object[] row : menuOptions) {
+		for (Object[] row : menuOptions) {
 			String text = (String) row[0];
-			if ( isOptionRow(row) ) {
+			if (isOptionRow(row)) {
 				printMenuOption(opc++, text);
-			} 
-			else {
+			} else {
 				printMenuSeparator(text);
 			}
 		}
@@ -83,7 +84,7 @@ public abstract class BaseMenu implements Action{
 	}
 
 	protected void printMenuSeparator(String text) {
-		Console.println( text );
+		Console.println(text);
 	}
 
 	protected void printMenuOption(int opc, String text) {
@@ -106,19 +107,19 @@ public abstract class BaseMenu implements Action{
 	@SuppressWarnings("unchecked")
 	private void fillActions() {
 		actions = new ArrayList<Class<Action>>();
-		
-		for(Object[] row : menuOptions) {
+
+		for (Object[] row : menuOptions) {
 			if (row[1] != null) {
-				actions.add( (Class<Action>) row[1]);
+				actions.add((Class<Action>) row[1]);
 			}
 		}
 	}
 
 	private Action createInstanceOf(Class<Action> clazz) {
 		try {
-			
+
 			return (Action) clazz.newInstance();
-			
+
 		} catch (InstantiationException e) {
 			throw new RuntimeException(e);
 		} catch (IllegalAccessException e) {

@@ -6,20 +6,22 @@ public class FileUtil {
 
 	/**
 	 * Return the full path of a file on the classpath
+	 * 
 	 * @param fileName
 	 * @return
 	 */
 	public static String fromClassPath(String fileName) {
-		return FileUtil.class.getClassLoader().getResource( fileName ).getFile();
+		return FileUtil.class.getClassLoader().getResource(fileName).getFile();
 	}
 
 	/**
 	 * Return the an InputStream to a file on the classpath
+	 * 
 	 * @param fileName
 	 * @return
 	 */
 	public static InputStream fromClassPathAsStream(String fileName) {
-		return FileUtil.class.getClassLoader().getResourceAsStream( fileName );
+		return FileUtil.class.getClassLoader().getResourceAsStream(fileName);
 	}
 
 }

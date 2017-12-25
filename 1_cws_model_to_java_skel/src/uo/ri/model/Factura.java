@@ -166,8 +166,9 @@ public class Factura {
 	 * importe
 	 * 
 	 * @param averia
+	 * @throws BusinessException
 	 */
-	public void removeAveria(Averia averia) {
+	public void removeAveria(Averia averia) throws BusinessException {
 		// verificar que la factura está sin abonar
 		// desenlazar factura y averia
 		// la averia vuelve al estado FINALIZADA ( averia.markBackToFinished() )

@@ -9,15 +9,15 @@ public class SingletonTests {
 	@Test
 	public void testNull() {
 		Singleton<String> value = Singleton.empty();
-		
-		assertTrue( value.orElse( () -> null ) == null );
+
+		assertTrue(value.orElse(() -> null) == null);
 	}
 
 	@Test
 	public void testWithString() {
 		Singleton<String> value = Singleton.empty();
-		
-		assertTrue( value.orElse( () -> "Hello World!" ).equals("Hello World!") );
+
+		assertTrue(value.orElse(() -> "Hello World!").equals("Hello World!"));
 	}
 
 	/**
@@ -26,11 +26,11 @@ public class SingletonTests {
 	@Test
 	public void testStringDoesNotChange() {
 		Singleton<String> value = Singleton.empty();
-		
-		value.orElse( () -> "Hello World!" );
-		assertTrue( value.orElse( () -> "Bye bye World!" ).equals("Hello World!") );
+
+		value.orElse(() -> "Hello World!");
+		assertTrue(value.orElse(() -> "Bye bye World!").equals("Hello World!"));
 	}
-	
+
 	/**
 	 * The builder code is just called the first time (lazy evaluation)
 	 */
@@ -39,21 +39,33 @@ public class SingletonTests {
 		Singleton<Mock> value = Singleton.empty();
 		final Counter counter1 = new Counter();
 		final Counter counter2 = new Counter();
-		
-		value.orElse( () -> new Mock() {
-			{ counter1.inc(); }
+
+		value.orElse(() -> new Mock() {
+			{
+				counter1.inc();
+			}
 		});
-		value.orElse( () -> new Mock() {
-			{ counter2.inc(); }
+		value.orElse(() -> new Mock() {
+			{
+				counter2.inc();
+			}
 		});
-		assertTrue( counter1.get() == 1 );
-		assertTrue( counter2.get() == 0 );
+		assertTrue(counter1.get() == 1);
+		assertTrue(counter2.get() == 0);
 	}
-	
-	interface Mock { /* nothing here */ }
+
+	interface Mock {
+		/* nothing here */ }
+
 	class Counter {
 		int value = 0;
-		void inc() { value++; }
-		int get() { return value; }
+
+		void inc() {
+			value++;
+		}
+
+		int get() {
+			return value;
+		}
 	}
 }

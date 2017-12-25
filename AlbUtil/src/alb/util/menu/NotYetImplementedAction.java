@@ -1,7 +1,5 @@
 package alb.util.menu;
 
-
-
 public class NotYetImplementedAction implements Action {
 
 	@Override

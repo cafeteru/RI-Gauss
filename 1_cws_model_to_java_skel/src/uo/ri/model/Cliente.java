@@ -5,7 +5,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.Address;
+import uo.ri.model.util.Comprobador;
 
 @Entity
 @Table(name = "TCLIENTES")
@@ -31,12 +33,13 @@ public class Cliente {
 	Cliente() {
 	}
 
-	public Cliente(String dni) {
+	public Cliente(String dni) throws BusinessException {
 		super();
-		this.dni = dni;
+		this.dni = Comprobador.checkString(dni, "Dni");
 	}
 
-	public Cliente(String dni, String nombre, String apellidos) {
+	public Cliente(String dni, String nombre, String apellidos)
+			throws BusinessException {
 		this(dni);
 		this.nombre = nombre;
 		this.apellidos = apellidos;

@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import alb.util.math.Round;
+import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.IntervencionKey;
 
 @Entity
@@ -29,7 +30,7 @@ public class Intervencion {
 	Intervencion() {
 	}
 
-	public Intervencion(Mecanico mecanico, Averia averia) {
+	public Intervencion(Mecanico mecanico, Averia averia) throws BusinessException {
 		super();
 		Association.Intervenir.link(averia, this, mecanico);
 	}

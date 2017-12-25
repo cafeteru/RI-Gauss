@@ -5,6 +5,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import uo.ri.model.exception.BusinessException;
+import uo.ri.model.util.Comprobador;
+
 @Entity
 @Table(name = "TVEHICULOS")
 public class Vehiculo {
@@ -32,16 +35,17 @@ public class Vehiculo {
 	Vehiculo() {
 	}
 
-	public Vehiculo(String matricula) {
-		this.matricula = matricula;
+	public Vehiculo(String matricula) throws BusinessException {
+		this.matricula = Comprobador.checkString(matricula, "Matricula");
 	}
 
-	public Vehiculo(String matricula, String marca) {
+	public Vehiculo(String matricula, String marca) throws BusinessException {
 		this(matricula);
 		this.marca = marca;
 	}
 
-	public Vehiculo(String matricula, String marca, String modelo) {
+	public Vehiculo(String matricula, String marca, String modelo)
+			throws BusinessException {
 		this(matricula, marca);
 		this.modelo = modelo;
 	}
@@ -76,6 +80,10 @@ public class Vehiculo {
 
 	public void setNumAverias(int numAverias) {
 		this.numAverias = numAverias;
+	}
+
+	public void incrementarAverias() {
+		setNumAverias(++numAverias);
 	}
 
 	public Cliente getCliente() {
@@ -136,10 +144,6 @@ public class Vehiculo {
 	public String toString() {
 		return "Vehiculo [marca=" + marca + ", matricula=" + matricula
 				+ ", modelo=" + modelo + ", numAverias=" + numAverias + "]";
-	}
-
-	public void incrementarAverias() {
-		setNumAverias(++numAverias);
 	}
 
 }

@@ -2,6 +2,8 @@ package uo.ri.model;
 
 import javax.persistence.*;
 
+import uo.ri.model.exception.BusinessException;
+
 @Entity
 @DiscriminatorValue("TBONOS")
 @Table(name = "TMEDIOSPAGO")
@@ -14,7 +16,7 @@ public class Bono extends MedioPago {
 	Bono() {
 	}
 
-	public Bono(Cliente cliente, String codigo) {
+	public Bono(Cliente cliente, String codigo) throws BusinessException {
 		this.codigo = codigo;
 		Association.Pagar.link(this, cliente);
 	}

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import uo.ri.model.exception.BusinessException;
+
 @Entity
 @DiscriminatorValue("TTARJETASCREDITO")
 @Table(name = "TMEDIOSPAGO")
@@ -15,7 +17,8 @@ public class TarjetaCredito extends MedioPago {
 	@Temporal(TemporalType.DATE)
 	private Date validez;
 
-	public TarjetaCredito(Cliente cliente, String numero) {
+	public TarjetaCredito(Cliente cliente, String numero)
+			throws BusinessException {
 		Association.Pagar.link(this, cliente);
 		this.numero = numero;
 	}

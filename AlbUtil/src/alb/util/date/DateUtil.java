@@ -14,21 +14,19 @@ public class DateUtil {
 
 	public static Date fromString(String string) {
 		String dateString[] = string.split("/");
-		
-		return DateUtil.fromDdMmYyyy(
-				Integer.parseInt(dateString[0]), 
+
+		return DateUtil.fromDdMmYyyy(Integer.parseInt(dateString[0]),
 				Integer.parseInt(dateString[1]),
-				Integer.parseInt(dateString[2])
-			);
+				Integer.parseInt(dateString[2]));
 	}
 
 	public static Date fromDdMmYyyy(int dd, int mm, int yyyy) {
 		Calendar c = Calendar.getInstance();
-		
+
 		c.set(Calendar.DAY_OF_MONTH, dd);
 		c.set(Calendar.MONTH, mm - 1); // base 0
 		c.set(Calendar.YEAR, yyyy);
-		
+
 		c.set(Calendar.HOUR_OF_DAY, 0);
 		c.set(Calendar.MINUTE, 0);
 		c.set(Calendar.SECOND, 0);
@@ -41,21 +39,21 @@ public class DateUtil {
 	 * @return Yesterday at 00:00:00.000
 	 */
 	public static Date yesterday() {
-		return addDays( trunc(new Date()), -1);
+		return addDays(trunc(new Date()), -1);
 	}
 
 	/**
 	 * @return Today at 00:00:00.000
 	 */
 	public static Date today() {
-		return trunc( new Date() );
+		return trunc(new Date());
 	}
-	
+
 	/**
 	 * @return Tomorrow at 00:00:00.000
 	 */
 	public static Date tomorrow() {
-		return addDays( trunc(new Date()), 1);
+		return addDays(trunc(new Date()), 1);
 	}
 
 	/**
@@ -101,7 +99,7 @@ public class DateUtil {
 	public static boolean sameMonth(Date date, Date date2) {
 		Calendar c1 = Calendar.getInstance();
 		Calendar c2 = Calendar.getInstance();
-		
+
 		c1.setTime(date);
 		c2.setTime(date2);
 
@@ -134,11 +132,12 @@ public class DateUtil {
 	}
 
 	/**
-	 * Truncates a date by setting hh:mm:ss to 00:00:00. 
-	 * For example for date "12/02/2012 13:24:34" returns "12/02/2012 00:00:00.000"
-	 * It is useful for comparing dates in the same day. 
+	 * Truncates a date by setting hh:mm:ss to 00:00:00. For example for date
+	 * "12/02/2012 13:24:34" returns "12/02/2012 00:00:00.000" It is useful for
+	 * comparing dates in the same day.
+	 * 
 	 * @param date
-	 * @return 
+	 * @return
 	 */
 	public static Date trunc(Date date) {
 		Calendar c = Calendar.getInstance();
@@ -157,7 +156,7 @@ public class DateUtil {
 	}
 
 	public static String stringStamp() {
-		return new SimpleDateFormat("yyyy.MM.dd.hh.mm.ss").format( new Date() );
+		return new SimpleDateFormat("yyyy.MM.dd.hh.mm.ss").format(new Date());
 	}
 
 	public static Integer month(Date date) {
@@ -167,6 +166,7 @@ public class DateUtil {
 	}
 
 	private static Random rnd = new Random();
+
 	private static int rnd(int min, int max) {
 		return rnd.nextInt(max - min) + min;
 	}
@@ -177,24 +177,26 @@ public class DateUtil {
 
 	public static int diffDays(Date until, Date from) {
 		long diff = until.getTime() - from.getTime();
-		return (int) TimeUnit.DAYS.convert( diff, TimeUnit.MILLISECONDS );
+		return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 	}
 
-	public static List<Date> generateDates(Date from, Date until, Period period) {
+	public static List<Date> generateDates(Date from, Date until,
+			Period period) {
 		List<Date> res = new LinkedList<>();
 		Date d = from;
-		while( until.after( d )) {
-			res.add( d );
+		while (until.after(d)) {
+			res.add(d);
 			d = DateUtil.addDays(d, period.getDays());
 		}
 		return res;
 	}
 
-	public static List<Date> generateDates(Date from, int repetitions, Period period) {
+	public static List<Date> generateDates(Date from, int repetitions,
+			Period period) {
 		List<Date> res = new LinkedList<>();
 		Date d = from;
-		for(int i = 0; i < repetitions; i++) {
-			res.add( d );
+		for (int i = 0; i < repetitions; i++) {
+			res.add(d);
 			d = DateUtil.addDays(d, period.getDays());
 		}
 		return res;

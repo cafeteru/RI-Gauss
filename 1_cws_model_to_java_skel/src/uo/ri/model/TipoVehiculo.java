@@ -5,6 +5,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import uo.ri.model.exception.BusinessException;
+import uo.ri.model.util.Comprobador;
+
 @Entity
 @Table(name = "TTIPOSVEHICULO")
 public class TipoVehiculo {
@@ -22,11 +25,12 @@ public class TipoVehiculo {
 	TipoVehiculo() {
 	}
 
-	public TipoVehiculo(String nombre) {
-		this.nombre = nombre;
+	public TipoVehiculo(String nombre) throws BusinessException {
+		this.nombre = Comprobador.checkString(nombre, "Nombre");
 	}
 
-	public TipoVehiculo(String nombre, double precioHora) {
+	public TipoVehiculo(String nombre, double precioHora)
+			throws BusinessException {
 		this(nombre);
 		this.precioHora = precioHora;
 	}

@@ -7,8 +7,7 @@ public class ConsoleLogger extends BaseLogger implements Logger {
 
 	@Override
 	protected void print(String line) {
-		Console.println( line );
+		Console.println(line);
 	}
-
 
 }

@@ -10,9 +10,10 @@ public class ProgressBar {
 	}
 
 	public void inc() {
-		Console.print( show );
+		Console.print(show);
 		counter++;
-		if (counter % length == 0) Console.println();
+		if (counter % length == 0)
+			Console.println();
 	}
 
 }

@@ -1,6 +1,6 @@
-package uo.ri.domain;
+package uo.ri;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +16,7 @@ import uo.ri.model.TipoVehiculo;
 import uo.ri.model.Vehiculo;
 import uo.ri.model.exception.BusinessException;
 
-public class IntervencionTest {
-
+public class EstadoAveriaTest {
 	private Mecanico mecanico;
 	private Averia averia;
 	private Intervencion intervencion;
@@ -33,23 +32,26 @@ public class IntervencionTest {
 		vehiculo = new Vehiculo("1234 GJI", "ibiza", "seat");
 		Association.Poseer.link(cliente, vehiculo);
 
-		tipoVehiculo = new TipoVehiculo("coche", 50.0);
+		tipoVehiculo = new TipoVehiculo("coche", 50.0 /* €/hora */);
 		Association.Clasificar.link(tipoVehiculo, vehiculo);
 
 		averia = new Averia(vehiculo, "falla la junta la trocla");
 		mecanico = new Mecanico("dni-mecanico", "nombre", "apellidos");
+		averia.assignTo(mecanico);
 
 		intervencion = new Intervencion(mecanico, averia);
 		intervencion.setMinutos(60);
 
-		repuesto = new Repuesto("R1001", "junta la trocla", 100.0);
+		repuesto = new Repuesto("R1001", "junta la trocla", 100.0 /* € */);
 		sustitucion = new Sustitucion(repuesto, intervencion);
 		sustitucion.setCantidad(2);
+
+		averia.markAsFinished(); // changes status & compute price
 	}
 
 	@Test
-	public void testImporteIntervencion() {
-		assertTrue(intervencion.getImporte() == 250.0);
+	public void test() {
+		fail("Not yet implemented");
 	}
 
 }
