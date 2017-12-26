@@ -16,17 +16,17 @@ public class FacturarReparacionesAction implements Action {
 	@Override
 	public void execute() throws BusinessException {
 		List<Long> idsAveria = new ArrayList<Long>();
-		
+
 		// pedir las averias a incluir en la factura
 		do {
 			Long id = Console.readLong("ID de averia");
 			idsAveria.add(id);
-		} while ( masAverias() );
-		
+		} while (masAverias());
+
 		CashService cs = Factory.service.forCash();
 		InvoiceDto factura = cs.createInvoiceFor(idsAveria);
-		
-		Printer.printInvoice( factura );
+
+		Printer.printInvoice(factura);
 	}
 
 	private boolean masAverias() {

@@ -6,10 +6,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import uo.ri.model.Association;
 import org.junit.Before;
 import org.junit.Test;
 
+import uo.ri.model.Association;
+import uo.ri.model.Averia;
+import uo.ri.model.Cliente;
+import uo.ri.model.Factura;
+import uo.ri.model.Intervencion;
+import uo.ri.model.Mecanico;
+import uo.ri.model.Repuesto;
+import uo.ri.model.Sustitucion;
+import uo.ri.model.TipoVehiculo;
+import uo.ri.model.Vehiculo;
+import uo.ri.model.types.FacturaStatus;
 import uo.ri.util.exception.BusinessException;
 
 public class AveriaTest {
@@ -131,7 +141,6 @@ public class AveriaTest {
 	@Test
 	public void testSafeGetFechaClonada() {
 		Date d = averia.getFecha();
-		
 		d.setYear( 0 );
 		
 		assertTrue( averia.getFecha().getYear() == new Date().getYear());

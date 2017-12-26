@@ -15,8 +15,10 @@ public class TipoVehiculo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	@Column(unique = true)
 	private String nombre;
+
 	private double precioHora;
 
 	@OneToMany(mappedBy = "tipo")

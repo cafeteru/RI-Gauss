@@ -7,18 +7,19 @@ import javax.persistence.*;
 
 import alb.util.math.Round;
 import uo.ri.model.exception.BusinessException;
-import uo.ri.model.types.IntervencionKey;
 
 @Entity
-@IdClass(IntervencionKey.class)
-@Table(name = "TINTERVENCIONES")
+@Table(name = "TINTERVENCIONES", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "AVERIA_ID, MECANICO_ID") })
 public class Intervencion {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@ManyToOne
 	private Averia averia;
 
-	@Id
 	@ManyToOne
 	private Mecanico mecanico;
 
@@ -30,7 +31,8 @@ public class Intervencion {
 	Intervencion() {
 	}
 
-	public Intervencion(Mecanico mecanico, Averia averia) throws BusinessException {
+	public Intervencion(Mecanico mecanico, Averia averia)
+			throws BusinessException {
 		super();
 		Association.Intervenir.link(averia, this, mecanico);
 	}

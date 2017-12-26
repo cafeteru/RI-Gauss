@@ -12,7 +12,6 @@ import uo.ri.model.Cliente;
 import uo.ri.model.Vehiculo;
 import uo.ri.model.exception.BusinessException;
 
-
 public class PoseerTest {
 	private Vehiculo vehiculo;
 	private Cliente cliente;
@@ -23,31 +22,30 @@ public class PoseerTest {
 		vehiculo = new Vehiculo("1234 GJI", "seat", "ibiza");
 		Association.Poseer.link(cliente, vehiculo);
 	}
-	
+
 	@Test
 	public void testPoseerAdd() throws BusinessException {
-		assertTrue( cliente.getVehiculos().contains( vehiculo ));
-		assertTrue( vehiculo.getCliente() == cliente );
+		assertTrue(cliente.getVehiculos().contains(vehiculo));
+		assertTrue(vehiculo.getCliente() == cliente);
 	}
 
 	@Test
 	public void testPoseerRemove() throws BusinessException {
 		Association.Poseer.unlink(cliente, vehiculo);
 
-		assertTrue( ! cliente.getVehiculos().contains( vehiculo ));
-		assertTrue( vehiculo.getCliente() == null );
+		assertTrue(!cliente.getVehiculos().contains(vehiculo));
+		assertTrue(vehiculo.getCliente() == null);
 	}
 
 	@Test
 	public void testSafeReturn() throws BusinessException {
 		Set<Vehiculo> vehiculos = cliente.getVehiculos();
-		vehiculos.remove( vehiculo );
+		vehiculos.remove(vehiculo);
 
-		assertTrue( vehiculos.size() == 0 );
-		assertTrue( "Se debe retornar copia de la coleccion o hacerla de solo lectura", 
-			cliente.getVehiculos().size() == 1
-		);
+		assertTrue(vehiculos.size() == 0);
+		assertTrue(
+				"Se debe retornar copia de la coleccion o hacerla de solo lectura",
+				cliente.getVehiculos().size() == 1);
 	}
-
 
 }

@@ -15,7 +15,9 @@ public class Repuesto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(unique = true)
 	private String codigo;
+
 	private String descripcion;
 	private double precio;
 

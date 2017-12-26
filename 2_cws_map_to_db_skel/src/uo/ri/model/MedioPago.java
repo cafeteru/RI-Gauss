@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "DTYPE")
 @Table(name = "TMEDIOSPAGO")
 public abstract class MedioPago {
 

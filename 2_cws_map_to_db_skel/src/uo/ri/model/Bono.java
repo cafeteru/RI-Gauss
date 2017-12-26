@@ -6,8 +6,7 @@ import uo.ri.model.exception.BusinessException;
 import uo.ri.model.util.Checker;
 
 @Entity
-@DiscriminatorValue("TBONOS")
-@Table(name = "TMEDIOSPAGO")
+@Table(name = "TBONOS")
 public class Bono extends MedioPago {
 
 	private double disponible = 0.0;

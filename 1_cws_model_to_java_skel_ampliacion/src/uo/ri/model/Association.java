@@ -192,7 +192,7 @@ public class Association {
 			recomendador._getRecomendados().add(recomendacion);
 			recomendado._setRecomendador(recomendacion);
 		}
-	
+
 		public static void unlink(Recomendacion recomendacion)
 				throws BusinessException {
 			Checker.notNull(recomendacion);

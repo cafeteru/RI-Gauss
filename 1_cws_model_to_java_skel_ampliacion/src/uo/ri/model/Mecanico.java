@@ -16,6 +16,7 @@ public class Mecanico {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(unique = true)
 	private String dni;
 	private String apellidos;
 	private String nombre;

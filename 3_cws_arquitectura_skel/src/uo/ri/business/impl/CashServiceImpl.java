@@ -13,13 +13,11 @@ import uo.ri.util.exception.BusinessException;
 
 public class CashServiceImpl implements CashService {
 
-	CommandExecutor executor = Factory.executor.forExecutor();
+	private CommandExecutor executor = Factory.executor.forExecutor();
 
 	@Override
-	public InvoiceDto createInvoiceFor(List<Long> idsAveria)
-			throws BusinessException {
-
-		return executor.execute( new CreateInvoiceFor( idsAveria ));
+	public InvoiceDto createInvoiceFor(List<Long> idsAveria) throws BusinessException {
+		return executor.execute(new CreateInvoiceFor(idsAveria));
 	}
 
 	@Override
@@ -29,16 +27,14 @@ public class CashServiceImpl implements CashService {
 	}
 
 	@Override
-	public List<PaymentMeanDto> findPayMethodsForInvoice(Long idInvoiceDto)
-			throws BusinessException {
-		
+	public List<PaymentMeanDto> findPayMethodsForInvoice(Long idInvoiceDto) throws BusinessException {
+
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void settleInvoice(Long idInvoiceDto, Map<Long, Double> cargos)
-			throws BusinessException {
+	public void settleInvoice(Long idInvoiceDto, Map<Long, Double> cargos) throws BusinessException {
 		// TODO Auto-generated method stub
 	}
 

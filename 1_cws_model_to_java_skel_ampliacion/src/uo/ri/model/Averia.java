@@ -9,7 +9,8 @@ import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.util.Checker;
 
 @Entity
-@Table(name = "TAVERIAS")
+@Table(name = "TAVERIAS", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "VEHICULO_ID, FECHA") })
 public class Averia {
 
 	@Id

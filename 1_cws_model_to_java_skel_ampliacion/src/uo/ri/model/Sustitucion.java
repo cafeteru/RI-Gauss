@@ -3,11 +3,10 @@ package uo.ri.model;
 import javax.persistence.*;
 
 import uo.ri.model.exception.BusinessException;
-import uo.ri.model.types.SustitucionKey;
 
 @Entity
-@IdClass(SustitucionKey.class)
-@Table(name = "TSUSTITUCIONES")
+@Table(name = "TSUSTITUCIONES", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "REPUESTO_ID, INTERVENCION_ID") })
 public class Sustitucion {
 
 	@Id
@@ -16,11 +15,6 @@ public class Sustitucion {
 
 	@Id
 	@ManyToOne
-	@JoinColumns({
-			@JoinColumn(name = "INTERVENCION_AVERIA_ID", 
-					referencedColumnName = "AVERIA_ID"),
-			@JoinColumn(name = "INTERVENCION_MECANICO_ID", 
-					referencedColumnName = "MECANICO_ID") })
 	private Intervencion intervencion;
 	private int cantidad;
 

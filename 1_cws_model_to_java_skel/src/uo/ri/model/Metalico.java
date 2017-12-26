@@ -1,15 +1,20 @@
 package uo.ri.model;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import uo.ri.model.exception.BusinessException;
 
 @Entity
-@DiscriminatorValue("TMETALICO")
-@Table(name = "TMEDIOSPAGO")
+@Table(name = "TMETALICO")
 public class Metalico extends MedioPago {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	Metalico() {
 	}
 

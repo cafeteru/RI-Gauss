@@ -18,7 +18,6 @@ import uo.ri.model.TipoVehiculo;
 import uo.ri.model.Vehiculo;
 import uo.ri.model.exception.BusinessException;
 
-
 public class SustituirTest {
 	private Mecanico mecanico;
 	private Averia averia;
@@ -33,66 +32,66 @@ public class SustituirTest {
 	public void setUp() throws BusinessException {
 		cliente = new Cliente("dni-cliente", "nombre", "apellidos");
 		vehiculo = new Vehiculo("1234 GJI", "seat", "ibiza");
-		Association.Poseer.link(cliente, vehiculo );
+		Association.Poseer.link(cliente, vehiculo);
 
 		tipoVehiculo = new TipoVehiculo("coche", 50.0);
 		Association.Clasificar.link(tipoVehiculo, vehiculo);
-		
+
 		averia = new Averia(vehiculo, "falla la junta la trocla");
 
 		mecanico = new Mecanico("dni-mecanico", "nombre", "apellidos");
-	
+
 		intervencion = new Intervencion(mecanico, averia);
 		intervencion.setMinutos(60);
-		
+
 		repuesto = new Repuesto("R1001", "junta la trocla", 100.0);
 		sustitucion = new Sustitucion(repuesto, intervencion);
 		sustitucion.setCantidad(2);
 	}
-	
+
 	@Test
 	public void testSustituirAdd() throws BusinessException {
-		assertTrue( sustitucion.getIntervencion().equals( intervencion ));
-		assertTrue( sustitucion.getRepuesto().equals( repuesto ));
-		
-		assertTrue( repuesto.getSustituciones().contains( sustitucion ));
-		assertTrue( intervencion.getSustituciones().contains( sustitucion ));
+		assertTrue(sustitucion.getIntervencion().equals(intervencion));
+		assertTrue(sustitucion.getRepuesto().equals(repuesto));
+
+		assertTrue(repuesto.getSustituciones().contains(sustitucion));
+		assertTrue(intervencion.getSustituciones().contains(sustitucion));
 	}
 
 	@Test
 	public void testSustituirRemove() throws BusinessException {
-		Association.Sustituir.unlink( sustitucion );
-		
-		assertTrue( sustitucion.getIntervencion() == null);
-		assertTrue( sustitucion.getRepuesto() == null);
-		
-		assertTrue( ! repuesto.getSustituciones().contains( sustitucion ));
-		assertTrue( repuesto.getSustituciones().size() == 0 );
+		Association.Sustituir.unlink(sustitucion);
 
-		assertTrue( ! intervencion.getSustituciones().contains( sustitucion ));
-		assertTrue( intervencion.getSustituciones().size() == 0 );
+		assertTrue(sustitucion.getIntervencion() == null);
+		assertTrue(sustitucion.getRepuesto() == null);
+
+		assertTrue(!repuesto.getSustituciones().contains(sustitucion));
+		assertTrue(repuesto.getSustituciones().size() == 0);
+
+		assertTrue(!intervencion.getSustituciones().contains(sustitucion));
+		assertTrue(intervencion.getSustituciones().size() == 0);
 	}
 
 	@Test
 	public void testSafeReturnIntervencion() throws BusinessException {
 		Set<Sustitucion> sustituciones = intervencion.getSustituciones();
-		sustituciones.remove( sustitucion );
+		sustituciones.remove(sustitucion);
 
-		assertTrue( sustituciones.size() == 0 );
-		assertTrue( "Se debe retornar copia de la coleccion o hacerla de solo lectura", 
-			intervencion.getSustituciones().size() == 1
-		);
+		assertTrue(sustituciones.size() == 0);
+		assertTrue(
+				"Se debe retornar copia de la coleccion o hacerla de solo lectura",
+				intervencion.getSustituciones().size() == 1);
 	}
 
 	@Test
 	public void testSafeReturnRepuesto() throws BusinessException {
 		Set<Sustitucion> sustituciones = repuesto.getSustituciones();
-		sustituciones.remove( sustitucion );
+		sustituciones.remove(sustitucion);
 
-		assertTrue( sustituciones.size() == 0 );
-		assertTrue( "Se debe retornar copia de la coleccion o hacerla de solo lectura", 
-			repuesto.getSustituciones().size() == 1
-		);
+		assertTrue(sustituciones.size() == 0);
+		assertTrue(
+				"Se debe retornar copia de la coleccion o hacerla de solo lectura",
+				repuesto.getSustituciones().size() == 1);
 	}
 
 }
