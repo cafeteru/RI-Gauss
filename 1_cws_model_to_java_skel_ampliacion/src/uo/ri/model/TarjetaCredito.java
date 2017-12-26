@@ -18,6 +18,9 @@ public class TarjetaCredito extends MedioPago {
 	@Temporal(TemporalType.DATE)
 	private Date validez;
 
+	TarjetaCredito() {
+	}
+
 	public TarjetaCredito(Cliente cliente, String numero)
 			throws BusinessException {
 		this(numero);
