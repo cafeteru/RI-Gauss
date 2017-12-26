@@ -3,6 +3,7 @@ package uo.ri.model;
 import javax.persistence.*;
 
 import uo.ri.model.exception.BusinessException;
+import uo.ri.model.util.Checker;
 
 @Entity
 @DiscriminatorValue("TBONOS")
@@ -17,7 +18,7 @@ public class Bono extends MedioPago {
 	}
 
 	public Bono(Cliente cliente, String codigo) throws BusinessException {
-		this.codigo = codigo;
+		this.codigo = Checker.checkString(codigo, "Codigo");
 		Association.Pagar.link(this, cliente);
 	}
 

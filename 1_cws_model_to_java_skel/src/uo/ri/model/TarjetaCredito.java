@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 import uo.ri.model.exception.BusinessException;
+import uo.ri.model.util.Checker;
 
 @Entity
 @DiscriminatorValue("TTARJETASCREDITO")
@@ -19,12 +20,12 @@ public class TarjetaCredito extends MedioPago {
 
 	public TarjetaCredito(Cliente cliente, String numero)
 			throws BusinessException {
+		this(numero);
 		Association.Pagar.link(this, cliente);
-		this.numero = numero;
 	}
 
-	public TarjetaCredito(String string) {
-		this.numero = string;
+	public TarjetaCredito(String numero) throws BusinessException {
+		this.numero = Checker.checkString(numero, "Número");
 	}
 
 	public String getNumero() {

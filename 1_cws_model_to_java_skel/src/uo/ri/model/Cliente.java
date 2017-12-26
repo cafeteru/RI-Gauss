@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.Address;
-import uo.ri.model.util.Comprobador;
+import uo.ri.model.util.Checker;
 
 @Entity
 @Table(name = "TCLIENTES")
@@ -35,7 +35,7 @@ public class Cliente {
 
 	public Cliente(String dni) throws BusinessException {
 		super();
-		this.dni = Comprobador.checkString(dni, "Dni");
+		this.dni = Checker.checkString(dni, "Dni");
 	}
 
 	public Cliente(String dni, String nombre, String apellidos)

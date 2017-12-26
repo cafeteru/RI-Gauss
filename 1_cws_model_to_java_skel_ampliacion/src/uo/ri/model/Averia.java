@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.AveriaStatus;
+import uo.ri.model.util.Checker;
 
 @Entity
 @Table(name = "TAVERIAS")
@@ -40,17 +41,18 @@ public class Averia {
 	Averia() {
 	}
 
-	public Averia(Vehiculo vehiculo) {
+	public Averia(Vehiculo vehiculo) throws BusinessException {
 		this(new Date(), vehiculo);
 	}
 
-	public Averia(Date fecha, Vehiculo vehiculo) {
-		this.fecha = fecha;
+	public Averia(Date fecha, Vehiculo vehiculo) throws BusinessException {
+		this.fecha = Checker.notNullDate(fecha);
 		Association.Averiar.link(vehiculo, this);
 		vehiculo.incrementarAverias();
 	}
 
-	public Averia(Vehiculo vehiculo, String descripcion) {
+	public Averia(Vehiculo vehiculo, String descripcion)
+			throws BusinessException {
 		this(new Date(), vehiculo);
 		this.descripcion = descripcion;
 	}
@@ -104,25 +106,31 @@ public class Averia {
 	 * Una averia en estado TERMINADA se puede asignar a otro mecánico (el
 	 * primero no ha podido terminar la reparación), pero debe ser pasada a
 	 * ABIERTA primero
+	 * 
+	 * @throws BusinessException
 	 */
-	public void reopen() {
+	public void reopen() throws BusinessException {
 		// Solo se puede reabrir una averia que está TERMINADA
 		// la averia pasa a ABIERTA
 		if (status.equals(AveriaStatus.TERMINADA)) {
 			setStatus(AveriaStatus.ABIERTA);
-		}
+		} else
+			throw new BusinessException("La avería no esta terminada");
 	}
 
 	/**
 	 * Una avería ya facturada se elimina de la factura
+	 * 
+	 * @throws BusinessException
 	 */
-	public void markBackToFinished() {
+	public void markBackToFinished() throws BusinessException {
 		// verificar que la averia está FACTURADA
 		// cambiar status a TERMINADA
 		if (getStatus().equals(AveriaStatus.FACTURADA)) {
 			Association.Facturar.unlink(factura, this);
 			setStatus(AveriaStatus.TERMINADA);
-		}
+		} else
+			throw new BusinessException("La avería no esta facturada.");
 	}
 
 	public Long getId() {

@@ -14,6 +14,7 @@ import uo.ri.model.Repuesto;
 import uo.ri.model.Sustitucion;
 import uo.ri.model.TipoVehiculo;
 import uo.ri.model.Vehiculo;
+import uo.ri.model.exception.BusinessException;
 
 public class IntervencionTest {
 
@@ -27,7 +28,7 @@ public class IntervencionTest {
 	private Cliente cliente;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws BusinessException {
 		cliente = new Cliente("dni-cliente", "nombre", "apellidos");
 		vehiculo = new Vehiculo("1234 GJI", "ibiza", "seat");
 		Association.Poseer.link(cliente, vehiculo);

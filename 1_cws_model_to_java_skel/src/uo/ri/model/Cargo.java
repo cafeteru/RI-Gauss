@@ -33,8 +33,8 @@ public class Cargo {
 		// incrementar el importe en el acumulado del medio de pago
 		// guardar el importe
 		// enlazar (link) factura, este cargo y medioDePago
-		medioPago.setAcumulado(medioPago.getAcumulado() + importe);
 		Association.Cargar.link(medioPago, this, factura);
+		medioPago.setAcumulado(medioPago.getAcumulado() + importe);
 	}
 
 	public Factura getFactura() {
@@ -109,6 +109,8 @@ public class Cargo {
 		if (!factura.getStatus().equals(FacturaStatus.ABONADA)) {
 			medioPago.acumulado -= importe;
 			Association.Cargar.unlink(this);
+		} else {
+			throw new BusinessException("El cargo no esta abonado");
 		}
 	}
 

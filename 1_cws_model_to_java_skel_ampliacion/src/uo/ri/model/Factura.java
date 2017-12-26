@@ -11,6 +11,7 @@ import alb.util.date.DateUtil;
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.types.FacturaStatus;
+import uo.ri.model.util.Checker;
 
 @Entity
 @Table(name = "TFACTURAS")
@@ -40,13 +41,12 @@ public class Factura {
 	Factura() {
 	}
 
-	public Factura(Long numero) {
-		super();
-		this.numero = numero;
+	public Factura(Long numero) throws BusinessException {
+		this.numero = Checker.positiveNumber(numero);
 		this.fecha = DateUtil.today();
 	}
 
-	public Factura(long numero, Date today) {
+	public Factura(long numero, Date today) throws BusinessException {
 		this(numero);
 		this.fecha = new Date(today.getTime());
 	}
@@ -140,9 +140,10 @@ public class Factura {
 				&& getStatus().equals(FacturaStatus.SIN_ABONAR)) {
 			averia.setStatus(AveriaStatus.FACTURADA);
 			Association.Facturar.link(this, averia);
+			calcularImporte();
 		} else {
-			throw new BusinessException("No se puede añadir la aver�a a"
-					+ " la factura, no est� terminada");
+			throw new BusinessException("No se puede añadir la avería a"
+					+ " la factura, no está terminada");
 		}
 	}
 
@@ -150,15 +151,16 @@ public class Factura {
 	 * Calcula el importe de la avería y su IVA, teniendo en cuenta la fecha de
 	 * factura
 	 */
-	void calcularImporte() {
+	private void calcularImporte() {
 		// iva = ...
 		// importe = ...
+		double importe = 0;
 		for (Averia a : averias) {
 			importe += a.getImporte();
 		}
 
-		importe = importe * (1 + getIva() / 100);
-		importe = Math.rint(importe * 100) / 100;
+		importe *= 1 + getIva() / 100;
+		setImporte(Math.rint(importe * 100) / 100);
 	}
 
 	/**
@@ -166,8 +168,9 @@ public class Factura {
 	 * importe
 	 * 
 	 * @param averia
+	 * @throws BusinessException
 	 */
-	public void removeAveria(Averia averia) {
+	public void removeAveria(Averia averia) throws BusinessException {
 		// verificar que la factura está sin abonar
 		// desenlazar factura y averia
 		// la averia vuelve al estado FINALIZADA ( averia.markBackToFinished() )
@@ -176,6 +179,10 @@ public class Factura {
 		if (getStatus().equals(FacturaStatus.SIN_ABONAR)) {
 			Association.Facturar.unlink(this, averia);
 			averia.setStatus(AveriaStatus.TERMINADA);
+			calcularImporte();
+		} else {
+			throw new BusinessException(
+					"No se puede eliminar la avería porque ya esta abonada la factura");
 		}
 	}
 

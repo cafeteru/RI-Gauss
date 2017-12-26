@@ -5,7 +5,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.Address;
+import uo.ri.model.util.Checker;
 
 @Entity
 @Table(name = "TCLIENTES")
@@ -28,15 +30,22 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente")
 	private Set<MedioPago> mediosPago = new HashSet<MedioPago>();
 
+	@OneToOne
+	private Recomendacion recomendador;
+
+	@OneToMany(mappedBy = "cliente")
+	private Set<Recomendacion> recomendados = new HashSet<Recomendacion>();
+
 	Cliente() {
 	}
 
-	public Cliente(String dni) {
+	public Cliente(String dni) throws BusinessException {
 		super();
-		this.dni = dni;
+		this.dni = Checker.checkString(dni, "Dni");
 	}
 
-	public Cliente(String dni, String nombre, String apellidos) {
+	public Cliente(String dni, String nombre, String apellidos)
+			throws BusinessException {
 		this(dni);
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -88,6 +97,22 @@ public class Cliente {
 
 	Set<MedioPago> _getMediosPago() {
 		return mediosPago;
+	}
+
+	public Recomendacion getRecomendador() {
+		return recomendador;
+	}
+
+	void _setRecomendador(Recomendacion recomendador) {
+		this.recomendador = recomendador;
+	}
+
+	public Set<Recomendacion> getRecomendados() {
+		return new HashSet<>(recomendados);
+	}
+
+	Set<Recomendacion> _getRecomendados() {
+		return recomendados;
 	}
 
 	@Override

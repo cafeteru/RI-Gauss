@@ -2,6 +2,7 @@ package uo.ri.model;
 
 import javax.persistence.*;
 
+import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.SustitucionKey;
 
 @Entity
@@ -16,15 +17,18 @@ public class Sustitucion {
 	@Id
 	@ManyToOne
 	@JoinColumns({
-			@JoinColumn(name = "INTERVENCION_AVERIA_ID", referencedColumnName = "AVERIA_ID"),
-			@JoinColumn(name = "INTERVENCION_MECANICO_ID", referencedColumnName = "MECANICO_ID") })
+			@JoinColumn(name = "INTERVENCION_AVERIA_ID", 
+					referencedColumnName = "AVERIA_ID"),
+			@JoinColumn(name = "INTERVENCION_MECANICO_ID", 
+					referencedColumnName = "MECANICO_ID") })
 	private Intervencion intervencion;
 	private int cantidad;
 
 	Sustitucion() {
 	}
 
-	public Sustitucion(Repuesto repuesto, Intervencion intervencion) {
+	public Sustitucion(Repuesto repuesto, Intervencion intervencion)
+			throws BusinessException {
 		Association.Sustituir.link(repuesto, this, intervencion);
 	}
 
