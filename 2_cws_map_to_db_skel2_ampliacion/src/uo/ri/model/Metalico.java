@@ -1,15 +1,14 @@
 package uo.ri.model;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import uo.ri.model.exception.BusinessException;
 
 @Entity
-@DiscriminatorValue("TMETALICO")
-@Table(name = "TMEDIOSPAGO")
+@Table(name = "TMETALICOS")
 public class Metalico extends MedioPago {
+
 	Metalico() {
 	}
 

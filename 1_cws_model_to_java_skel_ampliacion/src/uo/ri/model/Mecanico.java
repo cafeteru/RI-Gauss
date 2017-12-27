@@ -18,7 +18,7 @@ public class Mecanico {
 
 	@Column(unique = true)
 	private String dni;
-	
+
 	private String apellidos;
 	private String nombre;
 

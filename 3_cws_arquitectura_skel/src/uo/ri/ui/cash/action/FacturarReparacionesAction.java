@@ -30,7 +30,8 @@ public class FacturarReparacionesAction implements Action {
 	}
 
 	private boolean masAverias() {
-		return Console.readString("¿Añadir más averias? (s/n) ").equalsIgnoreCase("s");
+		return Console.readString("¿Añadir más averias? (s/n) ")
+				.equalsIgnoreCase("s");
 	}
 
 }

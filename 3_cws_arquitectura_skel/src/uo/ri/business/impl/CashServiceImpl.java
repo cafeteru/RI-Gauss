@@ -16,30 +16,35 @@ public class CashServiceImpl implements CashService {
 	private CommandExecutor executor = Factory.executor.forExecutor();
 
 	@Override
-	public InvoiceDto createInvoiceFor(List<Long> idsAveria) throws BusinessException {
+	public InvoiceDto createInvoiceFor(List<Long> idsAveria)
+			throws BusinessException {
 		return executor.execute(new CreateInvoiceFor(idsAveria));
 	}
 
 	@Override
-	public InvoiceDto findInvoice(Long numeroInvoiceDto) throws BusinessException {
+	public InvoiceDto findInvoice(Long numeroInvoiceDto)
+			throws BusinessException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<PaymentMeanDto> findPayMethodsForInvoice(Long idInvoiceDto) throws BusinessException {
+	public List<PaymentMeanDto> findPayMethodsForInvoice(Long idInvoiceDto)
+			throws BusinessException {
 
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void settleInvoice(Long idInvoiceDto, Map<Long, Double> cargos) throws BusinessException {
+	public void settleInvoice(Long idInvoiceDto, Map<Long, Double> cargos)
+			throws BusinessException {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public List<BreakdownDto> findRepairsByClient(String dni) throws BusinessException {
+	public List<BreakdownDto> findRepairsByClient(String dni)
+			throws BusinessException {
 		// TODO Auto-generated method stub
 		return null;
 	}

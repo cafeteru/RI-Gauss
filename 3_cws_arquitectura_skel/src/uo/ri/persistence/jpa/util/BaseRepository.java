@@ -25,7 +25,8 @@ public class BaseRepository<T> {
 	}
 
 	/**
-	 * As find() and the query "select x from X x" needs the type of the entity here
+	 * As find() and the query "select x from X x" needs the type of the entity
+	 * here
 	 * there is a reflective way of getting it
 	 */
 	private Class<T> type;
@@ -39,7 +40,8 @@ public class BaseRepository<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	private Class<T> hasckTheTypeOfGenericParamenter() {
-		ParameterizedType superType = (ParameterizedType) getClass().getGenericSuperclass();
+		ParameterizedType superType = (ParameterizedType) getClass()
+				.getGenericSuperclass();
 		return (Class<T>) superType.getActualTypeArguments()[0];
 	}
 

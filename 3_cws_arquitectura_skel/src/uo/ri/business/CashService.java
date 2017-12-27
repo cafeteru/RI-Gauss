@@ -14,9 +14,11 @@ public interface CashService {
 
 	InvoiceDto findInvoice(Long numeroFactura) throws BusinessException;
 
-	List<PaymentMeanDto> findPayMethodsForInvoice(Long idFactura) throws BusinessException;
+	List<PaymentMeanDto> findPayMethodsForInvoice(Long idFactura)
+			throws BusinessException;
 
-	void settleInvoice(Long idFactura, Map<Long, Double> cargos) throws BusinessException;
+	void settleInvoice(Long idFactura, Map<Long, Double> cargos)
+			throws BusinessException;
 
 	List<BreakdownDto> findRepairsByClient(String dni) throws BusinessException;
 

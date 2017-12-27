@@ -3,23 +3,21 @@ package uo.ri.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import uo.ri.util.exception.BusinessException;
+import uo.ri.model.util.Checker;
 
 @Entity
 @Table(name = "TREPUESTOS")
 public class Repuesto {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Column(unique = true)
 	private String codigo;
+
 	private String descripcion;
 	private double precio;
 
@@ -29,12 +27,13 @@ public class Repuesto {
 	Repuesto() {
 	}
 
-	public Repuesto(String codigo) {
+	public Repuesto(String codigo) throws BusinessException {
 		super();
-		this.codigo = codigo;
+		this.codigo = Checker.checkString(codigo, "Codigo");
 	}
 
-	public Repuesto(String codigo, String descripcion, double precio) {
+	public Repuesto(String codigo, String descripcion, double precio)
+			throws BusinessException {
 		this(codigo);
 		this.descripcion = descripcion;
 		this.precio = precio;
@@ -44,20 +43,20 @@ public class Repuesto {
 		return id;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getDescripcion() {
 		return descripcion;
 	}
 
-	public double getPrecio() {
-		return precio;
-	}
-
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public double getPrecio() {
+		return precio;
 	}
 
 	public void setPrecio(double precio) {
@@ -70,6 +69,10 @@ public class Repuesto {
 
 	Set<Sustitucion> _getSustituciones() {
 		return sustituciones;
+	}
+
+	public String getCodigo() {
+		return codigo;
 	}
 
 	@Override
@@ -99,7 +102,8 @@ public class Repuesto {
 
 	@Override
 	public String toString() {
-		return "Repuesto [codigo=" + codigo + ", descripcion=" + descripcion + ", precio=" + precio + "]";
+		return "Repuesto [codigo=" + codigo + ", descripcion=" + descripcion
+				+ ", precio=" + precio + "]";
 	}
 
 }

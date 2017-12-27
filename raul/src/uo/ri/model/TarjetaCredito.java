@@ -11,46 +11,57 @@ import javax.persistence.TemporalType;
 import uo.ri.util.exception.BusinessException;
 
 @Entity
-@Table(name="TTarjetasCredito")
+@Table(name = "TTarjetasCredito")
 public class TarjetaCredito extends MedioPago {
 
-	@Column(unique=true)protected String numero;
+	@Column(unique = true)
+	protected String numero;
 	protected String tipo;
-	@Temporal(TemporalType.TIMESTAMP)protected Date validez;
-	
-	TarjetaCredito(){
-		
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date validez;
+
+	TarjetaCredito() {
+
 	}
+
 	public TarjetaCredito(String numero) {
 		super();
 		this.numero = numero;
 	}
-	public TarjetaCredito(String numero, String tipo, Date validez)throws BusinessException {
+
+	public TarjetaCredito(String numero, String tipo, Date validez)
+			throws BusinessException {
 		this(numero);
 		this.tipo = tipo;
-		if(validez.after(new Date())) {
+		if (validez.after(new Date())) {
 			this.validez = validez;
+		} else {
+			throw new BusinessException(
+					"No se puede registrar una tarjeta caducada");
 		}
-		else {
-			throw new BusinessException("No se puede registrar una tarjeta caducada");
-		}
-		
+
 	}
+
 	public String getTipo() {
 		return tipo;
 	}
+
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+
 	public Date getValidez() {
 		return validez;
 	}
+
 	public void setValidez(Date validez) {
 		this.validez = validez;
 	}
+
 	public String getNumero() {
 		return numero;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,6 +69,7 @@ public class TarjetaCredito extends MedioPago {
 		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -74,14 +86,11 @@ public class TarjetaCredito extends MedioPago {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
-		return "TarjetaCredito [numero=" + numero + ", tipo=" + tipo + ", validez=" + validez + ", acumulado="
-				+ acumulado + "]";
+		return "TarjetaCredito [numero=" + numero + ", tipo=" + tipo
+				+ ", validez=" + validez + ", acumulado=" + acumulado + "]";
 	}
-	
-	
-	
-	
-	
+
 }

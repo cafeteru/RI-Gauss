@@ -19,6 +19,7 @@ public class Cliente {
 
 	@Column(unique = true)
 	private String dni;
+
 	private String nombre;
 	private String apellidos;
 
@@ -35,7 +36,6 @@ public class Cliente {
 	}
 
 	public Cliente(String dni) throws BusinessException {
-		super();
 		this.dni = Checker.checkString(dni, "Dni");
 	}
 

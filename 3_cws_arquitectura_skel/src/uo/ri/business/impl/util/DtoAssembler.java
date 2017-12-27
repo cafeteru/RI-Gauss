@@ -20,6 +20,7 @@ import uo.ri.model.Mecanico;
 import uo.ri.model.MedioPago;
 import uo.ri.model.Metalico;
 import uo.ri.model.TarjetaCredito;
+import uo.ri.util.exception.BusinessException;
 import uo.ri.model.types.Address;
 
 public class DtoAssembler {
@@ -43,14 +44,15 @@ public class DtoAssembler {
 		return res;
 	}
 
-	public static Cliente toEntity(ClientDto dto) {
+	public static Cliente toEntity(ClientDto dto) throws BusinessException {
 		Cliente c = new Cliente(dto.dni, dto.name, dto.surname);
-		Address addr = new Address(dto.addressStreet, dto.addressCity, dto.addressZipcode);
+		Address addr = new Address(dto.addressStreet, dto.addressCity,
+				dto.addressZipcode);
 		c.setAddress(addr);
 		return c;
 	}
 
-	public static Mecanico toEntity(MechanicDto dto) {
+	public static Mecanico toEntity(MechanicDto dto) throws BusinessException {
 		return new Mecanico(dto.dni, dto.name, dto.surname);
 	}
 
@@ -120,7 +122,8 @@ public class DtoAssembler {
 		return dto;
 	}
 
-	public static List<PaymentMeanDto> toPaymentMeanDtoList(List<MedioPago> list) {
+	public static List<PaymentMeanDto> toPaymentMeanDtoList(
+			List<MedioPago> list) {
 		return list.stream().map(mp -> toDto(mp)).collect(Collectors.toList());
 	}
 

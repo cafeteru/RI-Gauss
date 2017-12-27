@@ -5,7 +5,8 @@ import uo.ri.model.Factura;
 import uo.ri.persistence.jpa.util.BaseRepository;
 import uo.ri.persistence.jpa.util.Jpa;
 
-public class FacturaJpaRepository extends BaseRepository<Factura> implements FacturaRepository {
+public class FacturaJpaRepository extends BaseRepository<Factura>
+		implements FacturaRepository {
 
 	@Override
 	public Factura findByNumber(Long numero) {
@@ -15,7 +16,9 @@ public class FacturaJpaRepository extends BaseRepository<Factura> implements Fac
 
 	@Override
 	public Long getNextInvoiceNumber() {
-		return Jpa.getManager().createNamedQuery("Factura.getNextInvoiceNumber", Long.class).getSingleResult();
+		return Jpa.getManager()
+				.createNamedQuery("Factura.getNextInvoiceNumber", Long.class)
+				.getSingleResult();
 	}
 
 }

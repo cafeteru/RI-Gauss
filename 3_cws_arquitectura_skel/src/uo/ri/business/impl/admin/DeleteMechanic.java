@@ -26,8 +26,10 @@ public class DeleteMechanic implements Command<Void> {
 	}
 
 	private void assertCanBeDeleted(Mecanico m) throws BusinessException {
-		Check.isTrue(m.getAsignadas().size() == 0, "El mecánico tiene averias asignadas");
-		Check.isTrue(m.getIntervenciones().size() == 0, "El mecánico tiene intervenciones");
+		Check.isTrue(m.getAsignadas().size() == 0,
+				"El mecánico tiene averias asignadas");
+		Check.isTrue(m.getIntervenciones().size() == 0,
+				"El mecánico tiene intervenciones");
 	}
 
 }

@@ -14,20 +14,24 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-@Table(name="TMediosPago")
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "TMediosPago")
 public abstract class MedioPago {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	protected double acumulado = 0.0;
-	
-	@ManyToOne private Cliente cliente;
-	@OneToMany(mappedBy="medioPago") private Set<Cargo> cargos = new HashSet<>();
+
+	@ManyToOne
+	private Cliente cliente;
+	@OneToMany(mappedBy = "medioPago")
+	private Set<Cargo> cargos = new HashSet<>();
 
 	public Long getId() {
 		return id;
 	}
-	
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -35,15 +39,15 @@ public abstract class MedioPago {
 	void _setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
+
 	Set<Cargo> _getCargos() {
 		return cargos;
 	}
-	
+
 	public Set<Cargo> getCargos() {
 		return new HashSet<Cargo>(cargos);
 	}
-		
+
 	public double getAcumulado() {
 		return acumulado;
 	}
@@ -71,5 +75,5 @@ public abstract class MedioPago {
 		} else if (!cliente.equals(other.cliente))
 			return false;
 		return true;
-	}	
+	}
 }

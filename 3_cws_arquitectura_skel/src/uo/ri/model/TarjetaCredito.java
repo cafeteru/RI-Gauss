@@ -2,48 +2,33 @@ package uo.ri.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
-import alb.util.date.DateUtil;
 import uo.ri.util.exception.BusinessException;
+import uo.ri.model.util.Checker;
 
 @Entity
 @Table(name = "TTARJETASCREDITO")
 public class TarjetaCredito extends MedioPago {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+
 	@Column(unique = true)
-	protected String numero;
-	protected String tipo;
-	@Temporal(TemporalType.TIMESTAMP)
-	protected Date validez;
+	private String numero;
+	private String tipo;
+
+	@Temporal(TemporalType.DATE)
+	private Date validez;
 
 	TarjetaCredito() {
 	}
 
-	public TarjetaCredito(String numero) {
-		super();
-		this.numero = numero;
-		this.validez = new Date(); 
-		this.tipo = "UNKNOWN";
-	}
-
-	public TarjetaCredito(String numero, String tipo, Date validez) {
+	public TarjetaCredito(Cliente cliente, String numero)
+			throws BusinessException {
 		this(numero);
-		this.tipo = tipo;
-		this.validez = validez;
+		Association.Pagar.link(cliente, this);
 	}
 
-	public Long getId() {
-		return id;
+	public TarjetaCredito(String numero) throws BusinessException {
+		this.numero = Checker.checkString(numero, "Número");
 	}
 
 	public String getNumero() {
@@ -93,18 +78,8 @@ public class TarjetaCredito extends MedioPago {
 
 	@Override
 	public String toString() {
-		return "TarjetaCredito [numero=" + numero + ", tipo=" + tipo + ", validez=" + validez + "]";
-	}
-
-	public void pagar(int importe) throws BusinessException {
-		if (isValidNow())
-			this.acumulado += importe;
-		else
-			throw new BusinessException("Tarjeta caducada");
-	}
-
-	public boolean isValidNow() {
-		return validez.after(DateUtil.today());
+		return "TarjetaCredito [numero=" + numero + ", tipo=" + tipo
+				+ ", validez=" + validez + "]";
 	}
 
 }

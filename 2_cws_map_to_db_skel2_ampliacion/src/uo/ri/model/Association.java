@@ -180,4 +180,28 @@ public class Association {
 		}
 	}
 
+	public static class Recomendar {
+		public static void link(Cliente recomendador,
+				Recomendacion recomendacion, Cliente recomendado)
+				throws BusinessException {
+			Checker.notNull(recomendado);
+			Checker.notNull(recomendacion);
+			Checker.notNull(recomendador);
+			recomendacion._setRecomendador(recomendador);
+			recomendacion._setRecomendado(recomendado);
+			recomendador._getRecomendados().add(recomendacion);
+			recomendado._setRecomendador(recomendacion);
+		}
+
+		public static void unlink(Recomendacion recomendacion)
+				throws BusinessException {
+			Checker.notNull(recomendacion);
+			recomendacion.getRecomendador()._getRecomendados()
+					.remove(recomendacion);
+			recomendacion.getRecomendado()._setRecomendador(null);
+			recomendacion._setRecomendado(null);
+			recomendacion._setRecomendador(null);
+		}
+	}
+
 }

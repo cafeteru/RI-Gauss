@@ -8,9 +8,13 @@ import uo.ri.model.util.Checker;
 @Entity
 @Table(name = "TBONOS")
 public class Bono extends MedioPago {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	private double disponible = 0.0;
 	private String descripcion;
+
 	private String codigo;
 
 	Bono() {

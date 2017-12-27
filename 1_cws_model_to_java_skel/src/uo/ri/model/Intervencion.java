@@ -33,7 +33,6 @@ public class Intervencion {
 
 	public Intervencion(Mecanico mecanico, Averia averia)
 			throws BusinessException {
-		super();
 		Association.Intervenir.link(averia, this, mecanico);
 	}
 

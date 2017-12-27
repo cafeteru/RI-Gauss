@@ -17,7 +17,10 @@ public class Vehiculo {
 	private Long id;
 
 	private String marca;
+
+	@Column(unique = true)
 	private String matricula;
+
 	private String modelo;
 
 	@Column(name = "NUM_AVERIAS")

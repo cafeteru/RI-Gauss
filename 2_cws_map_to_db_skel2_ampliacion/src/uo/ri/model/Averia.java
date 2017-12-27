@@ -4,12 +4,14 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import alb.util.date.DateUtil;
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.util.Checker;
 
 @Entity
-@Table(name = "TAVERIAS")
+@Table(name = "TAVERIAS", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "VEHICULO_ID, FECHA") })
 public class Averia {
 
 	@Id
@@ -37,12 +39,15 @@ public class Averia {
 
 	@ManyToOne
 	private Factura factura;
+	
+	@Column(name = "USADA_BONO")
+	private boolean usadaBono;
 
 	Averia() {
 	}
 
 	public Averia(Vehiculo vehiculo) throws BusinessException {
-		this(new Date(), vehiculo);
+		this(DateUtil.today(), vehiculo);
 	}
 
 	public Averia(Date fecha, Vehiculo vehiculo) throws BusinessException {
@@ -150,7 +155,7 @@ public class Averia {
 	}
 
 	public Date getFecha() {
-		return fecha;
+		return new Date(fecha.getTime());
 	}
 
 	public double getImporte() {
@@ -237,6 +242,14 @@ public class Averia {
 	public String toString() {
 		return "Averia [descripcion=" + descripcion + ", fecha=" + fecha
 				+ ", importe=" + importe + ", status=" + status + "]";
+	}
+
+	public void markAsInvoiced() throws BusinessException {
+		// TODO Auto-generated method stub
+		if (status.equals(AveriaStatus.TERMINADA) && factura != null) {
+			setStatus(AveriaStatus.FACTURADA);
+		} else
+			throw new BusinessException();
 	}
 
 	public void desassign() throws BusinessException {

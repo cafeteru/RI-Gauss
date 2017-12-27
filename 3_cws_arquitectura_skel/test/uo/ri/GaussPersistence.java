@@ -1,9 +1,6 @@
-package uo.ri.persistence;
+package uo.ri;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,12 +34,12 @@ import uo.ri.model.Vehiculo;
 import uo.ri.model.types.Address;
 import uo.ri.util.exception.BusinessException;
 
-public class PersistenceTest {
+public class GaussPersistence {
 
 	private EntityManagerFactory factory;
-	private Cliente cliente;
-	private Sustitucion sustitucion;
-	private Cargo cargo;
+	private Cliente cliente, cl1, cl2, cl3;
+	private Sustitucion sustitucion, s1, s2, s3;
+	private Cargo cargo, c1, c2, c3;
 
 	@Before
 	public void setUp() throws BusinessException {
@@ -220,23 +217,79 @@ public class PersistenceTest {
 		cliente = new Cliente("dni", "nombre", "apellidos");
 		Address address = new Address("street", "city", "zipcode");
 		cliente.setAddress(address);
+
+		cl1 = new Cliente("dni1", "nombre1", "apellidos1");
+		Address a1 = new Address("street1", "city1", "zipcode1");
+		cl1.setAddress(a1);
+
+		cl2 = new Cliente("dni2", "nombre2", "apellidos2");
+		Address a2 = new Address("street2", "city2", "zipcode2");
+		cl2.setAddress(a2);
+
+		cl3 = new Cliente("dni3", "nombre3", "apellidos3");
+		Address a3 = new Address("street3", "city3", "zipcode3");
+		cl3.setAddress(a3);
+
 		Vehiculo vehiculo = new Vehiculo("1234 GJI", "seat", "ibiza");
 		Association.Poseer.link(cliente, vehiculo);
 
+		Vehiculo vehiculo1 = new Vehiculo("12341", "seat", "cordoba");
+		Association.Poseer.link(cl1, vehiculo1);
+
+		Vehiculo vehiculo2 = new Vehiculo("12342", "renault", "clio");
+		Association.Poseer.link(cl2, vehiculo2);
+
+		Vehiculo vehiculo3 = new Vehiculo("12343", "renault", "megane");
+		Association.Poseer.link(cl3, vehiculo3);
+
 		TipoVehiculo tipoVehiculo = new TipoVehiculo("coche", 50.0);
+		TipoVehiculo tipoVehiculo1 = new TipoVehiculo("coche2", 250.0);
 		Association.Clasificar.link(tipoVehiculo, vehiculo);
+		Association.Clasificar.link(tipoVehiculo, vehiculo1);
+		Association.Clasificar.link(tipoVehiculo1, vehiculo2);
+		Association.Clasificar.link(tipoVehiculo1, vehiculo3);
 
 		Averia averia = new Averia(vehiculo, "falla la junta la trocla");
+		Averia averia1 = new Averia(vehiculo1, "falla la junta la trocla");
+		Averia averia2 = new Averia(vehiculo2, "falla la junta la trocla");
+		Averia averia3 = new Averia(vehiculo3, "falla la junta la trocla");
 		Mecanico mecanico = new Mecanico("dni-mecanico", "nombre", "apellidos");
 		averia.assignTo(mecanico);
+		averia1.assignTo(mecanico);
+		averia2.assignTo(mecanico);
+		averia3.assignTo(mecanico);
 
 		Intervencion intervencion = new Intervencion(mecanico, averia);
 		intervencion.setMinutos(60);
 		averia.markAsFinished();
 
+		Intervencion intervencion1 = new Intervencion(mecanico, averia1);
+		intervencion1.setMinutos(600);
+		averia1.markAsFinished();
+
+		Intervencion intervencion2 = new Intervencion(mecanico, averia2);
+		intervencion2.setMinutos(160);
+		averia2.markAsFinished();
+
+		Intervencion intervencion3 = new Intervencion(mecanico, averia3);
+		intervencion3.setMinutos(260);
+		averia3.markAsFinished();
+
 		Repuesto repuesto = new Repuesto("R1001", "junta la trocla", 100.0);
 		sustitucion = new Sustitucion(repuesto, intervencion);
 		sustitucion.setCantidad(2);
+
+		Repuesto repuesto1 = new Repuesto("R1002", "junta la trocla", 1020.0);
+		s1 = new Sustitucion(repuesto1, intervencion1);
+		s1.setCantidad(2);
+
+		Repuesto repuesto2 = new Repuesto("R1003", "junta la trocla", 1100.0);
+		s2 = new Sustitucion(repuesto2, intervencion2);
+		s2.setCantidad(2);
+
+		Repuesto repuesto3 = new Repuesto("R1004", "junta la trocla", 1300.0);
+		s3 = new Sustitucion(repuesto3, intervencion3);
+		s3.setCantidad(2);
 
 		Bono bono = new Bono("B-100", 100.0);
 		bono.setDescripcion("Voucher just for testing");
@@ -249,27 +302,81 @@ public class PersistenceTest {
 
 		Metalico metalico = new Metalico(cliente);
 
+		Bono bono1 = new Bono("B", 100000000.0);
+		bono.setDescripcion("Testiiiiiingggg");
+		Association.Pagar.link(cl1, bono1);
+
+		TarjetaCredito tarjetaCredito2 = new TarjetaCredito("22121990");
+		tarjetaCredito.setTipo("MasterGauss");
+		tarjetaCredito.setValidez(DateUtil.inYearsTime(100));
+		Association.Pagar.link(cl2, tarjetaCredito2);
+
+		Metalico metalico3 = new Metalico(cl3);
+
 		Factura factura = new Factura(1L);
 		factura.setFecha(DateUtil.today());
 		factura.addAveria(averia);
 
+		Factura factura1 = new Factura(2L);
+		factura1.setFecha(DateUtil.today());
+		factura1.addAveria(averia1);
+
+		Factura factura2 = new Factura(3L);
+		factura2.setFecha(DateUtil.today());
+		factura.addAveria(averia2);
+
+		Factura factura3 = new Factura(4L);
+		factura3.setFecha(DateUtil.today());
+		factura.addAveria(averia3);
+
 		cargo = new Cargo(factura, tarjetaCredito, factura.getImporte());
+		c1 = new Cargo(factura1, bono1, factura1.getImporte());
+		c2 = new Cargo(factura2, tarjetaCredito2, factura2.getImporte());
+		c3 = new Cargo(factura3, metalico3, factura3.getImporte());
 
 		List<Object> res = new LinkedList<Object>();
 
 		res.add(tipoVehiculo);
+		res.add(tipoVehiculo1);
 		res.add(repuesto);
+		res.add(repuesto1);
+		res.add(repuesto2);
+		res.add(repuesto3);
 		res.add(mecanico);
+		res.add(cl3);
+		res.add(cl2);
+		res.add(cl1);
 		res.add(cliente);
 		res.add(bono);
 		res.add(tarjetaCredito);
 		res.add(metalico);
+		res.add(bono1);
+		res.add(tarjetaCredito2);
+		res.add(metalico3);
 		res.add(vehiculo);
+		res.add(vehiculo1);
+		res.add(vehiculo2);
+		res.add(vehiculo3);
 		res.add(factura);
+		res.add(factura1);
+		res.add(factura2);
+		res.add(factura3);
 		res.add(averia);
+		res.add(averia1);
+		res.add(averia2);
+		res.add(averia3);
 		res.add(intervencion);
+		res.add(intervencion1);
+		res.add(intervencion2);
+		res.add(intervencion3);
 		res.add(sustitucion);
+		res.add(s1);
+		res.add(s2);
+		res.add(s3);
 		res.add(cargo);
+		res.add(c1);
+		res.add(c2);
+		res.add(c3);
 
 		return res;
 	}
@@ -306,8 +413,41 @@ public class PersistenceTest {
 		List<Object> res = new LinkedList<Object>();
 
 		res.add(mapper.merge(cargo));
+		res.add(mapper.merge(c1));
+		res.add(mapper.merge(c2));
+		res.add(mapper.merge(c3));
 
 		Sustitucion s = mapper.merge(sustitucion);
+		res.add(s);
+		res.add(s.getRepuesto());
+		res.add(s.getIntervencion());
+		res.add(s.getIntervencion().getMecanico());
+		res.add(s.getIntervencion().getAveria());
+		res.add(s.getIntervencion().getAveria().getVehiculo());
+		res.add(s.getIntervencion().getAveria().getVehiculo().getTipo());
+		res.add(s.getIntervencion().getAveria().getFactura());
+
+		s = mapper.merge(s1);
+		res.add(s);
+		res.add(s.getRepuesto());
+		res.add(s.getIntervencion());
+		res.add(s.getIntervencion().getMecanico());
+		res.add(s.getIntervencion().getAveria());
+		res.add(s.getIntervencion().getAveria().getVehiculo());
+		res.add(s.getIntervencion().getAveria().getVehiculo().getTipo());
+		res.add(s.getIntervencion().getAveria().getFactura());
+
+		s = mapper.merge(s2);
+		res.add(s);
+		res.add(s.getRepuesto());
+		res.add(s.getIntervencion());
+		res.add(s.getIntervencion().getMecanico());
+		res.add(s.getIntervencion().getAveria());
+		res.add(s.getIntervencion().getAveria().getVehiculo());
+		res.add(s.getIntervencion().getAveria().getVehiculo().getTipo());
+		res.add(s.getIntervencion().getAveria().getFactura());
+
+		s = mapper.merge(s3);
 		res.add(s);
 		res.add(s.getRepuesto());
 		res.add(s.getIntervencion());
@@ -323,7 +463,24 @@ public class PersistenceTest {
 			res.add(mp);
 		}
 
+		Cliente cl1 = mapper.merge(this.cl1);
+		res.add(cl1);
+		for (MedioPago mp : cl1.getMediosPago()) {
+			res.add(mp);
+		}
+
+		Cliente cl2 = mapper.merge(this.cl2);
+		res.add(cl2);
+		for (MedioPago mp : cl2.getMediosPago()) {
+			res.add(mp);
+		}
+
+		Cliente cl3 = mapper.merge(this.cl3);
+		res.add(cl3);
+		for (MedioPago mp : cl.getMediosPago()) {
+			res.add(mp);
+		}
+
 		return res;
 	}
-
 }

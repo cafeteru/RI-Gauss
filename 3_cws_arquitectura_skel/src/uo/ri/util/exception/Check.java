@@ -2,7 +2,8 @@ package uo.ri.util.exception;
 
 public class Check {
 
-	public static void isNull(Object o, String errorMsg) throws BusinessException {
+	public static void isNull(Object o, String errorMsg)
+			throws BusinessException {
 		isTrue(o == null, errorMsg);
 	}
 
@@ -10,7 +11,8 @@ public class Check {
 		isTrue(o == null, o.getClass().getName() + " cannot be null here");
 	}
 
-	public static void isNotNull(Object o, String errorMsg) throws BusinessException {
+	public static void isNotNull(Object o, String errorMsg)
+			throws BusinessException {
 		isTrue(o != null, errorMsg);
 	}
 
@@ -22,7 +24,8 @@ public class Check {
 		isTrue(!condition, "Invalid assertion");
 	}
 
-	public static void isFalse(boolean condition, String errorMsg) throws BusinessException {
+	public static void isFalse(boolean condition, String errorMsg)
+			throws BusinessException {
 		isTrue(!condition, errorMsg);
 	}
 
@@ -30,7 +33,8 @@ public class Check {
 		isTrue(condition, "Invalid assertion");
 	}
 
-	public static void isTrue(boolean condition, String errorMsg) throws BusinessException {
+	public static void isTrue(boolean condition, String errorMsg)
+			throws BusinessException {
 		if (condition == true)
 			return;
 		throw new BusinessException(errorMsg);

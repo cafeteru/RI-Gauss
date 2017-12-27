@@ -17,7 +17,9 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(unique = true)
 	private String dni;
+
 	private String nombre;
 	private String apellidos;
 
@@ -30,11 +32,16 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente")
 	private Set<MedioPago> mediosPago = new HashSet<MedioPago>();
 
+	@OneToOne
+	private Recomendacion recomendador;
+
+	@OneToMany(mappedBy = "recomendador")
+	private Set<Recomendacion> recomendados = new HashSet<Recomendacion>();
+
 	Cliente() {
 	}
 
 	public Cliente(String dni) throws BusinessException {
-		super();
 		this.dni = Checker.checkString(dni, "Dni");
 	}
 
@@ -91,6 +98,22 @@ public class Cliente {
 
 	Set<MedioPago> _getMediosPago() {
 		return mediosPago;
+	}
+
+	public Recomendacion getRecomendador() {
+		return recomendador;
+	}
+
+	void _setRecomendador(Recomendacion recomendador) {
+		this.recomendador = recomendador;
+	}
+
+	public Set<Recomendacion> getRecomendados() {
+		return new HashSet<>(recomendados);
+	}
+
+	Set<Recomendacion> _getRecomendados() {
+		return recomendados;
 	}
 
 	@Override

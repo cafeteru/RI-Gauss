@@ -101,6 +101,7 @@ public class FacturaTest {
 		Factura factura = new Factura(0L, averias);
 
 		// importe = (137.5 nueva averia + 250.0 primera averia) * 21% iva
+		System.out.println(factura.getImporte());
 		assertTrue(factura.getImporte() == 468.88); // redondeo a 2 centimos
 	}
 

@@ -18,6 +18,7 @@ public class Mecanico {
 
 	@Column(unique = true)
 	private String dni;
+
 	private String apellidos;
 	private String nombre;
 
@@ -31,7 +32,6 @@ public class Mecanico {
 	}
 
 	public Mecanico(String dni) throws BusinessException {
-		super();
 		this.dni = Checker.checkString(dni, "Dni");
 	}
 

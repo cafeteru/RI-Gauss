@@ -10,10 +10,12 @@ import uo.ri.model.exception.BusinessException;
 public class Sustitucion {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@ManyToOne
 	private Repuesto repuesto;
 
-	@Id
 	@ManyToOne
 	private Intervencion intervencion;
 	private int cantidad;

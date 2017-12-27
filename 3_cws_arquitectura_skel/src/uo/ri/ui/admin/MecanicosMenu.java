@@ -9,7 +9,8 @@ import alb.util.menu.BaseMenu;
 public class MecanicosMenu extends BaseMenu {
 
 	public MecanicosMenu() {
-		menuOptions = new Object[][] { { "Administrador > Gestión de mecánicos", null },
+		menuOptions = new Object[][] {
+				{ "Administrador > Gestión de mecánicos", null },
 
 				{ "Añadir mecánico", AddMechanicAction.class },
 				{ "Modificar datos de mecánico", UpdateMechanicAction.class },

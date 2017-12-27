@@ -21,6 +21,7 @@ public class Factura {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(unique = true)
 	private Long numero;
 
 	@Temporal(TemporalType.DATE)
@@ -182,7 +183,8 @@ public class Factura {
 			calcularImporte();
 		} else {
 			throw new BusinessException(
-					"No se puede eliminar la avería porque ya esta abonada la factura");
+					"No se puede eliminar la avería porque ya esta abonada la "
+							+ "factura");
 		}
 	}
 

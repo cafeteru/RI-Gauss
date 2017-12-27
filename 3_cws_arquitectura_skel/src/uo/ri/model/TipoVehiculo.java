@@ -3,12 +3,10 @@ package uo.ri.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import uo.ri.util.exception.BusinessException;
+import uo.ri.model.util.Checker;
 
 @Entity
 @Table(name = "TTIPOSVEHICULO")
@@ -17,7 +15,10 @@ public class TipoVehiculo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column(unique = true)
 	private String nombre;
+
 	private double precioHora;
 
 	@OneToMany(mappedBy = "tipo")
@@ -26,12 +27,12 @@ public class TipoVehiculo {
 	TipoVehiculo() {
 	}
 
-	public TipoVehiculo(String nombre) {
-		super();
-		this.nombre = nombre;
+	public TipoVehiculo(String nombre) throws BusinessException {
+		this.nombre = Checker.checkString(nombre, "Nombre");
 	}
 
-	public TipoVehiculo(String nombre, double precioHora) {
+	public TipoVehiculo(String nombre, double precioHora)
+			throws BusinessException {
 		this(nombre);
 		this.precioHora = precioHora;
 	}
@@ -40,24 +41,28 @@ public class TipoVehiculo {
 		return id;
 	}
 
-	public double getPrecioHora() {
-		return precioHora;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public double getPrecioHora() {
+		return precioHora;
 	}
 
 	public void setPrecioHora(double precioHora) {
 		this.precioHora = precioHora;
 	}
 
+	public Set<Vehiculo> getVehiculos() {
+		return new HashSet<Vehiculo>(vehiculos);
+	}
+
 	Set<Vehiculo> _getVehiculos() {
 		return vehiculos;
 	}
 
-	public Set<Vehiculo> getVehiculos() {
-		return new HashSet<Vehiculo>(vehiculos);
+	public String getNombre() {
+		return nombre;
 	}
 
 	@Override
@@ -87,7 +92,8 @@ public class TipoVehiculo {
 
 	@Override
 	public String toString() {
-		return "TipoVehiculo [nombre=" + nombre + ", precioHora=" + precioHora + "]";
+		return "TipoVehiculo [nombre=" + nombre + ", precioHora=" + precioHora
+				+ "]";
 	}
 
 }

@@ -9,7 +9,8 @@ import uo.ri.persistence.jpa.executor.JpaExecutorFactory;
 public class MainMenu extends BaseMenu {
 
 	public MainMenu() {
-		menuOptions = new Object[][] { { "Administrador", null }, { "Gestión de mecánicos", MecanicosMenu.class },
+		menuOptions = new Object[][] { { "Administrador", null },
+				{ "Gestión de mecánicos", MecanicosMenu.class },
 				{ "Gestión de repuestos", RepuestosMenu.class },
 				{ "Gestión de tipos de vehículo", TiposVehiculoMenu.class }, };
 	}

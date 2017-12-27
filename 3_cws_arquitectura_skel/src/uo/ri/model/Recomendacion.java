@@ -1,52 +1,95 @@
 package uo.ri.model;
 
-public class Recomendacion {
-	private boolean usada_bono;
-	private Cliente recomendador;
-	private Cliente recomendado;
+import javax.persistence.*;
 
-	public Recomendacion(Cliente recomendador, Cliente recomendado) {
-		this.recomendador = recomendador;
-		this.recomendado = recomendado;
+import uo.ri.util.exception.BusinessException;
+
+@Entity
+@Table(name = "TRECOMENDACIONES")
+public class Recomendacion {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@ManyToOne
+	private Cliente recomendados;
+
+	@OneToOne
+	private Cliente recomendador;
+
+	@Column(name = "USADA_BONO")
+	private boolean usadaBono;
+
+	Recomendacion() {
+	}
+
+	public Recomendacion(Cliente recomendador, Cliente recomendado)
+			throws BusinessException {
 		Association.Recomendar.link(recomendador, this, recomendado);
+		this.usadaBono = false;
 	}
 
 	public Cliente getRecomendador() {
-		return recomendador;
-	}
-
-	public Cliente getRecomendado() {
-		return recomendado;
+		return recomendados;
 	}
 
 	void _setRecomendador(Cliente recomendador) {
-		this.recomendador = recomendador;
+		this.recomendados = recomendador;
+	}
+
+	public Cliente getRecomendado() {
+		return recomendador;
 	}
 
 	void _setRecomendado(Cliente recomendado) {
-		this.recomendado = recomendado;
+		this.recomendador = recomendado;
 	}
 
-	public boolean isUsada_bono() {
-		return usada_bono;
+	public boolean isUsadaBono() {
+		return usadaBono;
 	}
 
-	public void setUsada_bono(boolean usada_bono) {
-		this.usada_bono = usada_bono;
+	public void setUsadaBono(boolean usadaBono) {
+		this.usadaBono = usadaBono;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((recomendador == null) ? 0 : recomendador.hashCode());
+		result = prime * result
+				+ ((recomendados == null) ? 0 : recomendados.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Recomendacion other = (Recomendacion) obj;
+		if (recomendador == null) {
+			if (other.recomendador != null)
+				return false;
+		} else if (!recomendador.equals(other.recomendador))
+			return false;
+		if (recomendados == null) {
+			if (other.recomendados != null)
+				return false;
+		} else if (!recomendados.equals(other.recomendados))
+			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Recomendacion [usada_bono=" + usada_bono + "]";
-	}
-
-	public void unlink() {
-		Association.Recomendar.unlink(this);
-	}
-
-	public void markAsUsadaBono() {
-		for (Recomendacion r : recomendador.getRecomendacionesHechas())
-			r.usada_bono = true;
+		return "Recomendacion [recomendador=" + recomendados + ", recomendado="
+				+ recomendador + ", usadaBono=" + usadaBono + "]";
 	}
 
 }

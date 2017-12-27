@@ -8,10 +8,11 @@ import uo.ri.model.exception.BusinessException;
 import uo.ri.model.util.Checker;
 
 @Entity
-@DiscriminatorValue("TTARJETASCREDITO")
-@Table(name = "TMEDIOSPAGO")
+@Table(name = "TTARJETASCREDITO")
 public class TarjetaCredito extends MedioPago {
 
+
+	@Column(unique = true)
 	private String numero;
 	private String tipo;
 

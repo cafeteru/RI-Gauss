@@ -21,6 +21,7 @@ public class Factura {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(unique = true)
 	private Long numero;
 
 	@Temporal(TemporalType.DATE)
@@ -37,6 +38,9 @@ public class Factura {
 
 	@OneToMany(mappedBy = "factura")
 	private Set<Cargo> cargos = new HashSet<Cargo>();
+
+	@Column(name = "USADA_BONO")
+	private boolean usadaBono;
 
 	Factura() {
 	}
@@ -182,7 +186,8 @@ public class Factura {
 			calcularImporte();
 		} else {
 			throw new BusinessException(
-					"No se puede eliminar la avería porque ya esta abonada la factura");
+					"No se puede eliminar la avería porque ya esta abonada la "
+							+ "factura");
 		}
 	}
 

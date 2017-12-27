@@ -35,19 +35,21 @@ public class Printer {
 	}
 
 	private static void printPaymentMean(PaymentMeanDto medio) {
-		Console.printf("\t%s \t%-8.8s \t%s \n", medio.id, medio.getClass().getName(), // not the best...
+		Console.printf("\t%s \t%-8.8s \t%s \n", medio.id,
+				medio.getClass().getName(), // not the best...
 				medio.accumulated);
 	}
 
 	public static void printRepairing(BreakdownDto rep) {
 
-		Console.printf("\t%d \t%-40.40s \t%td/%<tm/%<tY \t%-12.12s \t%.2f\n", rep.id, rep.description, rep.date,
-				rep.status, rep.total);
+		Console.printf("\t%d \t%-40.40s \t%td/%<tm/%<tY \t%-12.12s \t%.2f\n",
+				rep.id, rep.description, rep.date, rep.status, rep.total);
 	}
 
 	public static void printMechanic(MechanicDto m) {
 
-		Console.printf("\t%d %-10.10s %-25.25s %-25.25s\n", m.id, m.dni, m.name, m.surname);
+		Console.printf("\t%d %-10.10s %-25.25s %-25.25s\n", m.id, m.dni, m.name,
+				m.surname);
 	}
 
 }
