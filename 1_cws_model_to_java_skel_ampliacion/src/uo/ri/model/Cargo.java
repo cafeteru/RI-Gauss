@@ -13,12 +13,10 @@ public class Cargo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Id
+
 	@ManyToOne
 	private Factura factura;
 
-	@Id
 	@ManyToOne
 	private MedioPago medioPago;
 

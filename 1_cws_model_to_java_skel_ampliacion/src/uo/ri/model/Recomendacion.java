@@ -3,20 +3,22 @@ package uo.ri.model;
 import javax.persistence.*;
 
 import uo.ri.model.exception.BusinessException;
-import uo.ri.model.types.RecomendacionKey;
 
 @Entity
-@IdClass(RecomendacionKey.class)
-@Table(name = "TRECOMENDACION")
+@Table(name = "TRECOMENDACIONES")
+// Agregar tabla
 public class Recomendacion {
-
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@ManyToOne
-	private Cliente recomendador;
+	private Cliente recomendados;
 
 	@OneToOne
-	private Cliente recomendado;
+	private Cliente recomendador;
 
+	@Column(name = "USADA_BONO")
 	private boolean usadaBono;
 
 	Recomendacion() {
@@ -29,19 +31,19 @@ public class Recomendacion {
 	}
 
 	public Cliente getRecomendador() {
-		return recomendador;
+		return recomendados;
 	}
 
 	void _setRecomendador(Cliente recomendador) {
-		this.recomendador = recomendador;
+		this.recomendados = recomendador;
 	}
 
 	public Cliente getRecomendado() {
-		return recomendado;
+		return recomendador;
 	}
 
 	void _setRecomendado(Cliente recomendado) {
-		this.recomendado = recomendado;
+		this.recomendador = recomendado;
 	}
 
 	public boolean isUsadaBono() {
@@ -57,9 +59,9 @@ public class Recomendacion {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((recomendado == null) ? 0 : recomendado.hashCode());
-		result = prime * result
 				+ ((recomendador == null) ? 0 : recomendador.hashCode());
+		result = prime * result
+				+ ((recomendados == null) ? 0 : recomendados.hashCode());
 		return result;
 	}
 
@@ -72,23 +74,23 @@ public class Recomendacion {
 		if (getClass() != obj.getClass())
 			return false;
 		Recomendacion other = (Recomendacion) obj;
-		if (recomendado == null) {
-			if (other.recomendado != null)
-				return false;
-		} else if (!recomendado.equals(other.recomendado))
-			return false;
 		if (recomendador == null) {
 			if (other.recomendador != null)
 				return false;
 		} else if (!recomendador.equals(other.recomendador))
+			return false;
+		if (recomendados == null) {
+			if (other.recomendados != null)
+				return false;
+		} else if (!recomendados.equals(other.recomendados))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Recomendacion [recomendador=" + recomendador + ", recomendado="
-				+ recomendado + ", usadaBono=" + usadaBono + "]";
+		return "Recomendacion [recomendador=" + recomendados + ", recomendado="
+				+ recomendador + ", usadaBono=" + usadaBono + "]";
 	}
 
 }

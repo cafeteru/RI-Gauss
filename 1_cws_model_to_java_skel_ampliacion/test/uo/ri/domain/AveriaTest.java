@@ -3,6 +3,7 @@ package uo.ri.domain;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -38,7 +39,7 @@ public class AveriaTest {
 		vehiculo = new Vehiculo("1234 GJI", "ibiza", "seat");
 		Association.Poseer.link(cliente, vehiculo);
 
-		tipoVehiculo = new TipoVehiculo("coche", 50.0 /* €/hora */);
+		tipoVehiculo = new TipoVehiculo("coche", 50.0 /* â‚¬/hora */);
 		Association.Clasificar.link(tipoVehiculo, vehiculo);
 
 		averia = new Averia(vehiculo, "falla la junta la trocla");
@@ -48,7 +49,7 @@ public class AveriaTest {
 		intervencion = new Intervencion(mecanico, averia);
 		intervencion.setMinutos(60);
 
-		repuesto = new Repuesto("R1001", "junta la trocla", 100.0 /* € */);
+		repuesto = new Repuesto("R1001", "junta la trocla", 100.0 /* â‚¬ */);
 		sustitucion = new Sustitucion(repuesto, intervencion);
 		sustitucion.setCantidad(2);
 
@@ -81,8 +82,8 @@ public class AveriaTest {
 	}
 
 	/**
-	 * Calculo correcto de importe de averia al quitar intervenciones El
-	 * (re)cálculo se hace al pasar la avería a TERMINADA
+	 * Calculo correcto de importe de averia al quitar intervenciones
+	 * El (re)cálculo se hace al pasar la factura a TERMINADA
 	 * 
 	 * @throws BusinessException
 	 */
@@ -102,14 +103,14 @@ public class AveriaTest {
 	}
 
 	/**
-	 * No se puede añadir a una factura una averia no asignada
+	 * No se puede añadir a una factura una averia no terminada
 	 * 
 	 * @throws BusinessException
 	 */
 	@Test(expected = BusinessException.class)
 	public void testAveriaNoTerminadaException() throws BusinessException {
 		averia.reopen();
-		List<Averia> averias = new ArrayList<Averia>();
+		List<Averia> averias = new ArrayList<>();
 		averias.add(averia);
 		new Factura(0L, averias); // debe saltar excepcion: averia no terminada
 	}
@@ -121,11 +122,35 @@ public class AveriaTest {
 	 */
 	@Test
 	public void testFacturaCreadaSinAbonar() throws BusinessException {
-		List<Averia> averias = new ArrayList<Averia>();
+		List<Averia> averias = new ArrayList<>();
 		averias.add(averia);
 		Factura factura = new Factura(0L, averias);
 
 		assertTrue(factura.getStatus() == FacturaStatus.SIN_ABONAR);
+	}
+
+	/**
+	 * Una averia no puede ser marcada como facturada si no tiene factura
+	 * asignada
+	 * 
+	 * @throws BusinessException
+	 */
+	@Test(expected = BusinessException.class)
+	public void testSinFacturaNoMarcarFacturada() throws BusinessException {
+		averia.markAsInvoiced(); // Lanza excepción "No factura asignada"
+	}
+
+	/**
+	 * La fecha de averia se devuelve clonada
+	 */
+	@SuppressWarnings("deprecation")
+	@Test
+	public void testSafeGetFechaClonada() {
+		Date d = averia.getFecha();
+
+		d.setYear(0);
+
+		assertTrue(averia.getFecha().getYear() == new Date().getYear());
 	}
 
 }

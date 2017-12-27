@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import alb.util.date.DateUtil;
+import alb.util.math.Round;
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.types.FacturaStatus;
@@ -21,6 +22,7 @@ public class Factura {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(unique = true)
 	private Long numero;
 
 	@Temporal(TemporalType.DATE)
@@ -160,7 +162,7 @@ public class Factura {
 		}
 
 		importe *= 1 + getIva() / 100;
-		setImporte(Math.rint(importe * 100) / 100);
+		setImporte(Round.twoCents(importe * 100) / 100);
 	}
 
 	/**
@@ -182,7 +184,8 @@ public class Factura {
 			calcularImporte();
 		} else {
 			throw new BusinessException(
-					"No se puede eliminar la avería porque ya esta abonada la factura");
+					"No se puede eliminar la avería porque ya esta abonada la "
+							+ "factura");
 		}
 	}
 

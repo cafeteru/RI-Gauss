@@ -10,6 +10,7 @@ import uo.ri.model.exception.BusinessException;
 
 @Entity
 @Table(name = "TMETALICO")
+//@Table(name = "TMETALICOS") Cambiar tabla
 public class Metalico extends MedioPago {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
