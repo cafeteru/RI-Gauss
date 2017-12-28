@@ -1,7 +1,7 @@
 package uo.ri.model;
 
-import uo.ri.util.exception.BusinessException;
 import uo.ri.model.util.Checker;
+import uo.ri.util.exception.BusinessException;
 
 public class Association {
 

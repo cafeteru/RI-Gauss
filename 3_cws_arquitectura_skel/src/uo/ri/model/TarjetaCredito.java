@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import alb.util.date.DateUtil;
 import uo.ri.util.exception.BusinessException;
 import uo.ri.model.util.Checker;
 
@@ -49,6 +50,18 @@ public class TarjetaCredito extends MedioPago {
 
 	public void setValidez(Date validez) {
 		this.validez = validez;
+	}
+
+	@Override
+	public void pagar(double importe) throws BusinessException {
+		if (isValidNow())
+			this.acumulado += importe;
+		else
+			throw new BusinessException("La tarjeta de credito esta caducada");
+	}
+
+	public boolean isValidNow() {
+		return validez.after(DateUtil.today());
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package uo.ri.model;
 
 import javax.persistence.*;
 
-import uo.ri.model.exception.BusinessException;
+import uo.ri.util.exception.BusinessException;
 
 @Entity
 @Table(name = "TRECOMENDACIONES")
@@ -89,7 +89,22 @@ public class Recomendacion {
 	@Override
 	public String toString() {
 		return "Recomendacion [recomendador=" + recomendados + ", recomendado="
-				+ recomendador + ", usadaBono=" + usadaBono + "]";
+				+ recomendador + ",F usadaBono=" + usadaBono + "]";
+	}
+
+	public void markAsUsadaBono() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void unlink() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public boolean isUsada() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

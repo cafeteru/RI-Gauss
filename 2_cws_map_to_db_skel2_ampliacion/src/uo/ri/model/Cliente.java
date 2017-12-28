@@ -1,6 +1,7 @@
 package uo.ri.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -37,6 +38,9 @@ public class Cliente {
 
 	@OneToMany(mappedBy = "recomendador")
 	private Set<Recomendacion> recomendados = new HashSet<Recomendacion>();
+
+	private String email;
+	private String phone;
 
 	Cliente() {
 	}
@@ -100,7 +104,7 @@ public class Cliente {
 		return mediosPago;
 	}
 
-	public Recomendacion getRecomendador() {
+	public Recomendacion getRecomendacionRecibida() {
 		return recomendador;
 	}
 
@@ -108,12 +112,38 @@ public class Cliente {
 		this.recomendador = recomendador;
 	}
 
-	public Set<Recomendacion> getRecomendados() {
+	public Set<Recomendacion> getRecomendacionesHechas() {
 		return new HashSet<>(recomendados);
 	}
 
 	Set<Recomendacion> _getRecomendados() {
 		return recomendados;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Averia> getAveriasBono3NoUsadas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean elegibleBonoPorRecomendaciones() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override

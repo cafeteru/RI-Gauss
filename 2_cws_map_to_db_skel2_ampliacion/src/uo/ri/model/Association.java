@@ -42,7 +42,7 @@ public class Association {
 	}
 
 	public static class Pagar {
-		public static void link(MedioPago medioPago, Cliente cliente)
+		public static void link(Cliente cliente, MedioPago medioPago)
 				throws BusinessException {
 			Checker.notNull(medioPago);
 			Checker.notNull(cliente);

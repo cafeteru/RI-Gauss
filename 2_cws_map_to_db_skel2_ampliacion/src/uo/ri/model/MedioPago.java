@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import uo.ri.model.exception.BusinessException;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "TMEDIOSPAGO")
@@ -23,6 +25,10 @@ public abstract class MedioPago {
 	private Set<Cargo> cargos = new HashSet<Cargo>();
 
 	MedioPago() {
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	public Cliente getCliente() {
@@ -48,6 +54,8 @@ public abstract class MedioPago {
 	public void setAcumulado(double acumulado) {
 		this.acumulado = acumulado;
 	}
+
+	public abstract void pagar(double importe) throws BusinessException;
 
 	@Override
 	public int hashCode() {

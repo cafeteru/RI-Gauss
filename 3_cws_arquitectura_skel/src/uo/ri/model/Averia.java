@@ -40,6 +40,9 @@ public class Averia {
 	@ManyToOne
 	private Factura factura;
 
+	@Column(name = "USADA_BONO")
+	private boolean usadaBono;
+
 	Averia() {
 	}
 
@@ -251,6 +254,7 @@ public class Averia {
 
 	public void desassign() throws BusinessException {
 		Association.Asignar.unlink(mecanico, this);
+		setStatus(AveriaStatus.ABIERTA);
 	}
 
 }

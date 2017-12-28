@@ -12,6 +12,7 @@ public class Bono extends MedioPago {
 	private double disponible = 0.0;
 	private String descripcion;
 
+	@Column(unique = true)
 	private String codigo;
 
 	Bono() {
@@ -19,7 +20,7 @@ public class Bono extends MedioPago {
 
 	public Bono(Cliente cliente, String codigo) throws BusinessException {
 		this.codigo = Checker.checkString(codigo, "Codigo");
-		Association.Pagar.link(this, cliente);
+		Association.Pagar.link(cliente, this);
 	}
 
 	public Bono(String codigo, double disponible) {
@@ -76,6 +77,16 @@ public class Bono extends MedioPago {
 	public String toString() {
 		return "Bono [disponible=" + disponible + ", descripcion=" + descripcion
 				+ ", codigo=" + codigo + "]";
+	}
+
+	@Override
+	public void pagar(double importe) throws BusinessException {
+		if (disponible >= importe) {
+			acumulado += importe;
+			disponible -= importe;
+		} else
+			throw new BusinessException(
+					"El importe es mayor que el valor disponible");
 	}
 
 }

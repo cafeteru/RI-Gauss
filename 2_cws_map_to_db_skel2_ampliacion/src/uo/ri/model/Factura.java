@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import alb.util.date.DateUtil;
+import alb.util.math.Round;
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.types.FacturaStatus;
@@ -196,6 +197,29 @@ public class Factura {
 			this.iva = 21.0;
 		else
 			this.iva = 18.0;
+	}
+
+	public void settle() throws BusinessException {
+		if (this.getAverias().size() > 0) {
+			double sumaAverias = 0;
+			for (Cargo c : getCargos()) {
+				sumaAverias += c.getImporte();
+			}
+			// Revisar
+			if (importe == Round.twoCents(sumaAverias)) {
+				this.setStatus(FacturaStatus.ABONADA);
+			} else {
+				throw new BusinessException("La factura no tiene averías");
+			}
+		} else {
+			throw new BusinessException("La factura no tiene averías");
+		}
+	}
+
+	public boolean isSettled() {
+		if (this.getStatus() == FacturaStatus.ABONADA)
+			return true;
+		return false;
 	}
 
 	@Override

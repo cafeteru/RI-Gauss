@@ -36,6 +36,7 @@ public class Cargo {
 		// guardar el importe
 		// enlazar (link) factura, este cargo y medioDePago
 		Association.Cargar.link(medioPago, this, factura);
+		this.importe = importe;
 		medioPago.setAcumulado(medioPago.getAcumulado() + importe);
 	}
 

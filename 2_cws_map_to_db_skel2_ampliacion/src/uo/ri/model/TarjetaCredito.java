@@ -4,13 +4,13 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import alb.util.date.DateUtil;
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.util.Checker;
 
 @Entity
 @Table(name = "TTARJETASCREDITO")
 public class TarjetaCredito extends MedioPago {
-
 
 	@Column(unique = true)
 	private String numero;
@@ -25,7 +25,7 @@ public class TarjetaCredito extends MedioPago {
 	public TarjetaCredito(Cliente cliente, String numero)
 			throws BusinessException {
 		this(numero);
-		Association.Pagar.link(this, cliente);
+		Association.Pagar.link(cliente, this);
 	}
 
 	public TarjetaCredito(String numero) throws BusinessException {
@@ -50,6 +50,18 @@ public class TarjetaCredito extends MedioPago {
 
 	public void setValidez(Date validez) {
 		this.validez = validez;
+	}
+
+	@Override
+	public void pagar(double importe) throws BusinessException {
+		if (isValidNow())
+			this.acumulado += importe;
+		else
+			throw new BusinessException("La tarjeta de credito esta caducada");
+	}
+
+	public boolean isValidNow() {
+		return validez.after(DateUtil.today());
 	}
 
 	@Override
