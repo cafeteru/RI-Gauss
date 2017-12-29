@@ -2,42 +2,27 @@ package uo.ri.model;
 
 import java.util.*;
 
-import javax.persistence.*;
-
 import alb.util.date.DateUtil;
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.util.Checker;
 
-@Entity
-@Table(name = "TAVERIAS", uniqueConstraints = {
-		@UniqueConstraint(columnNames = "VEHICULO_ID, FECHA") })
 public class Averia {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
 	private String descripcion;
 
-	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
 	private double importe = 0.0;
 
-	@Enumerated(EnumType.STRING)
 	private AveriaStatus status = AveriaStatus.ABIERTA;
 
-	@ManyToOne
 	private Vehiculo vehiculo;
 
-	@OneToMany(mappedBy = "averia")
 	private Set<Intervencion> intervenciones = new HashSet<Intervencion>();
 
-	@ManyToOne
 	private Mecanico mecanico;
 
-	@ManyToOne
 	private Factura factura;
 
 	Averia() {
@@ -133,14 +118,6 @@ public class Averia {
 			setStatus(AveriaStatus.TERMINADA);
 		} else
 			throw new BusinessException("La avería no esta facturada.");
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getDescripcion() {

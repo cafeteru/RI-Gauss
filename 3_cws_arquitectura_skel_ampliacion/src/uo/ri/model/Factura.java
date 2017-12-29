@@ -205,10 +205,8 @@ public class Factura {
 			for (Cargo c : getCargos()) {
 				sumaAverias += c.getImporte();
 			}
-			// Revisar
-			sumaAverias = Round.twoCents(sumaAverias);
-			if (importe == sumaAverias || importe + 0.01 == sumaAverias
-					|| importe - 0.01 == sumaAverias) {
+					
+			if (Math.abs(importe - sumaAverias) <= 0.01) {
 				this.setStatus(FacturaStatus.ABONADA);
 			} else {
 				throw new BusinessException("El importe es erroneo");

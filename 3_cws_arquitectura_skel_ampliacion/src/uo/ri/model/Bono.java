@@ -26,6 +26,7 @@ public class Bono extends MedioPago {
 	public Bono(String codigo, double disponible) {
 		this.codigo = codigo;
 		this.disponible = disponible;
+		this.descripcion = new String();
 	}
 
 	public Bono(String code, String descripcion, double disponible) {

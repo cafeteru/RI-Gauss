@@ -27,7 +27,8 @@ public class Cliente {
 		this.dni = Checker.checkString(dni, "Dni");
 	}
 
-	public Cliente(String dni, String nombre, String apellidos) throws BusinessException {
+	public Cliente(String dni, String nombre, String apellidos)
+			throws BusinessException {
 		this(dni);
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -104,7 +105,8 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [nombre=" + nombre + ", apellidos=" + apellidos + ", dni=" + dni + "]";
+		return "Cliente [nombre=" + nombre + ", apellidos=" + apellidos
+				+ ", dni=" + dni + "]";
 	}
 
 }

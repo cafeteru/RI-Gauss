@@ -14,7 +14,7 @@ public class TarjetaCredito extends MedioPago {
 
 	@Column(unique = true)
 	private String numero;
-	
+
 	private String tipo;
 
 	@Temporal(TemporalType.DATE)
@@ -32,6 +32,7 @@ public class TarjetaCredito extends MedioPago {
 	public TarjetaCredito(String numero) throws BusinessException {
 		this.numero = Checker.checkString(numero, "Número");
 		this.validez = DateUtil.tomorrow();
+		this.tipo = "UNKNOWN";
 	}
 
 	public TarjetaCredito(String numero, String tipo, Date validez)

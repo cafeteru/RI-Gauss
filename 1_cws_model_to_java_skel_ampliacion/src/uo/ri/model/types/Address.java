@@ -1,8 +1,5 @@
 package uo.ri.model.types;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
 public class Address {
 	private String street;
 	private String city;

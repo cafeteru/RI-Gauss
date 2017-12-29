@@ -1,9 +1,7 @@
 package uo.ri.model;
 
-
 import java.util.HashSet;
 import java.util.Set;
-
 
 import alb.util.math.Round;
 import uo.ri.model.exception.BusinessException;

@@ -65,7 +65,8 @@ public abstract class MedioPago {
 
 	@Override
 	public String toString() {
-		return "MedioPago [acumulado=" + acumulado + ", cliente=" + cliente + "]";
+		return "MedioPago [acumulado=" + acumulado + ", cliente=" + cliente
+				+ "]";
 	}
 
 }

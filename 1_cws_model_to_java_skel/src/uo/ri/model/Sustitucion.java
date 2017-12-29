@@ -4,13 +4,15 @@ import uo.ri.model.exception.BusinessException;
 
 public class Sustitucion {
 
+	private Repuesto repuesto;
 	private Intervencion intervencion;
 	private int cantidad;
 
 	Sustitucion() {
 	}
 
-	public Sustitucion(Repuesto repuesto, Intervencion intervencion) throws BusinessException {
+	public Sustitucion(Repuesto repuesto, Intervencion intervencion)
+			throws BusinessException {
 		Association.Sustituir.link(repuesto, this, intervencion);
 	}
 
@@ -48,8 +50,10 @@ public class Sustitucion {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((intervencion == null) ? 0 : intervencion.hashCode());
-		result = prime * result + ((repuesto == null) ? 0 : repuesto.hashCode());
+		result = prime * result
+				+ ((intervencion == null) ? 0 : intervencion.hashCode());
+		result = prime * result
+				+ ((repuesto == null) ? 0 : repuesto.hashCode());
 		return result;
 	}
 
@@ -77,7 +81,8 @@ public class Sustitucion {
 
 	@Override
 	public String toString() {
-		return "Sustitucion [repuesto=" + repuesto + ", intervencion=" + intervencion + ", cantidad=" + cantidad + "]";
+		return "Sustitucion [repuesto=" + repuesto + ", intervencion="
+				+ intervencion + ", cantidad=" + cantidad + "]";
 	}
 
 }

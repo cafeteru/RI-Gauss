@@ -1,23 +1,13 @@
 package uo.ri.model;
 
-import javax.persistence.*;
-
 import uo.ri.model.exception.BusinessException;
 
-@Entity
-@Table(name = "TRECOMENDACIONES")
 public class Recomendacion {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
-	@ManyToOne
 	private Cliente recomendados;
 
-	@OneToOne
 	private Cliente recomendador;
 
-	@Column(name = "USADA_BONO")
 	private boolean usadaBono;
 
 	Recomendacion() {

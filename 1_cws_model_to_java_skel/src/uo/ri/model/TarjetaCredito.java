@@ -2,24 +2,14 @@ package uo.ri.model;
 
 import java.util.Date;
 
-import javax.persistence.*;
-
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.util.Checker;
 
-@Entity
-@Table(name = "TTARJETASCREDITO")
 public class TarjetaCredito extends MedioPago {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@Column(unique = true)
 	private String numero;
 	private String tipo;
 
-	@Temporal(TemporalType.DATE)
 	private Date validez;
 
 	TarjetaCredito() {

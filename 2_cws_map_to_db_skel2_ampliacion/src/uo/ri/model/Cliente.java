@@ -34,10 +34,10 @@ public class Cliente {
 	private Set<MedioPago> mediosPago = new HashSet<MedioPago>();
 
 	@OneToOne
-	private Recomendacion recomendador;
+	private Recomendacion rRecibida;
 
 	@OneToMany(mappedBy = "recomendador")
-	private Set<Recomendacion> recomendados = new HashSet<Recomendacion>();
+	private Set<Recomendacion> rRealizadas = new HashSet<Recomendacion>();
 
 	private String email;
 	private String phone;
@@ -105,19 +105,19 @@ public class Cliente {
 	}
 
 	public Recomendacion getRecomendacionRecibida() {
-		return recomendador;
+		return rRecibida;
 	}
 
 	void _setRecomendador(Recomendacion recomendador) {
-		this.recomendador = recomendador;
+		this.rRecibida = recomendador;
 	}
 
 	public Set<Recomendacion> getRecomendacionesHechas() {
-		return new HashSet<>(recomendados);
+		return new HashSet<>(rRealizadas);
 	}
 
 	Set<Recomendacion> _getRecomendados() {
-		return recomendados;
+		return rRealizadas;
 	}
 
 	public String getPhone() {

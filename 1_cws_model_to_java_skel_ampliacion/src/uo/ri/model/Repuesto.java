@@ -3,25 +3,16 @@ package uo.ri.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.util.Checker;
 
-@Entity
-@Table(name = "TREPUESTOS")
 public class Repuesto {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
-	@Column(unique = true)
 	private String codigo;
 
 	private String descripcion;
 	private double precio;
 
-	@OneToMany(mappedBy = "repuesto")
 	private Set<Sustitucion> sustituciones = new HashSet<Sustitucion>();
 
 	Repuesto() {
@@ -37,14 +28,6 @@ public class Repuesto {
 		this(codigo);
 		this.descripcion = descripcion;
 		this.precio = precio;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getDescripcion() {

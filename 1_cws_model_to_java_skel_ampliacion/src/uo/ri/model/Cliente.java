@@ -3,39 +3,25 @@ package uo.ri.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.Address;
 import uo.ri.model.util.Checker;
 
-@Entity
-@Table(name = "TCLIENTES")
 public class Cliente {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@Column(unique = true)
 	private String dni;
 
 	private String nombre;
 	private String apellidos;
 
-	@Embedded
 	private Address address;
 
-	@OneToMany(mappedBy = "cliente")
 	private Set<Vehiculo> vehiculos = new HashSet<Vehiculo>();
 
-	@OneToMany(mappedBy = "cliente")
 	private Set<MedioPago> mediosPago = new HashSet<MedioPago>();
 
-	@OneToOne
 	private Recomendacion recomendador;
 
-	@OneToMany(mappedBy = "cliente")
 	private Set<Recomendacion> recomendados = new HashSet<Recomendacion>();
 
 	Cliente() {
@@ -50,10 +36,6 @@ public class Cliente {
 		this(dni);
 		this.nombre = nombre;
 		this.apellidos = apellidos;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public String getDni() {

@@ -1,22 +1,11 @@
 package uo.ri.model;
 
-import javax.persistence.*;
-
 import uo.ri.model.exception.BusinessException;
 
-@Entity
-@Table(name = "TSUSTITUCIONES", uniqueConstraints = {
-		@UniqueConstraint(columnNames = "REPUESTO_ID, INTERVENCION_ID") })
 public class Sustitucion {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@ManyToOne
 	private Repuesto repuesto;
 
-	@ManyToOne
 	private Intervencion intervencion;
 	private int cantidad;
 

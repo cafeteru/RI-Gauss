@@ -24,7 +24,8 @@ public class Mecanico {
 		this.dni = Checker.checkString(dni, "Dni");
 	}
 
-	public Mecanico(String dni, String nombre, String apellidos) throws BusinessException {
+	public Mecanico(String dni, String nombre, String apellidos)
+			throws BusinessException {
 		this(dni);
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -93,8 +94,8 @@ public class Mecanico {
 
 	@Override
 	public String toString() {
-		return "Mecanico [dni=" + dni + ", apellidos=" + apellidos + ", nombre=" + nombre + ", averias=" + averias
-				+ "]";
+		return "Mecanico [dni=" + dni + ", apellidos=" + apellidos + ", nombre="
+				+ nombre + ", averias=" + averias + "]";
 	}
 
 }

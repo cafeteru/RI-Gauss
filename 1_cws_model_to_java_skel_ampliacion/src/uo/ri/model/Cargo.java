@@ -1,23 +1,12 @@
 package uo.ri.model;
 
-import javax.persistence.*;
-
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.FacturaStatus;
 
-@Entity
-@Table(name = "TCARGOS", uniqueConstraints = {
-		@UniqueConstraint(columnNames = "MEDIO_PAGO, FACTURA_ID") })
 public class Cargo {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@ManyToOne
 	private Factura factura;
 
-	@ManyToOne
 	private MedioPago medioPago;
 
 	private double importe = 0.0;

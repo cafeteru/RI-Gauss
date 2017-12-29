@@ -22,7 +22,8 @@ public class Repuesto {
 		this.codigo = Checker.checkString(codigo, "Codigo");
 	}
 
-	public Repuesto(String codigo, String descripcion, double precio) throws BusinessException {
+	public Repuesto(String codigo, String descripcion, double precio)
+			throws BusinessException {
 		this(codigo);
 		this.descripcion = descripcion;
 		this.precio = precio;
@@ -83,7 +84,8 @@ public class Repuesto {
 
 	@Override
 	public String toString() {
-		return "Repuesto [codigo=" + codigo + ", descripcion=" + descripcion + ", precio=" + precio + "]";
+		return "Repuesto [codigo=" + codigo + ", descripcion=" + descripcion
+				+ ", precio=" + precio + "]";
 	}
 
 }

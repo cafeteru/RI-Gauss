@@ -70,7 +70,8 @@ public class Bono extends MedioPago {
 
 	@Override
 	public String toString() {
-		return "Bono [disponible=" + disponible + ", descripcion=" + descripcion + ", codigo=" + codigo + "]";
+		return "Bono [disponible=" + disponible + ", descripcion=" + descripcion
+				+ ", codigo=" + codigo + "]";
 	}
 
 }

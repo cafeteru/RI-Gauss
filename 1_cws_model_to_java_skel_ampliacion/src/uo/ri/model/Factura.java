@@ -5,38 +5,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.*;
-
 import alb.util.date.DateUtil;
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.types.FacturaStatus;
 import uo.ri.model.util.Checker;
 
-@Entity
-@Table(name = "TFACTURAS")
 public class Factura {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@Column(unique = true)
 	private Long numero;
 
-	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
 	private double importe;
 	private double iva;
 
-	@Enumerated(EnumType.STRING)
 	private FacturaStatus status = FacturaStatus.SIN_ABONAR;
 
-	@OneToMany(mappedBy = "factura")
 	private Set<Averia> averias = new HashSet<Averia>();
 
-	@OneToMany(mappedBy = "factura")
 	private Set<Cargo> cargos = new HashSet<Cargo>();
 
 	Factura() {
@@ -65,10 +52,6 @@ public class Factura {
 		for (Averia a : averias) {
 			addAveria(a);
 		}
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public Long getNumero() {
