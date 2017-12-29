@@ -5,38 +5,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.*;
-
 import alb.util.date.DateUtil;
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.types.FacturaStatus;
 import uo.ri.model.util.Checker;
 
-@Entity
-@Table(name = "TFACTURAS")
 public class Factura {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@Column(unique = true)
 	private Long numero;
 
-	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
 	private double importe;
 	private double iva;
 
-	@Enumerated(EnumType.STRING)
 	private FacturaStatus status = FacturaStatus.SIN_ABONAR;
 
-	@OneToMany(mappedBy = "factura")
 	private Set<Averia> averias = new HashSet<Averia>();
 
-	@OneToMany(mappedBy = "factura")
 	private Set<Cargo> cargos = new HashSet<Cargo>();
 
 	Factura() {
@@ -59,16 +46,11 @@ public class Factura {
 		}
 	}
 
-	public Factura(long numero, Date fecha, List<Averia> averias)
-			throws BusinessException {
+	public Factura(long numero, Date fecha, List<Averia> averias) throws BusinessException {
 		this(numero, fecha);
 		for (Averia a : averias) {
 			addAveria(a);
 		}
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public Long getNumero() {
@@ -137,14 +119,12 @@ public class Factura {
 		// linkar factura y averia
 		// marcar la averia como FACTURADA ( averia.markAsInvoiced() )
 		// calcular el importe
-		if (averia.getStatus().equals(AveriaStatus.TERMINADA)
-				&& getStatus().equals(FacturaStatus.SIN_ABONAR)) {
+		if (averia.getStatus().equals(AveriaStatus.TERMINADA) && getStatus().equals(FacturaStatus.SIN_ABONAR)) {
 			averia.setStatus(AveriaStatus.FACTURADA);
 			Association.Facturar.link(this, averia);
 			calcularImporte();
 		} else {
-			throw new BusinessException("No se puede añadir la avería a"
-					+ " la factura, no está terminada");
+			throw new BusinessException("No se puede añadir la avería a" + " la factura, no está terminada");
 		}
 	}
 
@@ -182,9 +162,7 @@ public class Factura {
 			averia.setStatus(AveriaStatus.TERMINADA);
 			calcularImporte();
 		} else {
-			throw new BusinessException(
-					"No se puede eliminar la avería porque ya esta abonada la "
-							+ "factura");
+			throw new BusinessException("No se puede eliminar la avería porque ya esta abonada la " + "factura");
 		}
 	}
 
@@ -222,8 +200,7 @@ public class Factura {
 
 	@Override
 	public String toString() {
-		return "Factura [numero=" + numero + ", fecha=" + fecha + ", importe="
-				+ importe + ", iva=" + iva + ", status=" + status + ", averias="
-				+ averias + "]";
+		return "Factura [numero=" + numero + ", fecha=" + fecha + ", importe=" + importe + ", iva=" + iva + ", status="
+				+ status + ", averias=" + averias + "]";
 	}
 }

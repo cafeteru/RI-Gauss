@@ -1,16 +1,9 @@
 package uo.ri.model;
 
-import javax.persistence.*;
-
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.util.Checker;
 
-@Entity
-@Table(name = "TBONOS")
 public class Bono extends MedioPago {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
 	private double disponible = 0.0;
 	private String descripcion;
@@ -77,8 +70,7 @@ public class Bono extends MedioPago {
 
 	@Override
 	public String toString() {
-		return "Bono [disponible=" + disponible + ", descripcion=" + descripcion
-				+ ", codigo=" + codigo + "]";
+		return "Bono [disponible=" + disponible + ", descripcion=" + descripcion + ", codigo=" + codigo + "]";
 	}
 
 }

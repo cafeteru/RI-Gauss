@@ -3,33 +3,21 @@ package uo.ri.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.Address;
 import uo.ri.model.util.Checker;
 
-@Entity
-@Table(name = "TCLIENTES")
 public class Cliente {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@Column(unique = true)
 	private String dni;
 
 	private String nombre;
 	private String apellidos;
 
-	@Embedded
 	private Address address;
 
-	@OneToMany(mappedBy = "cliente")
 	private Set<Vehiculo> vehiculos = new HashSet<Vehiculo>();
 
-	@OneToMany(mappedBy = "cliente")
 	private Set<MedioPago> mediosPago = new HashSet<MedioPago>();
 
 	Cliente() {
@@ -39,15 +27,10 @@ public class Cliente {
 		this.dni = Checker.checkString(dni, "Dni");
 	}
 
-	public Cliente(String dni, String nombre, String apellidos)
-			throws BusinessException {
+	public Cliente(String dni, String nombre, String apellidos) throws BusinessException {
 		this(dni);
 		this.nombre = nombre;
 		this.apellidos = apellidos;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public String getDni() {
@@ -121,8 +104,7 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [nombre=" + nombre + ", apellidos=" + apellidos
-				+ ", dni=" + dni + "]";
+		return "Cliente [nombre=" + nombre + ", apellidos=" + apellidos + ", dni=" + dni + "]";
 	}
 
 }

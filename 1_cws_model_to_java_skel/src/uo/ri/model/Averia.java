@@ -2,42 +2,29 @@ package uo.ri.model;
 
 import java.util.*;
 
-import javax.persistence.*;
-
 import alb.util.date.DateUtil;
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.util.Checker;
 
-@Entity
-@Table(name = "TAVERIAS", uniqueConstraints = {
-		@UniqueConstraint(columnNames = "VEHICULO_ID, FECHA") })
 public class Averia {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String descripcion;
 
-	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
 	private double importe = 0.0;
 
-	@Enumerated(EnumType.STRING)
 	private AveriaStatus status = AveriaStatus.ABIERTA;
 
-	@ManyToOne
 	private Vehiculo vehiculo;
 
-	@OneToMany(mappedBy = "averia")
 	private Set<Intervencion> intervenciones = new HashSet<Intervencion>();
 
-	@ManyToOne
 	private Mecanico mecanico;
 
-	@ManyToOne
 	private Factura factura;
 
 	Averia() {
@@ -53,8 +40,7 @@ public class Averia {
 		vehiculo.incrementarAverias();
 	}
 
-	public Averia(Vehiculo vehiculo, String descripcion)
-			throws BusinessException {
+	public Averia(Vehiculo vehiculo, String descripcion) throws BusinessException {
 		this(new Date(), vehiculo);
 		this.descripcion = descripcion;
 	}
@@ -73,8 +59,7 @@ public class Averia {
 			Association.Asignar.link(mecanico, this);
 			setStatus(AveriaStatus.ASIGNADA);
 		} else
-			throw new BusinessException(
-					"La averia no se puede asignar, su estado es abierta");
+			throw new BusinessException("La averia no se puede asignar, su estado es abierta");
 	}
 
 	/**
@@ -93,8 +78,7 @@ public class Averia {
 			Association.Asignar.unlink(mecanico, this);
 			setStatus(AveriaStatus.TERMINADA);
 		} else
-			throw new BusinessException(
-					"La avería no esta asignada para poder finalizarla.");
+			throw new BusinessException("La avería no esta asignada para poder finalizarla.");
 	}
 
 	private void calcularImporte() {
@@ -105,9 +89,8 @@ public class Averia {
 	}
 
 	/**
-	 * Una averia en estado TERMINADA se puede asignar a otro mecánico (el
-	 * primero no ha podido terminar la reparación), pero debe ser pasada a
-	 * ABIERTA primero
+	 * Una averia en estado TERMINADA se puede asignar a otro mecánico (el primero
+	 * no ha podido terminar la reparación), pero debe ser pasada a ABIERTA primero
 	 * 
 	 * @throws BusinessException
 	 */
@@ -208,8 +191,7 @@ public class Averia {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((fecha == null) ? 0 : fecha.hashCode());
-		result = prime * result
-				+ ((vehiculo == null) ? 0 : vehiculo.hashCode());
+		result = prime * result + ((vehiculo == null) ? 0 : vehiculo.hashCode());
 		return result;
 	}
 
@@ -237,8 +219,8 @@ public class Averia {
 
 	@Override
 	public String toString() {
-		return "Averia [descripcion=" + descripcion + ", fecha=" + fecha
-				+ ", importe=" + importe + ", status=" + status + "]";
+		return "Averia [descripcion=" + descripcion + ", fecha=" + fecha + ", importe=" + importe + ", status=" + status
+				+ "]";
 	}
 
 	public void markAsInvoiced() throws BusinessException {

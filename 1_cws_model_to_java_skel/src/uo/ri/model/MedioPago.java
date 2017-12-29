@@ -3,23 +3,12 @@ package uo.ri.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "TMEDIOSPAGO")
 public abstract class MedioPago {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
 	protected double acumulado = 0.0;
 
-	@ManyToOne
 	private Cliente cliente;
 
-	@OneToMany(mappedBy = "medioPago")
 	private Set<Cargo> cargos = new HashSet<Cargo>();
 
 	MedioPago() {
@@ -76,8 +65,7 @@ public abstract class MedioPago {
 
 	@Override
 	public String toString() {
-		return "MedioPago [acumulado=" + acumulado + ", cliente=" + cliente
-				+ "]";
+		return "MedioPago [acumulado=" + acumulado + ", cliente=" + cliente + "]";
 	}
 
 }

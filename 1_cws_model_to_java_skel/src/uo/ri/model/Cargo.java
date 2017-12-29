@@ -1,23 +1,12 @@
 package uo.ri.model;
 
-import javax.persistence.*;
-
 import uo.ri.model.exception.BusinessException;
 import uo.ri.model.types.FacturaStatus;
 
-@Entity
-@Table(name = "TCARGOS", uniqueConstraints = {
-		@UniqueConstraint(columnNames = "MEDIO_PAGO, FACTURA_ID") })
 public class Cargo {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@ManyToOne
 	private Factura factura;
 
-	@ManyToOne
 	private MedioPago medioPago;
 
 	private double importe = 0.0;
@@ -25,13 +14,11 @@ public class Cargo {
 	Cargo() {
 	}
 
-	public Cargo(Factura factura, MedioPago medioPago)
-			throws BusinessException {
+	public Cargo(Factura factura, MedioPago medioPago) throws BusinessException {
 		this(factura, medioPago, 0);
 	}
 
-	public Cargo(Factura factura, MedioPago medioPago, double importe)
-			throws BusinessException {
+	public Cargo(Factura factura, MedioPago medioPago, double importe) throws BusinessException {
 		// incrementar el importe en el acumulado del medio de pago
 		// guardar el importe
 		// enlazar (link) factura, este cargo y medioDePago
@@ -64,8 +51,7 @@ public class Cargo {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((factura == null) ? 0 : factura.hashCode());
-		result = prime * result
-				+ ((medioPago == null) ? 0 : medioPago.hashCode());
+		result = prime * result + ((medioPago == null) ? 0 : medioPago.hashCode());
 		return result;
 	}
 
@@ -93,14 +79,13 @@ public class Cargo {
 
 	@Override
 	public String toString() {
-		return "Cargo [factura=" + factura + ", medioPago=" + medioPago
-				+ ", importe=" + importe + "]";
+		return "Cargo [factura=" + factura + ", medioPago=" + medioPago + ", importe=" + importe + "]";
 	}
 
 	/**
-	 * Anula (retrocede) este cargo de la factura y el medio de pago Solo se
-	 * puede hacer si la factura no está abonada Decrementar el acumulado del
-	 * medio de pago Desenlazar el cargo de la factura y el medio de pago
+	 * Anula (retrocede) este cargo de la factura y el medio de pago Solo se puede
+	 * hacer si la factura no está abonada Decrementar el acumulado del medio de
+	 * pago Desenlazar el cargo de la factura y el medio de pago
 	 * 
 	 * @throws BusinessException
 	 */
