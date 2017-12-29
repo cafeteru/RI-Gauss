@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import alb.util.date.DateUtil;
+import alb.util.math.Round;
 import uo.ri.util.exception.BusinessException;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.types.FacturaStatus;
@@ -75,7 +76,7 @@ public class Factura {
 	}
 
 	public Long getNumero() {
-		return numero;
+		return new Long(numero);
 	}
 
 	public Date getFecha() {
@@ -198,6 +199,31 @@ public class Factura {
 			this.iva = 18.0;
 	}
 
+	public void settle() throws BusinessException {
+		if (this.getAverias().size() > 0) {
+			double sumaAverias = 0;
+			for (Cargo c : getCargos()) {
+				sumaAverias += c.getImporte();
+			}
+			// Revisar
+			sumaAverias = Round.twoCents(sumaAverias);
+			if (importe == sumaAverias || importe + 0.01 == sumaAverias
+					|| importe - 0.01 == sumaAverias) {
+				this.setStatus(FacturaStatus.ABONADA);
+			} else {
+				throw new BusinessException("El importe es erroneo");
+			}
+		} else {
+			throw new BusinessException("La factura no tiene averías");
+		}
+	}
+
+	public boolean isSettled() {
+		if (this.getStatus() == FacturaStatus.ABONADA)
+			return true;
+		return false;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -230,31 +256,13 @@ public class Factura {
 				+ averias + "]";
 	}
 
-	/**
-	 * Factura liquidada
-	 */
-	public void settle() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void markAsBono500Used() {
-		// TODO Auto-generated method stub
-
-	}
-
 	public boolean puedeGenerarBono500() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public boolean isSettled() {
+	public void markAsBono500Used() {
 		// TODO Auto-generated method stub
-		return false;
-	}
 
-	public boolean isBono500Used() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

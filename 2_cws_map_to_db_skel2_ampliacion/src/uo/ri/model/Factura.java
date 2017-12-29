@@ -200,14 +200,15 @@ public class Factura {
 	}
 
 	public void settle() throws BusinessException {
-		if (this.getAverias().size() > 0) {
+		if (getAverias().size() > 0) {
 			double sumaAverias = 0;
 			for (Cargo c : getCargos()) {
 				sumaAverias += c.getImporte();
 			}
 			// Revisar
-			if (importe == Round.twoCents(sumaAverias)) {
-				this.setStatus(FacturaStatus.ABONADA);
+			if (importe == sumaAverias || importe == sumaAverias + 0.009
+					|| importe == sumaAverias - 0.009) {
+				setStatus(FacturaStatus.ABONADA);
 			} else {
 				throw new BusinessException("La factura no tiene averías");
 			}

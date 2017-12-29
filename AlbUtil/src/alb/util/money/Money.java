@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 
 /*
  * Created on Jun 24, 2004
- *
  * A class for handling numeric calculation, rounding and currency.
- * This class is extracted from "Patterns of Enterprise Application Architecture" by Martin Fowler.
+ * This class is extracted from
+ * "Patterns of Enterprise Application Architecture" by Martin Fowler.
  * http://www.martinfowler.com/eaaCatalog/money.html
  */
 public class Money {

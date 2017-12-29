@@ -15,4 +15,9 @@ public class Metalico extends MedioPago {
 	public Metalico(Cliente cliente) throws BusinessException {
 		Association.Pagar.link(cliente, this);
 	}
+
+	@Override
+	public void pagar(double importe) throws BusinessException {
+		this.acumulado += importe;
+	}
 }

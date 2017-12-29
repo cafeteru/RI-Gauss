@@ -72,7 +72,7 @@ public class Repuesto {
 	}
 
 	public String getCodigo() {
-		return codigo;
+		return new String(codigo);
 	}
 
 	@Override

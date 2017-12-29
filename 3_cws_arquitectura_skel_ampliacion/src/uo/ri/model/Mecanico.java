@@ -79,7 +79,7 @@ public class Mecanico {
 	}
 
 	public String getDni() {
-		return dni;
+		return new String(dni);
 	}
 
 	@Override

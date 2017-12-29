@@ -12,6 +12,7 @@ public class Bono extends MedioPago {
 	private double disponible = 0.0;
 	private String descripcion;
 
+	@Column(unique = true)
 	private String codigo;
 
 	Bono() {
@@ -27,9 +28,11 @@ public class Bono extends MedioPago {
 		this.disponible = disponible;
 	}
 
-	public Bono(String codigo, String descripcion, double disponible) {
-		// TODO Auto-generated constructor stub
+	public Bono(String code, String descripcion, double disponible) {
+		this(code, disponible);
+		this.descripcion = descripcion;
 	}
+
 
 	public double getDisponible() {
 		return disponible;
@@ -48,7 +51,7 @@ public class Bono extends MedioPago {
 	}
 
 	public String getCodigo() {
-		return codigo;
+		return new String(codigo);
 	}
 
 	@Override
@@ -80,6 +83,16 @@ public class Bono extends MedioPago {
 	public String toString() {
 		return "Bono [disponible=" + disponible + ", descripcion=" + descripcion
 				+ ", codigo=" + codigo + "]";
+	}
+
+	@Override
+	public void pagar(double importe) throws BusinessException {
+		if (disponible >= importe) {
+			acumulado += importe;
+			disponible -= importe;
+		} else
+			throw new BusinessException(
+					"El importe es mayor que el valor disponible");
 	}
 
 }

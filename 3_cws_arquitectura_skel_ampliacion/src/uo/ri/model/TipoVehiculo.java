@@ -62,7 +62,7 @@ public class TipoVehiculo {
 	}
 
 	public String getNombre() {
-		return nombre;
+		return new String(nombre);
 	}
 
 	@Override

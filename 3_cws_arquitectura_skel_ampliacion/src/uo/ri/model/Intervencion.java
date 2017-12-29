@@ -8,6 +8,12 @@ import javax.persistence.*;
 import alb.util.math.Round;
 import uo.ri.util.exception.BusinessException;
 
+/**
+ * Clase que simula una intervención
+ * 
+ * @author Iván González Mahagamage
+ *
+ */
 @Entity
 @Table(name = "TINTERVENCIONES", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "AVERIA_ID, MECANICO_ID") })
@@ -34,10 +40,6 @@ public class Intervencion {
 	public Intervencion(Mecanico mecanico, Averia averia)
 			throws BusinessException {
 		Association.Intervenir.link(averia, this, mecanico);
-	}
-
-	public Intervencion(Mecanico mecanico, Averia averia, int minutos) {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Averia getAveria() {

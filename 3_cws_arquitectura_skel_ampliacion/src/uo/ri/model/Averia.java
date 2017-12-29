@@ -263,17 +263,7 @@ public class Averia {
 
 	public void markAsBono3Used() {
 		// TODO Auto-generated method stub
-
-	}
-
-	public boolean isUsadaBono3() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean isInvoiced() {
-		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 }

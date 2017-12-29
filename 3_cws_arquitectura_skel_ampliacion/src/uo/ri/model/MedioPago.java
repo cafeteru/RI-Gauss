@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import uo.ri.util.exception.BusinessException;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "TMEDIOSPAGO")
@@ -53,10 +55,7 @@ public abstract class MedioPago {
 		this.acumulado = acumulado;
 	}
 
-	public void pagar(double i) {
-		// TODO Auto-generated method stub
-
-	}
+	public abstract void pagar(double importe) throws BusinessException;
 
 	@Override
 	public int hashCode() {

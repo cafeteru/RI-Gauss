@@ -14,6 +14,7 @@ public class TarjetaCredito extends MedioPago {
 
 	@Column(unique = true)
 	private String numero;
+	
 	private String tipo;
 
 	@Temporal(TemporalType.DATE)
@@ -30,10 +31,14 @@ public class TarjetaCredito extends MedioPago {
 
 	public TarjetaCredito(String numero) throws BusinessException {
 		this.numero = Checker.checkString(numero, "Número");
+		this.validez = DateUtil.tomorrow();
 	}
 
-	public TarjetaCredito(String numero, String descripcion, Date fecha) {
-		// TODO Auto-generated constructor stub
+	public TarjetaCredito(String numero, String tipo, Date validez)
+			throws BusinessException {
+		this(numero);
+		this.tipo = tipo;
+		this.validez = validez;
 	}
 
 	public String getNumero() {
@@ -54,6 +59,18 @@ public class TarjetaCredito extends MedioPago {
 
 	public void setValidez(Date validez) {
 		this.validez = validez;
+	}
+
+	@Override
+	public void pagar(double importe) throws BusinessException {
+		if (isValidNow())
+			this.acumulado += importe;
+		else
+			throw new BusinessException("La tarjeta de credito esta caducada");
+	}
+
+	public boolean isValidNow() {
+		return validez.after(DateUtil.today());
 	}
 
 	@Override
@@ -85,11 +102,6 @@ public class TarjetaCredito extends MedioPago {
 	public String toString() {
 		return "TarjetaCredito [numero=" + numero + ", tipo=" + tipo
 				+ ", validez=" + validez + "]";
-	}
-
-	public boolean isValidNow() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

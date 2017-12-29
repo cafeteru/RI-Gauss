@@ -43,9 +43,10 @@ public class TarjetaCreditoTests {
 
 	/**
 	 * A credit card with a past date cannot be used to pay
+	 * @throws BusinessException 
 	 */
 	@Test
-	public void testNotValidAfterDate() {
+	public void testNotValidAfterDate() throws BusinessException {
 		TarjetaCredito t = new TarjetaCredito("123", "VISA",
 				DateUtil.yesterday());
 		assertFalse(t.isValidNow());

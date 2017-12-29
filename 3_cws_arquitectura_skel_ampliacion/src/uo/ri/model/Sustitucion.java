@@ -53,7 +53,7 @@ public class Sustitucion {
 	}
 
 	public Double getImporte() {
-		if (this.cantidad != 0)
+		if (cantidad != 0)
 			return cantidad * repuesto.getPrecio();
 		return 0.0;
 	}

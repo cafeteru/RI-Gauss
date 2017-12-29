@@ -114,7 +114,7 @@ public class Vehiculo {
 	}
 
 	public String getMatricula() {
-		return matricula;
+		return new String(matricula);
 	}
 
 	@Override

@@ -34,10 +34,10 @@ public class Cliente {
 	private Set<MedioPago> mediosPago = new HashSet<MedioPago>();
 
 	@OneToOne
-	private Recomendacion recomendador;
+	private Recomendacion rRecibida;
 
 	@OneToMany(mappedBy = "recomendador")
-	private Set<Recomendacion> recomendados = new HashSet<Recomendacion>();
+	private Set<Recomendacion> rRealizadas = new HashSet<Recomendacion>();
 
 	private String email;
 	private String phone;
@@ -61,7 +61,7 @@ public class Cliente {
 	}
 
 	public String getDni() {
-		return dni;
+		return new String(dni);
 	}
 
 	public String getNombre() {
@@ -104,20 +104,28 @@ public class Cliente {
 		return mediosPago;
 	}
 
-	public Recomendacion getRecomendador() {
-		return recomendador;
+	public Recomendacion getRecomendacionRecibida() {
+		return rRecibida;
 	}
 
 	void _setRecomendador(Recomendacion recomendador) {
-		this.recomendador = recomendador;
+		this.rRecibida = recomendador;
 	}
 
-	public Set<Recomendacion> getRecomendados() {
-		return new HashSet<>(recomendados);
+	public Set<Recomendacion> getRecomendacionesHechas() {
+		return new HashSet<>(rRealizadas);
 	}
 
 	Set<Recomendacion> _getRecomendados() {
-		return recomendados;
+		return rRealizadas;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getEmail() {
@@ -128,12 +136,14 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public String getPhone() {
-		return phone;
+	public List<Averia> getAveriasBono3NoUsadas() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public boolean elegibleBonoPorRecomendaciones() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -165,26 +175,6 @@ public class Cliente {
 	public String toString() {
 		return "Cliente [nombre=" + nombre + ", apellidos=" + apellidos
 				+ ", dni=" + dni + "]";
-	}
-
-	public List<Averia> getAveriasBono3NoUsadas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public boolean elegibleBonoPorRecomendaciones() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public Set<Recomendacion> getRecomendacionesHechas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Recomendacion getRecomendacionRecibida() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

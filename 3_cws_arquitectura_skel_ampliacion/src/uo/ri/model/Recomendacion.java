@@ -53,6 +53,16 @@ public class Recomendacion {
 		this.usadaBono = usadaBono;
 	}
 
+	public void unlink() throws BusinessException {
+		Association.Recomendar.unlink(this);
+	}
+
+	public void markAsUsadaBono() {
+		for (Recomendacion recomendacion : recomendador
+				.getRecomendacionesHechas())
+			recomendacion.usadaBono = true;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -89,22 +99,7 @@ public class Recomendacion {
 	@Override
 	public String toString() {
 		return "Recomendacion [recomendador=" + recomendados + ", recomendado="
-				+ recomendador + ",F usadaBono=" + usadaBono + "]";
-	}
-
-	public void markAsUsadaBono() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void unlink() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public boolean isUsada() {
-		// TODO Auto-generated method stub
-		return false;
+				+ recomendador + ", usadaBono=" + usadaBono + "]";
 	}
 
 }
