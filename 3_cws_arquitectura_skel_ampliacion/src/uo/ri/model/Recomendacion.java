@@ -58,9 +58,7 @@ public class Recomendacion {
 	}
 
 	public void markAsUsadaBono() {
-		for (Recomendacion recomendacion : recomendador
-				.getRecomendacionesHechas())
-			recomendacion.usadaBono = true;
+		usadaBono = true;
 	}
 
 	@Override

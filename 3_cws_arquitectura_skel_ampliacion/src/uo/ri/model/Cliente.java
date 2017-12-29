@@ -1,11 +1,13 @@
 package uo.ri.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
+import alb.util.random.Random;
 import uo.ri.util.exception.BusinessException;
 import uo.ri.model.types.Address;
 import uo.ri.model.util.Checker;
@@ -137,13 +139,58 @@ public class Cliente {
 	}
 
 	public List<Averia> getAveriasBono3NoUsadas() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Averia> averias = new ArrayList<>();
+		for (Vehiculo v : vehiculos) {
+			List<Averia> averiasVehiculo = v.getAveriasBono3NoUsadas();
+			for (Averia a : averiasVehiculo)
+				averias.add(a);
+		}
+		return averias;
 	}
 
-	public boolean elegibleBonoPorRecomendaciones() {
-		// TODO Auto-generated method stub
+	public boolean elegibleBonoPorRecomendaciones() throws BusinessException {
+		if (reparacionRealizada()) {
+			List<Recomendacion> lista = listarRecomendacionBono();
+			int bonos = lista.size() / 3;
+			if (bonos > 0) {
+				crearBono25(bonos);
+				marcarRecomendaciones(lista, bonos * 3);
+				return true;
+			}
+		}
 		return false;
+	}
+
+	private boolean reparacionRealizada() {
+		for (Vehiculo v : vehiculos) {
+			if (v.getAverias().size() > 0)
+				return true;
+		}
+		return false;
+	}
+
+	private List<Recomendacion> listarRecomendacionBono() {
+		List<Recomendacion> lista = new ArrayList<>();
+		for (Recomendacion r : rRealizadas) {
+			if (!r.isUsadaBono() && r.getRecomendado().reparacionRealizada()) {
+				lista.add(r);
+			}
+		}
+		return lista;
+	}
+
+	private void crearBono25(int numero) throws BusinessException {
+		while (numero > 0) {
+			Bono bono = new Bono(Random.string(8), "Por recomendación", 25);
+			Association.Pagar.link(this, bono);
+			numero--;
+		}
+	}
+
+	private void marcarRecomendaciones(List<Recomendacion> lista, int limite) {
+		for (int i = 0; i < limite; i++) {
+			lista.get(i).markAsUsadaBono();
+		}
 	}
 
 	@Override

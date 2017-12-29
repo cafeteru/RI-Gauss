@@ -7,6 +7,7 @@ import javax.persistence.*;
 import alb.util.date.DateUtil;
 import uo.ri.util.exception.BusinessException;
 import uo.ri.model.types.AveriaStatus;
+import uo.ri.model.types.FacturaStatus;
 import uo.ri.model.util.Checker;
 
 @Entity
@@ -202,6 +203,28 @@ public class Averia {
 		this.factura = factura;
 	}
 
+	public void markAsInvoiced() throws BusinessException {
+		if (status.equals(AveriaStatus.TERMINADA) && factura != null) {
+			setStatus(AveriaStatus.FACTURADA);
+		} else
+			throw new BusinessException();
+	}
+
+	public void desassign() throws BusinessException {
+		Association.Asignar.unlink(mecanico, this);
+	}
+
+	public boolean esElegibleParaBono3() {
+		if (!usadaBono && status.equals(AveriaStatus.FACTURADA)
+				&& factura.getStatus().equals(FacturaStatus.ABONADA))
+			return true;
+		return false;
+	}
+
+	public void markAsBono3Used() {
+		usadaBono = true;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -238,28 +261,6 @@ public class Averia {
 	public String toString() {
 		return "Averia [descripcion=" + descripcion + ", fecha=" + fecha
 				+ ", importe=" + importe + ", status=" + status + "]";
-	}
-
-	public void markAsInvoiced() throws BusinessException {
-		// TODO Auto-generated method stub
-		if (status.equals(AveriaStatus.TERMINADA) && factura != null) {
-			setStatus(AveriaStatus.FACTURADA);
-		} else
-			throw new BusinessException();
-	}
-
-	public void desassign() throws BusinessException {
-		Association.Asignar.unlink(mecanico, this);
-	}
-
-	public boolean esElegibleParaBono3() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public void markAsBono3Used() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

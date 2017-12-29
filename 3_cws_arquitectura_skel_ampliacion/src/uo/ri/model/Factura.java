@@ -2,13 +2,14 @@ package uo.ri.model;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
 import alb.util.date.DateUtil;
-import alb.util.math.Round;
+import alb.util.random.Random;
 import uo.ri.util.exception.BusinessException;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.types.FacturaStatus;
@@ -205,7 +206,7 @@ public class Factura {
 			for (Cargo c : getCargos()) {
 				sumaAverias += c.getImporte();
 			}
-					
+
 			if (Math.abs(importe - sumaAverias) <= 0.01) {
 				this.setStatus(FacturaStatus.ABONADA);
 			} else {
@@ -220,6 +221,28 @@ public class Factura {
 		if (this.getStatus() == FacturaStatus.ABONADA)
 			return true;
 		return false;
+	}
+
+	public boolean puedeGenerarBono500() {
+		if (!usadaBono && importe >= 500 && isSettled())
+			return true;
+		return false;
+	}
+
+	public void markAsBono500Used() throws BusinessException {
+		if (puedeGenerarBono500()) {
+			crearBono30();
+		} else {
+			throw new BusinessException("Donde vaaaas");
+		}
+	}
+
+	private void crearBono30() throws BusinessException {
+		Bono bono = new Bono(Random.string(8), "Por factura superior a 500€",
+				30);
+		Iterator<Cargo> it = cargos.iterator();
+		Association.Pagar.link(it.next().getMedioPago().getCliente(), bono);
+		usadaBono = true;
 	}
 
 	@Override
@@ -252,15 +275,5 @@ public class Factura {
 		return "Factura [numero=" + numero + ", fecha=" + fecha + ", importe="
 				+ importe + ", iva=" + iva + ", status=" + status + ", averias="
 				+ averias + "]";
-	}
-
-	public boolean puedeGenerarBono500() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public void markAsBono500Used() {
-		// TODO Auto-generated method stub
-
 	}
 }

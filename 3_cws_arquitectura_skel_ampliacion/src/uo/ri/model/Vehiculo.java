@@ -1,6 +1,8 @@
 package uo.ri.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -111,6 +113,15 @@ public class Vehiculo {
 
 	public String getMatricula() {
 		return new String(matricula);
+	}
+
+	public List<Averia> getAveriasBono3NoUsadas() {
+		List<Averia> averias = new ArrayList<>();
+		for (Averia a : this.averias) {
+			if (a.esElegibleParaBono3())
+				averias.add(a);
+		}
+		return averias;
 	}
 
 	@Override

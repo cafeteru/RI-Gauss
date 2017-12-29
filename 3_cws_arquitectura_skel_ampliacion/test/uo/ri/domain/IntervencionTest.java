@@ -14,10 +14,10 @@ import uo.ri.model.Repuesto;
 import uo.ri.model.Sustitucion;
 import uo.ri.model.TipoVehiculo;
 import uo.ri.model.Vehiculo;
-import uo.ri.util.exception.BusinessException;
+
 
 public class IntervencionTest {
-
+	
 	private Mecanico mecanico;
 	private Averia averia;
 	private Intervencion intervencion;
@@ -28,7 +28,7 @@ public class IntervencionTest {
 	private Cliente cliente;
 
 	@Before
-	public void setUp() throws BusinessException {
+	public void setUp() {
 		cliente = new Cliente("dni-cliente", "nombre", "apellidos");
 		vehiculo = new Vehiculo("1234 GJI", "ibiza", "seat");
 		Association.Poseer.link(cliente, vehiculo);
@@ -38,18 +38,18 @@ public class IntervencionTest {
 
 		averia = new Averia(vehiculo, "falla la junta la trocla");
 		mecanico = new Mecanico("dni-mecanico", "nombre", "apellidos");
-
+	
 		intervencion = new Intervencion(mecanico, averia);
 		intervencion.setMinutos(60);
-
+		
 		repuesto = new Repuesto("R1001", "junta la trocla", 100.0);
 		sustitucion = new Sustitucion(repuesto, intervencion);
 		sustitucion.setCantidad(2);
 	}
-
+	
 	@Test
 	public void testImporteIntervencion() {
-		assertTrue(intervencion.getImporte() == 250.0);
+		assertTrue( intervencion.getImporte() == 250.0 );
 	}
 
 }

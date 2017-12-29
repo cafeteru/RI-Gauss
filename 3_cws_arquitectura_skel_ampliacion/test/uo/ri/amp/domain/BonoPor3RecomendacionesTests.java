@@ -37,15 +37,17 @@ public class BonoPor3RecomendacionesTests {
 	/**
 	 * Un cliente recien registrado no puede tener derecho a bono por
 	 * recomendaciones
+	 * 
+	 * @throws BusinessException
 	 */
 	@Test
-	public void testClienteNuevo() {
+	public void testClienteNuevo() throws BusinessException {
 		assertTrue(c.elegibleBonoPorRecomendaciones() == false);
 	}
 
 	/**
-	 * Un cliente con vehiculo pero sin averias no puede ser elegible
-	 * para bono por recomendaciones
+	 * Un cliente con vehiculo pero sin averias no puede ser elegible para bono
+	 * por recomendaciones
 	 * 
 	 * @throws BusinessException
 	 */
@@ -57,8 +59,8 @@ public class BonoPor3RecomendacionesTests {
 	}
 
 	/**
-	 * Un cliente con vehiculo y averia pero sin recomendados
-	 * no puede ser elejible para bono por recomendaciones
+	 * Un cliente con vehiculo y averia pero sin recomendados no puede ser
+	 * elejible para bono por recomendaciones
 	 * 
 	 * @throws BusinessException
 	 */
@@ -71,8 +73,8 @@ public class BonoPor3RecomendacionesTests {
 
 	/**
 	 * Un cliente con 3 recomendados que han hecho reparaciones, pero sin
-	 * reparaciones realizadas por él no puede ser elegible para bono
-	 * por recomendaciones
+	 * reparaciones realizadas por él no puede ser elegible para bono por
+	 * recomendaciones
 	 * 
 	 * @throws BusinessException
 	 */
@@ -110,9 +112,8 @@ public class BonoPor3RecomendacionesTests {
 
 	/**
 	 * Un cliente con reparaciones y 2 recomendaciones que han hecho
-	 * reparaciones
-	 * y 1 que no tiene reparaciones no puede ser elegible para bono
-	 * por recomendaciones
+	 * reparaciones y 1 que no tiene reparaciones no puede ser elegible para
+	 * bono por recomendaciones
 	 */
 	@Test
 	public void testCliente3Recomendados1SinReparaciones()
@@ -129,8 +130,7 @@ public class BonoPor3RecomendacionesTests {
 
 	/**
 	 * Un cliente con reparaciones y 3 recomendaciones que han hecho
-	 * reparaciones
-	 * sí es elegible para bono por recomendaciones
+	 * reparaciones sí es elegible para bono por recomendaciones
 	 */
 	@Test
 	public void testCliente3RecomendadosConReparaciones()
@@ -148,9 +148,8 @@ public class BonoPor3RecomendacionesTests {
 
 	/**
 	 * Un cliente con reparaciones y 3 recomendaciones que han hecho
-	 * reparaciones
-	 * y una recomendacion ya usada para bono generado no es elegible
-	 * para bono por recomendaciones
+	 * reparaciones y una recomendacion ya usada para bono generado no es
+	 * elegible para bono por recomendaciones
 	 */
 	@Test
 	public void testCliente3RecomendadosConReparacionesUnaUsada()
@@ -172,8 +171,7 @@ public class BonoPor3RecomendacionesTests {
 	/**
 	 * Un cliente con reparaciones y 4 recomendaciones, solo 3 han hecho
 	 * reparaciones y una recomendacion ya usada para bono generado no es
-	 * elegible
-	 * para bono por recomendaciones
+	 * elegible para bono por recomendaciones
 	 */
 	@Test
 	public void testCliente4Recomendados3ConReparacionesUnaUsada()
@@ -216,8 +214,8 @@ public class BonoPor3RecomendacionesTests {
 		return a;
 	}
 
-	private Recomendacion recomendar(Cliente recomendador, Cliente recomendado)
-			throws BusinessException {
+	private Recomendacion recomendar(Cliente recomendador,
+			Cliente recomendado) throws BusinessException {
 		return new Recomendacion(recomendador, recomendado);
 	}
 

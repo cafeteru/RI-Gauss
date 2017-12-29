@@ -21,8 +21,8 @@ public class TarjetaCreditoTests {
 	}
 
 	/**
-	 * A credit card created with the basic constructor has one day validity
-	 * and is of UNKNOWN type
+	 * A credit card created with the basic constructor has one day validity and
+	 * is of UNKNOWN type
 	 * 
 	 * @throws BusinessException
 	 */
@@ -43,7 +43,8 @@ public class TarjetaCreditoTests {
 
 	/**
 	 * A credit card with a past date cannot be used to pay
-	 * @throws BusinessException 
+	 * 
+	 * @throws BusinessException
 	 */
 	@Test
 	public void testNotValidAfterDate() throws BusinessException {
@@ -76,8 +77,8 @@ public class TarjetaCreditoTests {
 	}
 
 	/**
-	 * If validity date is changed to past and the card is used to pay
-	 * an exception is raised
+	 * If validity date is changed to past and the card is used to pay an
+	 * exception is raised
 	 */
 	@Test(expected = BusinessException.class)
 	public void testSetAndTryToPayAfterDate() throws BusinessException {
