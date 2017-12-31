@@ -33,7 +33,7 @@ public class Recomendacion {
 		return recomendados;
 	}
 
-	void _setRecomendador(Cliente recomendador) {
+	void _setRecomendador(Cliente recomendador) throws BusinessException {
 		this.recomendados = recomendador;
 	}
 

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import uo.ri.business.dto.BreakdownDto;
 import uo.ri.business.dto.CardDto;
+import uo.ri.business.dto.CashDto;
 import uo.ri.business.dto.InvoiceDto;
 import uo.ri.business.dto.PaymentMeanDto;
 import uo.ri.business.dto.VoucherDto;
@@ -46,6 +47,8 @@ public interface CashService {
 
 	List<BreakdownDto> findRepairsByClient(String dni) throws BusinessException;
 
+	void addCash(CashDto p);
+
 	void addCardPaymentMean(CardDto card) throws BusinessException;
 
 	void addVoucherPaymentMean(VoucherDto voucher) throws BusinessException;
@@ -59,4 +62,5 @@ public interface CashService {
 
 	List<PaymentMeanDto> findPayMethodsForInvoice(Long idInvoiceDto)
 			throws BusinessException;
+
 }

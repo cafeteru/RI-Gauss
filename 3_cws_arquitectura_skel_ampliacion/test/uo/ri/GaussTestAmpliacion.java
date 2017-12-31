@@ -68,14 +68,5 @@ public class GaussTestAmpliacion {
 		r1 = new Recomendacion(a, b);
 		r1 = new Recomendacion(c, b);
 	}
-	
-	@Test(expected = BusinessException.class)
-	public void test07() throws BusinessException {
-		Cliente a = new Cliente("a");
-		Cliente b = new Cliente("b");
-		Cliente c = new Cliente("c");
-		r1 = new Recomendacion(a, b);
-		r1 = new Recomendacion(c, b);
-	}
 
 }

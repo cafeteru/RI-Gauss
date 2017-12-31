@@ -6,9 +6,11 @@ import java.util.Map;
 import uo.ri.business.CashService;
 import uo.ri.business.dto.BreakdownDto;
 import uo.ri.business.dto.CardDto;
+import uo.ri.business.dto.CashDto;
 import uo.ri.business.dto.InvoiceDto;
 import uo.ri.business.dto.PaymentMeanDto;
 import uo.ri.business.dto.VoucherDto;
+import uo.ri.business.impl.cash.AddCash;
 import uo.ri.business.impl.cash.CreateInvoiceFor;
 import uo.ri.conf.Factory;
 import uo.ri.util.exception.BusinessException;
@@ -64,6 +66,11 @@ public class CashServiceImpl implements CashService {
 			throws BusinessException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void addCash(CashDto p) {
+		return executor.execute(new AddCash(p));
 	}
 
 	@Override
