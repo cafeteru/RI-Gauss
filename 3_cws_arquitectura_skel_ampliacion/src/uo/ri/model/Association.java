@@ -187,6 +187,11 @@ public class Association {
 			Checker.notNull(recomendado);
 			Checker.notNull(recomendacion);
 			Checker.notNull(recomendador);
+			if (recomendado.equals(recomendador))
+				throw new BusinessException("No pueden ser iguales");
+			if (recomendado.getRecomendacionRecibida() != null)
+				throw new BusinessException(
+						"El cliente " + recomendado + " ya esta recomendado");
 			recomendacion._setRecomendador(recomendador);
 			recomendacion._setRecomendado(recomendado);
 			recomendador._getRecomendados().add(recomendacion);

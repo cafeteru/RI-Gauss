@@ -4,4 +4,6 @@ import uo.ri.model.Mecanico;
 
 public interface MecanicoRepository extends Repository<Mecanico> {
 
+	Mecanico findByDni(String dni);
+
 }

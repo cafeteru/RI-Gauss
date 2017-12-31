@@ -24,15 +24,15 @@ public abstract class BaseMemoryRepository<T> {
 
 	public void remove(T t) {
 		Long id = getAttr(t, "id");
-		entities.remove( id );
+		entities.remove(id);
 	}
 
 	public T findById(Long id) {
-		return entities.get( id );
+		return entities.get(id);
 	}
 
 	public List<T> findAll() {
-		return new ArrayList<>( entities.values() );
+		return new ArrayList<>(entities.values());
 	}
 
 	private void putAttr(T owner, String fieldName, Long value) {

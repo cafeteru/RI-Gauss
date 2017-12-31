@@ -6,7 +6,7 @@ import uo.ri.business.ForemanService;
 import uo.ri.business.MechanicService;
 import uo.ri.business.ServiceFactory;
 
-public class BusinessFactory implements ServiceFactory {
+public class BusinessServiceFactory implements ServiceFactory {
 
 	@Override
 	public AdminService forAdmin() {
@@ -27,4 +27,5 @@ public class BusinessFactory implements ServiceFactory {
 	public MechanicService forMechanic() {
 		throw new RuntimeException("Not yet implemented");
 	}
+
 }

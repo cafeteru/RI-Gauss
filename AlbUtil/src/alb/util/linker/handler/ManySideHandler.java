@@ -8,20 +8,18 @@ import alb.util.reflection.ReflectionUtil;
 
 public class ManySideHandler implements SideHandler {
 
-	@Override
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void set(Object owner, String role, Object value) {
 		Field f = ReflectionUtil.getField(owner.getClass(), role);
 		Collection c = (Collection) ReflectionUtil.getFieldValue(owner, f);
-		c.add(value);
+		c.add( value );
 	}
 
-	@Override
-	@SuppressWarnings("rawtypes")
+	@Override @SuppressWarnings("rawtypes")
 	public void clear(Object owner, String role, Object value) {
 		Field f = ReflectionUtil.getField(owner.getClass(), role);
 		Collection c = (Collection) ReflectionUtil.getFieldValue(owner, f);
-		c.remove(value);
-	}
+		c.remove( value );
+	}		
 
 }

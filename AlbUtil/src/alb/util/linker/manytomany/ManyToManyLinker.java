@@ -6,16 +6,15 @@ public class ManyToManyLinker {
 	private AssociationSide[] sides = new AssociationSide[2];
 	private int idx = 0;
 
-	public ManyToManyLinker() {
-	}
-
+	public ManyToManyLinker() {}
+	
 	public ManyToManyLinker many(String role, Object object) {
-		sides[idx++] = AssociationSide.Many(role, object);
+		sides[ idx++ ] = AssociationSide.Many(role, object);
 		return this;
 	}
 
 	public ManyToManyLinker many(Object object) {
-		sides[idx++] = AssociationSide.Many(object);
+		sides[ idx++ ] = AssociationSide.Many( object );
 		return this;
 	}
 
@@ -23,11 +22,11 @@ public class ManyToManyLinker {
 	 * Sets the crossed links
 	 */
 	public void link() {
-		AssociationSide oneSide = sides[0];
-		AssociationSide otherSide = sides[1];
-
-		otherSide.pointingTo(oneSide).setValue();
-		oneSide.pointingTo(otherSide).setValue();
+		AssociationSide oneSide = sides[ 0 ];
+		AssociationSide otherSide = sides[ 1 ];
+		
+		otherSide.pointingTo( oneSide ).setValue();
+		oneSide.pointingTo( otherSide ).setValue();
 	}
 
 	/**
@@ -35,11 +34,11 @@ public class ManyToManyLinker {
 	 * problem.
 	 */
 	public void unlink() {
-		AssociationSide oneSide = sides[0];
-		AssociationSide otherSide = sides[1];
-
-		oneSide.pointingTo(otherSide).unsetValue();
-		otherSide.pointingTo(oneSide).unsetValue();
+		AssociationSide oneSide = sides[ 0 ];
+		AssociationSide otherSide = sides[ 1 ];
+		
+		oneSide.pointingTo( otherSide ).unsetValue();
+		otherSide.pointingTo( oneSide ).unsetValue();
 	}
 
 }

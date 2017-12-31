@@ -1,19 +1,20 @@
-package uo.ri.ui.cash.action;
+package uo.ri.ui.cash.action.factura;
 
 import java.util.List;
 
 import alb.util.console.Console;
-import alb.util.menu.Action;
+import uo.ri.util.exception.BusinessException;
 import uo.ri.business.CashService;
 import uo.ri.business.dto.BreakdownDto;
 import uo.ri.conf.Factory;
+import uo.ri.ui.util.Action;
 import uo.ri.ui.util.Printer;
-import uo.ri.util.exception.BusinessException;
 
 public class ReparacionesNoFacturadasUnClienteAction implements Action {
 
 	@Override
 	public void execute() throws BusinessException {
+
 		CashService cs = Factory.service.forCash();
 
 		String dni = Console.readString("DNI de cliente");
@@ -30,6 +31,7 @@ public class ReparacionesNoFacturadasUnClienteAction implements Action {
 		for (BreakdownDto rep : reps) {
 			Printer.printRepairing(rep);
 		}
+
 	}
 
 }

@@ -7,13 +7,13 @@ import java.io.InputStreamReader;
 public class Console {
 	protected static BufferedReader kbd = new BufferedReader(
 			new InputStreamReader(System.in));
-
+	
 	public static void println() {
 		System.out.println();
 	}
 
 	public static void println(Object obj) {
-		System.out.println(obj.toString());
+		System.out.println( obj.toString() );
 	}
 
 	public static void println(String string) {
@@ -25,14 +25,14 @@ public class Console {
 	}
 
 	public static void printf(String format, Object... args) {
-		System.out.printf(format, args);
+		System.out.printf(format, args);	
 	}
 
 	public static Integer readInt() {
 		try {
-
+			
 			return Integer.parseInt(kbd.readLine());
-
+			
 		} catch (NumberFormatException nfe) {
 			return null;
 		} catch (IOException ioe) {
@@ -42,9 +42,9 @@ public class Console {
 
 	public static Long readLong() {
 		try {
-
+			
 			return Long.parseLong(kbd.readLine());
-
+			
 		} catch (NumberFormatException nfe) {
 			return null;
 		} catch (IOException ioe) {
@@ -54,9 +54,9 @@ public class Console {
 
 	public static Double readDouble() {
 		try {
-
+			
 			return Double.parseDouble(kbd.readLine());
-
+			
 		} catch (NumberFormatException nfe) {
 			return null;
 		} catch (IOException ioe) {

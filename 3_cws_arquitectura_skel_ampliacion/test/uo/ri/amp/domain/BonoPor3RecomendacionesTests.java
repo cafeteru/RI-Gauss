@@ -214,8 +214,8 @@ public class BonoPor3RecomendacionesTests {
 		return a;
 	}
 
-	private Recomendacion recomendar(Cliente recomendador,
-			Cliente recomendado) throws BusinessException {
+	private Recomendacion recomendar(Cliente recomendador, Cliente recomendado)
+			throws BusinessException {
 		return new Recomendacion(recomendador, recomendado);
 	}
 

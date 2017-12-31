@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 
 /*
  * Created on Jun 24, 2004
+ *
  * A class for handling numeric calculation, rounding and currency.
- * This class is extracted from
- * "Patterns of Enterprise Application Architecture" by Martin Fowler.
+ * This class is extracted from "Patterns of Enterprise Application Architecture" by Martin Fowler.
  * http://www.martinfowler.com/eaaCatalog/money.html
  */
 public class Money {
@@ -16,8 +16,7 @@ public class Money {
 	private long amount;
 	private Currency currency;
 
-	Money() {
-	}
+	Money() { }
 
 	public Money(double amount, Currency currency) {
 		this.currency = currency;
@@ -26,8 +25,8 @@ public class Money {
 
 	public Money(BigDecimal amount, Currency currency) {
 		this.currency = currency;
-		BigDecimal myAmount = amount.multiply(new BigDecimal(centFactor()));
-		this.amount = Math.round(myAmount.longValue());
+		BigDecimal myAmount = amount.multiply( new BigDecimal( centFactor() ) );
+		this.amount = Math.round( myAmount.longValue() );
 	}
 
 	public Money(long amount, Currency currency) {
@@ -45,7 +44,7 @@ public class Money {
 	}
 
 	private int centFactor() {
-		return cents[currency.getDefaultFractionDigits()];
+		return cents[ currency.getDefaultFractionDigits() ];
 	}
 
 	public BigDecimal amount() {
@@ -105,9 +104,8 @@ public class Money {
 
 	public int compareTo(Money other) {
 		assertSameCurrencyAs(other);
-		return (amount < other.amount) ? -1
-				: ((amount == other.amount) ? 0 : 1);
-	}
+		return (amount < other.amount) ? -1 : ((amount == other.amount) ? 0 : 1);
+}
 
 	public boolean greaterThan(Money other) {
 		return (compareTo(other) > 0);
@@ -129,15 +127,18 @@ public class Money {
 		return new Money(amount().multiply(factor), currency);
 	}
 
-	/**
+	/** 
 	 * These two methods allocate money among multiple targets without loss
 	 * 
 	 * As an example, you want to distribute 100 € among three people:
 	 * 
-	 * Money[] result = Money.euros( 100 ).allocate( 3 ) result[0] --> 33.33 €
-	 * result[1] --> 33.33 € result[2] --> 33.34 € <-- There is no loss
-	 * ---------- Total -> 100.00 €
-	 * 
+	 *   Money[] result = Money.euros( 100 ).allocate( 3 )
+	 *   result[0] --> 33.33 €
+	 *   result[1] --> 33.33 €
+	 *   result[2] --> 33.34 €  <-- There is no loss
+	 *   			----------
+	 *   	Total  -> 100.00 €
+	 *   
 	 * @param targets
 	 * @return
 	 */
@@ -153,7 +154,7 @@ public class Money {
 		return results;
 	}
 
-	/**
+	/** 
 	 * This allocation algorithm can handle any ratio
 	 * 
 	 * @param ratios
@@ -176,10 +177,8 @@ public class Money {
 	}
 
 	private void assertSameCurrencyAs(Money m) {
-		if (currency.equals(m.currency))
-			return;
-		throw new RuntimeException(
-				"Not same currency: " + currency + " <> " + m.currency);
+		if (currency.equals(m.currency)) return;
+		throw new RuntimeException("Not same currency: " + currency + " <> " + m.currency);
 	}
 
 	private Money newMoney(long amount) {

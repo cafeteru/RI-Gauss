@@ -32,10 +32,10 @@ public class AveriaTests {
 		m = new Mecanico("123a");
 		v = new Vehiculo("123-ABC");
 		TipoVehiculo tv = new TipoVehiculo("tv", 30 /* €/hour */);
-		
-		Association.Poseer.link(c,  v);
+
+		Association.Poseer.link(c, v);
 		Association.Clasificar.link(tv, v);
-		
+
 		a = new Averia(v, "for test");
 		a.assignTo(m);
 		Intervencion i = new Intervencion(m, a);
@@ -48,52 +48,54 @@ public class AveriaTests {
 	 */
 	@Test
 	public void testAveriaNoFacturadaNoElegibleBono3() {
-		assertTrue( a.esElegibleParaBono3() == false );
+		assertTrue(a.esElegibleParaBono3() == false);
 	}
-
 
 	/**
 	 * Una averia facturada pero no pagada no puede ser elegida para Bono3
-	 * @throws BusinessException 
+	 * 
+	 * @throws BusinessException
 	 */
 	@Test
-	public void testAveriaFacturadaNoPagadaNoElegibleBono3() throws BusinessException {
-		new Factura(123L, Arrays.asList( a ));  // Pasa a facturada
-		
-		assertTrue( a.esElegibleParaBono3() == false );
-	}
+	public void testAveriaFacturadaNoPagadaNoElegibleBono3()
+			throws BusinessException {
+		new Factura(123L, Arrays.asList(a)); // Pasa a facturada
 
+		assertTrue(a.esElegibleParaBono3() == false);
+	}
 
 	/**
 	 * Una averia facturada y pagada puede ser elegida para Bono3
-	 * @throws BusinessException 
+	 * 
+	 * @throws BusinessException
 	 */
 	@Test
-	public void testAveriaFacturadaPagadaElegibleBono3() throws BusinessException {
-		Factura f = new Factura(123L, Arrays.asList( a ));  // Averia facturada
+	public void testAveriaFacturadaPagadaElegibleBono3()
+			throws BusinessException {
+		Factura f = new Factura(123L, Arrays.asList(a)); // Averia facturada
 		Metalico m = new Metalico(c);
 		new Cargo(f, m, f.getImporte());
-		f.settle();  // Factura liquidada
-		
-		assertTrue( a.esElegibleParaBono3() );
+		f.settle(); // Factura liquidada
+
+		assertTrue(a.esElegibleParaBono3());
 	}
 
-
 	/**
-	 * Una averia facturada, pagada y ya usada para Bono3 no puede ser elegida 
+	 * Una averia facturada, pagada y ya usada para Bono3 no puede ser elegida
 	 * para Bono3 otra vez
-	 * @throws BusinessException 
+	 * 
+	 * @throws BusinessException
 	 */
 	@Test
 	public void testAveriaYaUsadaNoElegibleBono3() throws BusinessException {
-		Factura f = new Factura(123L, Arrays.asList( a ));  // Averia facturada
+		Factura f = new Factura(123L, Arrays.asList(a)); // Averia facturada
 		Metalico m = new Metalico(c);
 		new Cargo(f, m, f.getImporte());
-		f.settle();  // Factura liquidada
-		
-		assertTrue( a.esElegibleParaBono3() );
+		f.settle(); // Factura liquidada
+
+		assertTrue(a.esElegibleParaBono3());
 		a.markAsBono3Used();
-		assertTrue( a.esElegibleParaBono3() == false );
+		assertTrue(a.esElegibleParaBono3() == false);
 	}
 
 }

@@ -8,7 +8,7 @@ import alb.util.linker.onetomany.OneToManyLinker;
 import alb.util.linker.onetoone.OneToOneLinker;
 
 public class LinkerBuilder {
-
+	
 	public static OneToManyLinker oneToMany() {
 		return new OneToManyLinker();
 	}

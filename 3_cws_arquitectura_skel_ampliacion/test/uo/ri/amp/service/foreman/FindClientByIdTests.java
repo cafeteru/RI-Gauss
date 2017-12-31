@@ -21,29 +21,29 @@ public class FindClientByIdTests extends BaseServiceTests {
 
 	/**
 	 * Se devuelve el Dto correcto para el cliente que existe
-	 * @throws BusinessException 
+	 * 
+	 * @throws BusinessException
 	 */
 	@Test
 	public void testFindExisting() throws BusinessException {
 		Cliente c = FixtureRepository.registerNewClient();
-		
+
 		ForemanService svc = Factory.service.forForeman();
-		ClientDto dto = svc.findClientById( c.getId() );
+		ClientDto dto = svc.findClientById(c.getId());
 		assertSameData(dto, c);
 	}
-	
+
 	/**
 	 * Si el cliente no existe se devuelve null, y no salta excepción
 	 */
 	@Test
 	public void testFindNonExisting() throws BusinessException {
 		Long NON_EXISTING_ID = -12345L;
-		
+
 		ForemanService svc = Factory.service.forForeman();
-		ClientDto dto = svc.findClientById( NON_EXISTING_ID );
-		
-		assertTrue( dto == null );
+		ClientDto dto = svc.findClientById(NON_EXISTING_ID);
+
+		assertTrue(dto == null);
 	}
-	
 
 }

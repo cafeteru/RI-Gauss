@@ -100,4 +100,8 @@ public class Recomendacion {
 				+ recomendador + ", usadaBono=" + usadaBono + "]";
 	}
 
+	public boolean isUsada() {
+		return isUsadaBono();
+	}
+
 }

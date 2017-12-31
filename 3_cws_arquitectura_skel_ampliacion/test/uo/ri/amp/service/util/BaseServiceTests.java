@@ -29,33 +29,32 @@ public abstract class BaseServiceTests {
 
 	/**
 	 * Asserts whether the exception message is the expected
+	 * 
 	 * @param be
 	 * @param msg
 	 */
 	protected void assertMsg(BusinessException be, String msg) {
-		assertTrue( be.getMessage().equals( msg ) );
+		assertTrue(be.getMessage().equals(msg));
 	}
 
 	protected void assertSameData(ClientDto dto, Cliente entity) {
-		assertTrue( entity.getAddress().getStreet().equals( dto.addressStreet) );
-		assertTrue( entity.getAddress().getCity().equals( dto.addressCity) );
-		assertTrue( entity.getAddress().getZipcode().equals( dto.addressZipcode) );
-		assertTrue( entity.getEmail().equals( dto.email ));
-		assertTrue( entity.getPhone().equals( dto.phone ));
-		assertTrue( entity.getNombre().equals( dto.name ));
-		assertTrue( entity.getApellidos().equals( dto.surname ));
+		assertTrue(entity.getAddress().getStreet().equals(dto.addressStreet));
+		assertTrue(entity.getAddress().getCity().equals(dto.addressCity));
+		assertTrue(entity.getAddress().getZipcode().equals(dto.addressZipcode));
+		assertTrue(entity.getEmail().equals(dto.email));
+		assertTrue(entity.getPhone().equals(dto.phone));
+		assertTrue(entity.getNombre().equals(dto.name));
+		assertTrue(entity.getApellidos().equals(dto.surname));
 	}
 
 	protected MedioPago getMetalico(Cliente c) {
-		return c.getMediosPago().stream()
-			.findFirst()
-			.orElse( null );
+		return c.getMediosPago().stream().findFirst().orElse(null);
 	}
 
 	protected Bono getFirstVoucher(Cliente c) {
-		List<Bono> bns = findVouchersByClientId( c.getId() );
-		assertTrue( bns.size() == 1 );
-		Bono expected = bns.get( 0 );
+		List<Bono> bns = findVouchersByClientId(c.getId());
+		assertTrue(bns.size() == 1);
+		Bono expected = bns.get(0);
 		return expected;
 	}
 

@@ -19,63 +19,64 @@ import uo.ri.model.TarjetaCredito;
 import uo.ri.util.exception.BusinessException;
 
 public class DeletePaymentMeanTests extends BaseServiceTests {
-	
+
 	private Cliente c;
 	private TarjetaCredito tc;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		c = registerNewClientWithCash();
-		tc = registerNewCreditCardForClient( c );
+		tc = registerNewCreditCardForClient(c);
 	}
-	
+
 	/**
-	 * Se puede borrar un medio de pago, que exista, que no sea metálico 
-	 * y que no tenga cargos
-	 * @throws BusinessException 
+	 * Se puede borrar un medio de pago, que exista, que no sea metálico y que
+	 * no tenga cargos
+	 * 
+	 * @throws BusinessException
 	 */
 	@Test
 	public void testValidDelete() throws BusinessException {
-		TarjetaCredito expected = findCardByNumber( tc.getNumero() );
-		assertTrue( expected != null );
-		
+		TarjetaCredito expected = findCardByNumber(tc.getNumero());
+		assertTrue(expected != null);
+
 		CashService svc = Factory.service.forCash();
-		svc.deletePaymentMean( tc.getId() );
+		svc.deletePaymentMean(tc.getId());
 
 		String number = tc.getNumero();
-		expected = findCardByNumber( number); 
-		assertTrue( expected == null );
+		expected = findCardByNumber(number);
+		assertTrue(expected == null);
 	}
-	
+
 	/**
 	 * No se puede borrar si tiene cargos
 	 */
 	@Test(expected = BusinessException.class)
 	public void testInvalidDeleteForCharges() throws BusinessException {
-		registerNewInvoiceWithChargesToCard( tc );
-		
+		registerNewInvoiceWithChargesToCard(tc);
+
 		CashService svc = Factory.service.forCash();
-		svc.deletePaymentMean( tc.getId() );
+		svc.deletePaymentMean(tc.getId());
 	}
-	
+
 	/**
 	 * No se puede borrar si es de tipo metálico
 	 */
 	@Test(expected = BusinessException.class)
 	public void testInvalidDeleteIfCash() throws BusinessException {
-		Metalico m = findCashByClientId( c.getId() );
-		
+		Metalico m = findCashByClientId(c.getId());
+
 		CashService svc = Factory.service.forCash();
-		svc.deletePaymentMean( m.getId() );
+		svc.deletePaymentMean(m.getId());
 	}
-	
+
 	/**
 	 * Si no existe el id salta excepcion
 	 */
 	@Test(expected = BusinessException.class)
 	public void testInvalidDeleteNoId() throws BusinessException {
 		CashService svc = Factory.service.forCash();
-		svc.deletePaymentMean( -1000L );
+		svc.deletePaymentMean(-1000L);
 	}
 
 }

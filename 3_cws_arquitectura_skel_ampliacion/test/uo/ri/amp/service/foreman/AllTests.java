@@ -5,7 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ AddClientTests.class, DeleteClientTests.class, FindClientByIdTests.class, UpdateClientTests.class })
+@SuiteClasses({ AddClientTests.class, DeleteClientTests.class,
+		FindClientByIdTests.class, UpdateClientTests.class })
 public class AllTests {
 
 }

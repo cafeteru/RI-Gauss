@@ -42,6 +42,12 @@ public class Intervencion {
 		Association.Intervenir.link(averia, this, mecanico);
 	}
 
+	public Intervencion(Mecanico mecanico, Averia averia, int minutos)
+			throws BusinessException {
+		this(mecanico, averia);
+		this.minutos = minutos;
+	}
+
 	public Averia getAveria() {
 		return averia;
 	}

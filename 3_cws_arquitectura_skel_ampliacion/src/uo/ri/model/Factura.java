@@ -276,4 +276,17 @@ public class Factura {
 				+ importe + ", iva=" + iva + ", status=" + status + ", averias="
 				+ averias + "]";
 	}
+
+	public boolean isBono500Used() {
+		return isUsadaBono();
+	}
+
+	public boolean isUsadaBono() {
+		return usadaBono;
+	}
+
+	public void setUsadaBono(boolean usadaBono) {
+		this.usadaBono = usadaBono;
+	}
+
 }

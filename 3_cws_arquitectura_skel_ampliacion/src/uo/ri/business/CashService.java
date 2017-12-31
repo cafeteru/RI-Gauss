@@ -24,8 +24,8 @@ public interface CashService {
 
 	/**
 	 * @param idFactura
-	 * @return a list of payment mean dtos owned by the first
-	 *         breakdown's vehicle's owner
+	 * @return a list of payment mean dtos owned by the first breakdown's
+	 *         vehicle's owner
 	 * @throws BusinessException
 	 */
 	List<PaymentMeanDto> findPaymentMeansForInvoice(Long idFactura)
@@ -33,8 +33,7 @@ public interface CashService {
 
 	/**
 	 * Settles the invoice (liquida la factura) with the charges specified in
-	 * the
-	 * cargos Map. The map's key is the payment mean id and the value is the
+	 * the cargos Map. The map's key is the payment mean id and the value is the
 	 * amount to be charged to this payment mean.
 	 * 
 	 * @param idFactura
@@ -54,5 +53,10 @@ public interface CashService {
 	void deletePaymentMean(Long id) throws BusinessException;
 
 	List<PaymentMeanDto> findPaymentMeansByClientId(Long id)
+			throws BusinessException;
+
+	InvoiceDto findInvoice(Long numeroInvoiceDto) throws BusinessException;
+
+	List<PaymentMeanDto> findPayMethodsForInvoice(Long idInvoiceDto)
 			throws BusinessException;
 }

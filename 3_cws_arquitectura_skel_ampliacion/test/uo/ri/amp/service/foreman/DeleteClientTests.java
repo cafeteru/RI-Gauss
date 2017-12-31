@@ -92,20 +92,19 @@ public class DeleteClientTests extends BaseServiceTests {
 
 	/**
 	 * Salta excepcion al borrar un cliente que tenga vehiculos registrados
+	 * @throws BusinessException 
 	 */
 	@Test
-	public void testWithVehicleCannotBeDeleted() {
+	public void testWithVehicleCannotBeDeleted() throws BusinessException {
 		Cliente client = registerNewClientWithVehicle();
 
 		ForemanService svc = Factory.service.forForeman();
 		try {
-			svc.deleteClient( client.getId() );
+			svc.deleteClient(client.getId());
 		} catch (BusinessException be) {
-			assertMsg(be, 
-				"El cliente no puede ser eliminado al tener vehículos registrados"
-			);
+			assertMsg(be,
+					"El cliente no puede ser eliminado al tener vehículos registrados");
 		}
 	}
-
 
 }

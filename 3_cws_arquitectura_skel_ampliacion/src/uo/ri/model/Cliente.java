@@ -220,8 +220,9 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [nombre=" + nombre + ", apellidos=" + apellidos
-				+ ", dni=" + dni + "]";
+		return "Cliente [dni=" + dni + ", nombre=" + nombre + ", apellidos="
+				+ apellidos + ", address=" + address + ", email=" + email
+				+ ", phone=" + phone + "]";
 	}
 
 }

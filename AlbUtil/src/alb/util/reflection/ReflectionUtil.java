@@ -61,8 +61,8 @@ public class ReflectionUtil {
 		return result;
 	}
 
-	public static void applyValueToField(Object owner, Field field,
-			Object value) throws IllegalArgumentException {
+	public static void applyValueToField(Object owner, Field field, Object value)
+			throws IllegalArgumentException {
 
 		try {
 			if (!field.isAccessible()) {
@@ -140,28 +140,29 @@ public class ReflectionUtil {
 		return res;
 	}
 
-	public static Method getMethodOfClass(Class<?> clazz, String methodName,
-			Class<?>... parameterTypes) {
+	public static Method getMethodOfClass(
+			Class<?> clazz, String methodName, Class<?>... parameterTypes) {
 		Method method = methodCache.get(composeKey(clazz, methodName));
 		if (method != null) {
 			return method;
 		}
-
+		
 		try {
 			method = clazz.getMethod(methodName, parameterTypes);
 		} catch (Exception ex) {
 			handleExceptionForGetMethodOfClass(clazz, methodName, ex);
 		}
-
+				
 		methodCache.put(composeKey(clazz, methodName), method);
 		return method;
 	}
 
-	private static void handleExceptionForGetMethodOfClass(Class<?> clazz,
-			String methodName, Exception ex) {
-
-		throw new IllegalStateException("No method found for " + methodName
-				+ " in " + clazz.getSimpleName(), ex);
+	private static void handleExceptionForGetMethodOfClass(
+			Class<?> clazz, String methodName, Exception ex) {
+		
+		throw new IllegalStateException("No method found for "
+				+ methodName + " in " + clazz.getSimpleName(),
+				ex);
 	}
 
 	public static Object getFieldValue(Object obj, Field field) {

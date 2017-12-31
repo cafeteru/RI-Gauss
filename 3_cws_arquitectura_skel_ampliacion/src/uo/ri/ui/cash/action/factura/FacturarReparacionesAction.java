@@ -1,13 +1,13 @@
-package uo.ri.ui.cash.action;
+package uo.ri.ui.cash.action.factura;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import alb.util.console.Console;
-import alb.util.menu.Action;
 import uo.ri.business.CashService;
 import uo.ri.business.dto.InvoiceDto;
 import uo.ri.conf.Factory;
+import uo.ri.ui.util.Action;
 import uo.ri.ui.util.Printer;
 import uo.ri.util.exception.BusinessException;
 

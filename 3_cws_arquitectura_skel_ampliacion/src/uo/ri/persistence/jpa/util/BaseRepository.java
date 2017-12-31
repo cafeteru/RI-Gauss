@@ -26,8 +26,7 @@ public class BaseRepository<T> {
 
 	/**
 	 * As find() and the query "select x from X x" needs the type of the entity
-	 * here
-	 * there is a reflective way of getting it
+	 * here there is a reflective way of getting it
 	 */
 	private Class<T> type;
 

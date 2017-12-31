@@ -263,4 +263,14 @@ public class Averia {
 				+ ", importe=" + importe + ", status=" + status + "]";
 	}
 
+	public boolean isInvoiced() {
+		if (status.equals(AveriaStatus.FACTURADA))
+			return true;
+		return false;
+	}
+
+	public boolean isUsadaBono3() {
+		return esElegibleParaBono3();
+	}
+
 }

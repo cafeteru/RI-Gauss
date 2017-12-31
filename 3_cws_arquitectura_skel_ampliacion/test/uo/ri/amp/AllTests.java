@@ -5,10 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ 
-	uo.ri.amp.domain.AllTests.class
-//	, uo.ri.amp.service.AllTests.class
-})
+@SuiteClasses({ uo.ri.amp.domain.AllTests.class,
+		uo.ri.amp.service.AllTests.class })
 
 public class AllTests {
 
