@@ -154,4 +154,10 @@ public class DtoAssembler {
 		dto.status = a.getStatus().toString();
 		return dto;
 	}
+
+	public static MedioPago toEntity(PaymentMeanDto dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

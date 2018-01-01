@@ -2,9 +2,7 @@ package uo.ri.persistence.jpa;
 
 import java.util.List;
 
-import uo.ri.business.repository.CargoRepository;
 import uo.ri.business.repository.VehiculoRepository;
-import uo.ri.model.Cargo;
 import uo.ri.model.Vehiculo;
 
 public class VehiculoJpaRepository implements VehiculoRepository {

@@ -17,16 +17,31 @@
 				and a.status = uo.ri.model.types.AveriaStatus.TERMINADA 
 		</query>
 	</named-query>
+	<!-- Cliente queries -->
+	<named-query name="Cliente.findByID">
+		<query>select c 
+			   from Cliente c
+			   where c.id = ?1
+			   </query>
+	</named-query>
+	<named-query name="Cliente.findByDni">
+		<query>select c 
+			   from Cliente c
+			   where c.dni = ?1
+			   </query>
+	</named-query>
 
 	<!-- MedioPago queries -->
-	<!-- <named-query name="MedioPago.findByInvoiceId">
-		<query>
-			select m 
-			from Factura f join f.averias a join a.vehiculo.cliente c join c.mediosPago m 
-			where f.id = ?1
-		</query>
-	</named-query> -->
-	
+	<!-- <named-query name="MedioPago.findByInvoiceId"> <query> select m from 
+		Factura f join f.averias a join a.vehiculo.cliente c join c.mediosPago m 
+		where f.id = ?1 </query> </named-query> -->
+	<named-query name="MedioPago.findById">
+		<query>select mp 
+			from MedioPago mp  
+			where mp.cliente.id = ?1
+			   </query>
+	</named-query>
+
 	<!-- Factura queries -->
 	<named-query name="Factura.findByNumber">
 		<query>select f from Factura f where f.numero = ?1</query>

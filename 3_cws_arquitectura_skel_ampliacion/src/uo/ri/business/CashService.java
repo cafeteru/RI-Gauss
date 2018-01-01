@@ -3,12 +3,7 @@ package uo.ri.business;
 import java.util.List;
 import java.util.Map;
 
-import uo.ri.business.dto.BreakdownDto;
-import uo.ri.business.dto.CardDto;
-import uo.ri.business.dto.CashDto;
-import uo.ri.business.dto.InvoiceDto;
-import uo.ri.business.dto.PaymentMeanDto;
-import uo.ri.business.dto.VoucherDto;
+import uo.ri.business.dto.*;
 import uo.ri.util.exception.BusinessException;
 
 public interface CashService {
@@ -46,8 +41,6 @@ public interface CashService {
 			throws BusinessException;
 
 	List<BreakdownDto> findRepairsByClient(String dni) throws BusinessException;
-
-	void addCash(CashDto p);
 
 	void addCardPaymentMean(CardDto card) throws BusinessException;
 

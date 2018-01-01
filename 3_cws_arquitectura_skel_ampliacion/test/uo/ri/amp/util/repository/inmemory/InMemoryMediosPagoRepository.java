@@ -12,18 +12,6 @@ public class InMemoryMediosPagoRepository
 		extends BaseMemoryRepository<MedioPago> implements MedioPagoRepository {
 
 	@Override
-	public List<MedioPago> findPaymentMeansByClientId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<MedioPago> findPaymentMeansByInvoiceId(Long idFactura) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<MedioPago> findByClientId(Long id) {
 		return entities.values().stream()
 				.filter(m -> m.getCliente().getId().equals(id))
@@ -66,6 +54,18 @@ public class InMemoryMediosPagoRepository
 		return entities.values().stream().filter(m -> m instanceof Bono)
 				.map(m -> (Bono) m).filter(b -> b.getCodigo().equals(code))
 				.findFirst().orElse(null);
+	}
+
+	@Override
+	public List<MedioPago> findPaymentMeansByClientId(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MedioPago> findPaymentMeansByInvoiceId(Long idFactura) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
