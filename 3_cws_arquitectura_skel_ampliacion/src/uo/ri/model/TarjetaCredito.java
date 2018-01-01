@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 import alb.util.date.DateUtil;
 import uo.ri.util.exception.BusinessException;
-import uo.ri.model.util.Checker;
+import uo.ri.util.exception.Check;
 
 @Entity
 @Table(name = "TTARJETASCREDITO")
@@ -30,7 +30,7 @@ public class TarjetaCredito extends MedioPago {
 	}
 
 	public TarjetaCredito(String numero) throws BusinessException {
-		this.numero = Checker.checkString(numero, "Número");
+		this.numero = Check.checkString(numero, "Número");
 		this.validez = DateUtil.tomorrow();
 		this.tipo = "UNKNOWN";
 	}

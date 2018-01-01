@@ -6,9 +6,9 @@ import javax.persistence.*;
 
 import alb.util.date.DateUtil;
 import uo.ri.util.exception.BusinessException;
+import uo.ri.util.exception.Check;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.types.FacturaStatus;
-import uo.ri.model.util.Checker;
 
 @Entity
 @Table(name = "TAVERIAS", uniqueConstraints = {
@@ -52,7 +52,7 @@ public class Averia {
 	}
 
 	public Averia(Date fecha, Vehiculo vehiculo) throws BusinessException {
-		this.fecha = Checker.notNullDate(fecha);
+		this.fecha = Check.notNullDate(fecha);
 		Association.Averiar.link(vehiculo, this);
 		vehiculo.incrementarAverias();
 	}

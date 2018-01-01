@@ -10,8 +10,6 @@ public interface MedioPagoRepository extends Repository<MedioPago> {
 
 	List<MedioPago> findPaymentMeansByInvoiceId(Long idFactura);
 
-	List<MedioPago> findByClientId(Long id);
-
 	/**
 	 * Returns an Object[] with three values - Object[0] an integer with the
 	 * number of vouchers the client has - Object[1] a double with the total
@@ -29,5 +27,6 @@ public interface MedioPagoRepository extends Repository<MedioPago> {
 
 	Bono findVoucherByCode(String code);
 
+	List<MedioPago> findByClientId(Long id);
 
 }

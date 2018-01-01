@@ -20,7 +20,7 @@ public class ListMedios implements Command<List<PaymentMeanDto>> {
 
 	@Override
 	public List<PaymentMeanDto> execute() throws BusinessException {
-		List<MedioPago> lista = rMedios.findByClientId(id);
+		List<MedioPago> lista = rMedios.findPaymentMeansByClientId(id);
 		return DtoAssembler.toPaymentMeanDtoList(lista);
 	}
 

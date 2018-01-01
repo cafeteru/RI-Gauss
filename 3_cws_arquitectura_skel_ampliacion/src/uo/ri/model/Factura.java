@@ -11,9 +11,9 @@ import javax.persistence.*;
 import alb.util.date.DateUtil;
 import alb.util.random.Random;
 import uo.ri.util.exception.BusinessException;
+import uo.ri.util.exception.Check;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.types.FacturaStatus;
-import uo.ri.model.util.Checker;
 
 @Entity
 @Table(name = "TFACTURAS")
@@ -48,7 +48,7 @@ public class Factura {
 	}
 
 	public Factura(Long numero) throws BusinessException {
-		this.numero = Checker.positiveNumber(numero);
+		this.numero = Check.positiveNumber(numero);
 		this.fecha = DateUtil.today();
 	}
 

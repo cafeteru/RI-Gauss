@@ -8,6 +8,7 @@ import uo.ri.business.dto.*;
 import uo.ri.business.impl.cash.AddCard;
 import uo.ri.business.impl.cash.AddVoucher;
 import uo.ri.business.impl.cash.CreateInvoiceFor;
+import uo.ri.business.impl.cash.DeleteMedioPago;
 import uo.ri.business.impl.cash.ListMedios;
 import uo.ri.conf.Factory;
 import uo.ri.util.exception.BusinessException;
@@ -78,8 +79,7 @@ public class CashServiceImpl implements CashService {
 
 	@Override
 	public void deletePaymentMean(Long id) throws BusinessException {
-		// TODO Auto-generated method stub
-
+		executor.execute(new DeleteMedioPago(id));
 	}
 
 	@Override

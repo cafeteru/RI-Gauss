@@ -31,7 +31,7 @@ public class AddVoucher implements Command<Void> {
 	}
 
 	private void assertNotRepeatedMedioPago(Long id) throws BusinessException {
-		List<MedioPago> m = rMedios.findByClientId(id);
+		List<MedioPago> m = rMedios.findPaymentMeansByClientId(id);
 		for (MedioPago p1 : m) {
 			if (p1 instanceof Bono && ((Bono) p1).getCodigo().equals(dto.code))
 				throw new BusinessException("Ya existe ese medio de pago");

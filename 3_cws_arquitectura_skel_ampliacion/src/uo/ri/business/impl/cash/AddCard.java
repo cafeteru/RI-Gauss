@@ -34,7 +34,7 @@ public class AddCard implements Command<Void> {
 	}
 
 	private void assertNotRepeatedMedioPago(Long id) throws BusinessException {
-		List<MedioPago> m = rMedios.findByClientId(id);
+		List<MedioPago> m = rMedios.findPaymentMeansByClientId(id);
 		for (MedioPago p1 : m) {
 			if (p1 instanceof TarjetaCredito
 					&& ((TarjetaCredito) p1).getNumero().equals(dto.cardNumber))

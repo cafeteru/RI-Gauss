@@ -12,15 +12,14 @@ public class MedioPagoJpaRepository extends BaseRepository<MedioPago>
 
 	@Override
 	public List<MedioPago> findByClientId(Long id) {
-		return Jpa.getManager()
-				.createNamedQuery("MedioPago.findById", MedioPago.class)
-				.setParameter(1, id).getResultList();
+		return findPaymentMeansByClientId(id);
 	}
 
 	@Override
 	public List<MedioPago> findPaymentMeansByClientId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return Jpa.getManager()
+				.createNamedQuery("MedioPago.findById", MedioPago.class)
+				.setParameter(1, id).getResultList();
 	}
 
 	@Override

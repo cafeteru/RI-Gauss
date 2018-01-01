@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import uo.ri.util.exception.BusinessException;
-import uo.ri.model.util.Checker;
+import uo.ri.util.exception.Check;
 
 @Entity
 @Table(name = "TTIPOSVEHICULO")
@@ -28,7 +28,7 @@ public class TipoVehiculo {
 	}
 
 	public TipoVehiculo(String nombre) throws BusinessException {
-		this.nombre = Checker.checkString(nombre, "Nombre");
+		this.nombre = Check.checkString(nombre, "Nombre");
 	}
 
 	public TipoVehiculo(String nombre, double precioHora)

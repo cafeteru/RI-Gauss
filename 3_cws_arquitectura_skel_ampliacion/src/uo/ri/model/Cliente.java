@@ -9,8 +9,8 @@ import javax.persistence.*;
 
 import alb.util.random.Random;
 import uo.ri.util.exception.BusinessException;
+import uo.ri.util.exception.Check;
 import uo.ri.model.types.Address;
-import uo.ri.model.util.Checker;
 
 @Entity
 @Table(name = "TCLIENTES")
@@ -48,7 +48,7 @@ public class Cliente {
 	}
 
 	public Cliente(String dni) throws BusinessException {
-		this.dni = Checker.checkString(dni, "Dni");
+		this.dni = Check.checkString(dni, "Dni");
 		new Metalico(this);
 	}
 

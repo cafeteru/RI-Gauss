@@ -36,8 +36,20 @@ public class Printer {
 
 	private static void printPaymentMean(PaymentMeanDto medio) {
 		Console.printf("\t%s \t%-8.8s \t%s \n", medio.id,
-				medio.getClass().getName(), // not the best...
-				medio.accumulated);
+				printTypePaymentMean(medio), medio.accumulated);
+	}
+
+	private static String printTypePaymentMean(PaymentMeanDto medio) {
+		switch (medio.getClass().getName()) {
+		case "uo.ri.business.dto.CashDto":
+			return "Metálico";
+		case "uo.ri.business.dto.VoucherDto":
+			return "Bono";
+		case "uo.ri.business.dto.CardDto":
+			return "Tarjeta de credito";
+		default:
+			return "";
+		}
 	}
 
 	public static void printRepairing(BreakdownDto rep) {
