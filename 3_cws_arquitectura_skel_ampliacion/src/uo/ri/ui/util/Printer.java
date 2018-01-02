@@ -10,6 +10,7 @@ import uo.ri.business.dto.InvoiceDto;
 import uo.ri.business.dto.MechanicDto;
 import uo.ri.business.dto.PaymentMeanDto;
 import uo.ri.business.dto.VoucherDto;
+import uo.ri.business.dto.VoucherSummary;
 
 public class Printer {
 
@@ -49,13 +50,25 @@ public class Printer {
 					medio.accumulated, ((VoucherDto) medio).available);
 			break;
 		case "uo.ri.business.dto.CardDto":
-			Console.printf("\t%s \t%-8.8s \t%s \t\t\t\t%s\n", medio.id, "Tarjeta",
-					medio.accumulated,
+			Console.printf("\t%s \t%-8.8s \t%s \t\t\t\t%s\n", medio.id,
+					"Tarjeta", medio.accumulated,
 					DateUtil.toString(((CardDto) medio).cardExpiration));
 			break;
 		default:
 			Console.print("");
 			break;
+		}
+	}
+
+	public static void printVoucherDtos(List<VoucherDto> medios) {
+		Console.println();
+		Console.println("Medios de pago disponibles");
+
+		Console.printf("\t%s \t%-8.8s \t%s \t%s \t%s\n", "ID", "Tipo",
+				"Acumulado", "Disponible", "Válidez");
+		for (VoucherDto medio : medios) {
+			Console.printf("\t%s \t%-8.8s \t%s \t\t%s €\n", medio.id, "Bono",
+					medio.accumulated, ((VoucherDto) medio).available);
 		}
 	}
 
@@ -69,6 +82,13 @@ public class Printer {
 
 		Console.printf("\t%d %-10.10s %-25.25s %-25.25s\n", m.id, m.dni, m.name,
 				m.surname);
+	}
+
+	public static void printVoucherSummary(List<VoucherSummary> a) {
+		for (VoucherSummary v : a) {
+			Console.printf("\t%s %s %s %d %f %f %f\n", v.dni, v.name, v.surname,
+					v.emitted, v.consumed, v.available);
+		}
 	}
 
 }

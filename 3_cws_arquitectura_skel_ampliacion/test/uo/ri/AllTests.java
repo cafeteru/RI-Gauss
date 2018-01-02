@@ -6,8 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ uo.ri.associations.AllTests.class, uo.ri.domain.AllTests.class,
-		uo.ri.persistence.PersistenceTest.class, uo.ri.GaussTest.class,
-		uo.ri.GaussTestAmpliacion.class, uo.ri.amp.AllTests.class
+		uo.ri.persistence.PersistenceTest.class, uo.ri.amp.AllTests.class
 
 })
 public class AllTests {

@@ -58,14 +58,12 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<VoucherDto> findVouchersByClientId(Long id)
 			throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return executor.execute(new ListadoBonoCliente(id));
 	}
 
 	@Override
 	public List<VoucherSummary> getVoucherSummary() throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return executor.execute(new ResumenBonosCliente());
 	}
 
 }

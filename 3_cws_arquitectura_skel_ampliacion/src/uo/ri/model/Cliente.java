@@ -10,6 +10,7 @@ import javax.persistence.*;
 import alb.util.random.Random;
 import uo.ri.util.exception.BusinessException;
 import uo.ri.util.exception.Check;
+import uo.ri.business.dto.VoucherSummary;
 import uo.ri.model.types.Address;
 
 @Entity
@@ -269,6 +270,24 @@ public class Cliente {
 			}
 		}
 		return null;
+	}
+
+	public VoucherSummary realizarResumen() {
+		VoucherSummary v = new VoucherSummary();
+		v.dni = getDni();
+		v.name = getNombre();
+		v.surname = getApellidos();
+		int contador = 0;
+		for (MedioPago m : mediosPago) {
+			if (m instanceof Bono) {
+				contador++;
+				v.available += ((Bono) m).getDisponible();
+				v.consumed += m.getAcumulado();
+			}
+		}
+		v.emitted = contador;
+		v.totalAmount = v.available + v.consumed;
+		return v;
 	}
 
 }
