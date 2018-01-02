@@ -290,4 +290,30 @@ public class Cliente {
 		return v;
 	}
 
+	public void eliminarMetalico() throws BusinessException {
+		for (MedioPago m : mediosPago) {
+			if (m instanceof Metalico) {
+				Association.Pagar.unlink(this, m);
+			}
+		}
+	}
+
+	public void eliminarRecomendaciones() throws BusinessException {
+		eliminarRecomendacionRecibida();
+		eliminarRecomendacionesRealizadas();
+	}
+
+	private void eliminarRecomendacionRecibida() throws BusinessException {
+		if (rRecibida != null)
+			Association.Recomendar.unlink(rRecibida);
+	}
+
+	private void eliminarRecomendacionesRealizadas() throws BusinessException {
+		if (!rRealizadas.isEmpty()) {
+			for (Recomendacion r : getRecomendacionesHechas()) {
+				Association.Recomendar.unlink(r);
+			}
+		}
+	}
+
 }

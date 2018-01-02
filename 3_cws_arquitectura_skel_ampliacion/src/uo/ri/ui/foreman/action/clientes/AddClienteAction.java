@@ -9,14 +9,12 @@ import uo.ri.ui.util.Preguntar;
 import uo.ri.util.exception.BusinessException;
 
 public class AddClienteAction extends ActionTemplate {
-	private ClientDto dto;
-	private ForemanService as;
+	private ClientDto dto = new ClientDto();
+	private ForemanService as = Factory.service.forForeman();
 	private Long recomenderId;
 
 	@Override
 	protected void pedirDatos() {
-		as = Factory.service.forForeman();
-		dto = new ClientDto();
 		dto.dni = Console.readString("Dni del cliente");
 		dto.name = Console.readString("Nombre del cliente");
 		dto.surname = Console.readString("Apellidos del cliente");

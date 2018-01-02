@@ -12,8 +12,6 @@ public class ClientesMenu extends ExceptionMenu {
 				{ "Eliminar cliente", DeleteClienteAction.class },
 				{ "Mostrar detalles del cliente", DetailsClienteAction.class },
 				{ "Listar todos los clientes", ListAllClienteAction.class },
-				{ "Listar cliente recomendados por otro cliente",
-						ListClientesRecomendados.class },
 				{ "Modificar cliente", ModifyClienteAction.class }, };
 	}
 }

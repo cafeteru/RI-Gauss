@@ -6,6 +6,7 @@ import alb.util.console.Console;
 import alb.util.date.DateUtil;
 import uo.ri.business.dto.BreakdownDto;
 import uo.ri.business.dto.CardDto;
+import uo.ri.business.dto.ClientDto;
 import uo.ri.business.dto.InvoiceDto;
 import uo.ri.business.dto.MechanicDto;
 import uo.ri.business.dto.PaymentMeanDto;
@@ -89,6 +90,12 @@ public class Printer {
 			Console.printf("\t%s %s %s %d %f %f %f\n", v.dni, v.name, v.surname,
 					v.emitted, v.consumed, v.available);
 		}
+	}
+
+	public static void printCliente(ClientDto c) {
+		Console.printf("\t%s %s %s %s %s %s %s %s\n", c.dni, c.name, c.surname,
+				c.addressCity, c.addressStreet, c.addressZipcode, c.email,
+				c.phone);
 	}
 
 }

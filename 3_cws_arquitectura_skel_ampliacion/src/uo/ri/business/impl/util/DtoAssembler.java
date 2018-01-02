@@ -27,12 +27,15 @@ public class DtoAssembler {
 
 	public static ClientDto toDto(Cliente c) {
 		ClientDto dto = new ClientDto();
-
 		dto.id = c.getId();
 		dto.dni = c.getDni();
 		dto.name = c.getNombre();
 		dto.surname = c.getApellidos();
-
+		dto.addressStreet = c.getAddress().getStreet();
+		dto.addressCity = c.getAddress().getCity();
+		dto.addressZipcode = c.getAddress().getZipcode();
+		dto.phone = c.getPhone();
+		dto.email = c.getEmail();
 		return dto;
 	}
 

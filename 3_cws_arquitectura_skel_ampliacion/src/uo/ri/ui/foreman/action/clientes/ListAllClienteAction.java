@@ -1,28 +1,31 @@
 package uo.ri.ui.foreman.action.clientes;
 
+import java.util.List;
+
 import uo.ri.business.ForemanService;
+import uo.ri.business.dto.ClientDto;
 import uo.ri.conf.Factory;
 import uo.ri.ui.util.ActionTemplate;
+import uo.ri.ui.util.Printer;
 import uo.ri.util.exception.BusinessException;
 
 public class ListAllClienteAction extends ActionTemplate {
 	private ForemanService as = Factory.service.forForeman();
+	private List<ClientDto> dtos;
 
 	@Override
 	protected void pedirDatos() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	protected void procesarDatos() throws BusinessException {
-		// TODO Auto-generated method stub
-
+		dtos = as.findAllClients();
 	}
 
 	@Override
 	protected void imprimirMensaje() {
-		// TODO Auto-generated method stub
+		for (ClientDto d : dtos)
+			Printer.printCliente(d);
 
 	}
 
