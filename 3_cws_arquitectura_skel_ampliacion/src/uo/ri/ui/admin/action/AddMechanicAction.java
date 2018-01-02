@@ -10,7 +10,7 @@ import uo.ri.util.exception.BusinessException;
 public class AddMechanicAction implements Action {
 
 	@Override
-	public void execute() throws BusinessException  {
+	public void execute() throws BusinessException {
 
 		// Pedir datos
 		MechanicDto m = new MechanicDto();

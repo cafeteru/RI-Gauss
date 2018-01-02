@@ -45,7 +45,8 @@ public class ExceptionMenu implements Action {
 			createInstanceOf(actionClass).execute();
 		} catch (IndexOutOfBoundsException e) {
 			throw new BusinessException("Opción no valida.");
-		} catch (NullPointerException e) {
+		} 
+		catch (NullPointerException e) {
 			throw new BusinessException("Opción nula.");
 		}
 
@@ -115,9 +116,7 @@ public class ExceptionMenu implements Action {
 
 	private Action createInstanceOf(Class<Action> clazz) {
 		try {
-
 			return (Action) clazz.newInstance();
-
 		} catch (InstantiationException e) {
 			throw new RuntimeException(e);
 		} catch (IllegalAccessException e) {

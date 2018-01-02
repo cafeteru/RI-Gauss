@@ -49,6 +49,8 @@ public class DtoAssembler {
 		Address addr = new Address(dto.addressStreet, dto.addressCity,
 				dto.addressZipcode);
 		c.setAddress(addr);
+		c.setPhone(dto.phone);
+		c.setEmail(dto.email);
 		return c;
 	}
 

@@ -7,8 +7,11 @@ import uo.ri.model.Cliente;
 public interface ClienteRepository extends Repository<Cliente> {
 
 	Cliente findByDni(String dni);
+
 	List<Cliente> findWithRecomendations();
+
 	List<Cliente> findWithThreeUnusedBreakdowns();
+
 	List<Cliente> findRecomendedBy(Long id);
 
 }

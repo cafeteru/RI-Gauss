@@ -1,18 +1,19 @@
 package uo.ri.ui.foreman;
 
-import alb.util.menu.BaseMenu;
-import alb.util.menu.NotYetImplementedAction;
+import uo.ri.ui.foreman.action.clientes.*;
+import uo.ri.ui.util.ExceptionMenu;
 
-public class ClientesMenu extends BaseMenu {
+public class ClientesMenu extends ExceptionMenu {
 
 	public ClientesMenu() {
 		menuOptions = new Object[][] {
-				{ "Jefe de Taller > Gestión de Clientes", null },
-
-				{ "Añadir cliente", NotYetImplementedAction.class },
-				{ "Modificar datos de cliente", NotYetImplementedAction.class },
-				{ "Eliminar cliente", NotYetImplementedAction.class },
-				{ "Listar clientes", NotYetImplementedAction.class }, };
+				{ "Jefe de Taller > Gestión de clientes", null },
+				{ "Añadir cliente", AddClienteAction.class },
+				{ "Eliminar cliente", DeleteClienteAction.class },
+				{ "Mostrar detalles del cliente", DetailsClienteAction.class },
+				{ "Listar todos los clientes", ListAllClienteAction.class },
+				{ "Listar cliente recomendados por otro cliente",
+						ListClientesRecomendados.class },
+				{ "Modificar cliente", ModifyClienteAction.class }, };
 	}
-
 }

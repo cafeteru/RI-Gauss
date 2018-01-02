@@ -19,16 +19,18 @@
 	</named-query>
 	<!-- Cliente queries -->
 	<named-query name="Cliente.findByID">
-		<query>select c 
-			   from Cliente c
-			   where c.id = ?1
-			   </query>
+		<query>
+			select c 
+			from Cliente c
+			where c.id = ?1
+	   </query>
 	</named-query>
 	<named-query name="Cliente.findByDni">
-		<query>select c 
-			   from Cliente c
-			   where c.dni = ?1
-			   </query>
+		<query>
+			select c
+			from Cliente c
+			where c.dni = ?1
+		</query>
 	</named-query>
 
 	<!-- MedioPago queries -->

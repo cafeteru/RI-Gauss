@@ -5,11 +5,7 @@ import java.util.Map;
 
 import uo.ri.business.CashService;
 import uo.ri.business.dto.*;
-import uo.ri.business.impl.cash.AddCard;
-import uo.ri.business.impl.cash.AddVoucher;
-import uo.ri.business.impl.cash.CreateInvoiceFor;
-import uo.ri.business.impl.cash.DeleteMedioPago;
-import uo.ri.business.impl.cash.ListMedios;
+import uo.ri.business.impl.cash.*;
 import uo.ri.conf.Factory;
 import uo.ri.util.exception.BusinessException;
 

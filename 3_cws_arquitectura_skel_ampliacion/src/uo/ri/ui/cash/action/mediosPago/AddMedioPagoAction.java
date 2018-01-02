@@ -40,6 +40,6 @@ public class AddMedioPagoAction extends ActionTemplate {
 	}
 
 	protected void masDatos() {
-		
+
 	}
 }

@@ -92,7 +92,8 @@ public class DeleteClientTests extends BaseServiceTests {
 
 	/**
 	 * Salta excepcion al borrar un cliente que tenga vehiculos registrados
-	 * @throws BusinessException 
+	 * 
+	 * @throws BusinessException
 	 */
 	@Test
 	public void testWithVehicleCannotBeDeleted() throws BusinessException {

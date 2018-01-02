@@ -14,7 +14,8 @@ public class ClienteJpaRepository extends BaseRepository<Cliente>
 	public Cliente findByDni(String dni) {
 		return Jpa.getManager()
 				.createNamedQuery("Cliente.findByDni", Cliente.class)
-				.setParameter(1, dni).getSingleResult();
+				.setParameter(1, dni).getResultList().stream().findFirst()
+				.orElse(null);
 	}
 
 	@Override
@@ -34,5 +35,4 @@ public class ClienteJpaRepository extends BaseRepository<Cliente>
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

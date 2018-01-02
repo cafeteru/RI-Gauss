@@ -185,7 +185,8 @@ public class GenerateVouchersByNumberOfRecommendations
 		assertTrue(rs.stream().filter(r -> r.isUsada()).count() == counter);
 	}
 
-	private List<Recomendacion> generateRecommnedations(int counter) throws BusinessException {
+	private List<Recomendacion> generateRecommnedations(int counter)
+			throws BusinessException {
 		Cliente c = registerNewClientWithBreakDown();
 		List<Recomendacion> res = new ArrayList<>();
 		for (int i = 0; i < counter; i++) {

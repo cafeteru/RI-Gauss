@@ -49,7 +49,6 @@ public class Cliente {
 
 	public Cliente(String dni) throws BusinessException {
 		this.dni = Check.checkString(dni, "Dni");
-		new Metalico(this);
 	}
 
 	public Cliente(String dni, String nombre, String apellidos)
