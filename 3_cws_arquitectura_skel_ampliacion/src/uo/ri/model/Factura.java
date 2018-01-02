@@ -210,7 +210,7 @@ public class Factura {
 			if (Math.abs(importe - sumaAverias) <= 0.01) {
 				this.setStatus(FacturaStatus.ABONADA);
 			} else {
-				throw new BusinessException("El importe es erroneo");
+				throw new BusinessException("Los cargos no igualan el importe");
 			}
 		} else {
 			throw new BusinessException("La factura no tiene averías");

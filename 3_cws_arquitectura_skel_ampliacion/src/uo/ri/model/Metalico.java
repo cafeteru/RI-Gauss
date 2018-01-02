@@ -20,4 +20,5 @@ public class Metalico extends MedioPago {
 	public void pagar(double importe) throws BusinessException {
 		this.acumulado += importe;
 	}
+
 }

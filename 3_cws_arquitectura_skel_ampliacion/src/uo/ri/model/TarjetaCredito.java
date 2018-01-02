@@ -67,7 +67,7 @@ public class TarjetaCredito extends MedioPago {
 		if (isValidNow())
 			this.acumulado += importe;
 		else
-			throw new BusinessException("La tarjeta de credito esta caducada");
+			throw new BusinessException("La tarjeta está caducada");
 	}
 
 	public boolean isValidNow() {

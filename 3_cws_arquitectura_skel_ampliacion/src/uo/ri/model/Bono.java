@@ -91,8 +91,7 @@ public class Bono extends MedioPago {
 			acumulado += importe;
 			disponible -= importe;
 		} else
-			throw new BusinessException(
-					"El importe es mayor que el valor disponible");
+			throw new BusinessException("No hay saldo suficiente en el bono");
 	}
 
 }
