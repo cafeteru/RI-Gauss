@@ -6,11 +6,14 @@ import uo.ri.business.AdminService;
 import uo.ri.business.dto.MechanicDto;
 import uo.ri.business.dto.VoucherDto;
 import uo.ri.business.dto.VoucherSummary;
-import uo.ri.business.impl.admin.AddMechanic;
-import uo.ri.business.impl.admin.DeleteMechanic;
-import uo.ri.business.impl.admin.FindAllMechanics;
-import uo.ri.business.impl.admin.FindMechanicById;
-import uo.ri.business.impl.admin.UpdateMechanic;
+import uo.ri.business.impl.admin.bonos.Bono3Recomendaciones;
+import uo.ri.business.impl.admin.bonos.BonoFacturaSuperior500;
+import uo.ri.business.impl.admin.bonos.Bono3Averias;
+import uo.ri.business.impl.admin.mecanicos.AddMechanic;
+import uo.ri.business.impl.admin.mecanicos.DeleteMechanic;
+import uo.ri.business.impl.admin.mecanicos.FindAllMechanics;
+import uo.ri.business.impl.admin.mecanicos.FindMechanicById;
+import uo.ri.business.impl.admin.mecanicos.UpdateMechanic;
 import uo.ri.conf.Factory;
 import uo.ri.util.exception.BusinessException;
 
@@ -47,8 +50,11 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public int generateVouchers() throws BusinessException {
-		// TODO Auto-generated method stub
-		return 0;
+		int count = 0;
+		count += executor.execute(new Bono3Averias());
+		// count += executor.execute(new BonoFacturaSuperior500());
+		// count += executor.execute(new Bono3Recomendaciones());
+		return count;
 	}
 
 	@Override

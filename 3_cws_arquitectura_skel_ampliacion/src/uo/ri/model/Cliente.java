@@ -148,12 +148,25 @@ public class Cliente {
 		return averias;
 	}
 
+	public List<Bono> crearBonoAveria() throws BusinessException {
+		List<Averia> lista = getAveriasBono3NoUsadas();
+		int numBonos = lista.size() / 3;
+		if (numBonos > 0) {
+
+			for (int i = 0; i < numBonos * 3; i++) {
+				lista.get(i).markAsBono3Used();
+			}
+			return crearBono(numBonos, 20, "Por tres averías");
+		}
+		return null;
+	}
+
 	public boolean elegibleBonoPorRecomendaciones() throws BusinessException {
 		if (reparacionRealizada()) {
 			List<Recomendacion> lista = listarRecomendacionBono();
 			int bonos = lista.size() / 3;
 			if (bonos > 0) {
-				crearBono25(bonos);
+				crearBono(bonos, 25, "Por recomendación");
 				marcarRecomendaciones(lista, bonos * 3);
 				return true;
 			}
@@ -179,12 +192,16 @@ public class Cliente {
 		return lista;
 	}
 
-	private void crearBono25(int numero) throws BusinessException {
+	private List<Bono> crearBono(int numero, int cantidad, String descripcion)
+			throws BusinessException {
+		List<Bono> bonos = new ArrayList<>();
 		while (numero > 0) {
-			Bono bono = new Bono(Random.string(8), "Por recomendación", 25);
+			Bono bono = new Bono(Random.string(8), descripcion, cantidad);
 			Association.Pagar.link(this, bono);
+			bonos.add(bono);
 			numero--;
 		}
+		return bonos;
 	}
 
 	private void marcarRecomendaciones(List<Recomendacion> lista, int limite) {

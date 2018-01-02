@@ -25,8 +25,10 @@ public class AveriaJpaRepository extends BaseRepository<Averia>
 
 	@Override
 	public List<Averia> findWithUnusedBono3ByClienteId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return Jpa.getManager()
+				.createNamedQuery("Averia.findWithUnusedBono3ByClienteId",
+						Averia.class)
+				.setParameter(1, id).getResultList();
 	}
 
 }

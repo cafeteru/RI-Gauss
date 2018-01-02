@@ -1,4 +1,4 @@
-package uo.ri.business.impl.admin;
+package uo.ri.business.impl.admin.mecanicos;
 
 import java.util.List;
 

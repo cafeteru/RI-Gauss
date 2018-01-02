@@ -38,10 +38,20 @@
 		Factura f join f.averias a join a.vehiculo.cliente c join c.mediosPago m 
 		where f.id = ?1 </query> </named-query> -->
 	<named-query name="MedioPago.findById">
-		<query>select mp 
+		<query>
+			select mp 
 			from MedioPago mp  
 			where mp.cliente.id = ?1
-			   </query>
+		</query>
+	</named-query>
+	<!-- Bono queries -->
+	<named-query name="Bono.findById">
+		<query>
+			select b
+			from Bono b, MedioPago mp
+			where mp.id = b.id
+			and mp.cliente.id = ?1
+		</query>
 	</named-query>
 
 	<!-- Factura queries -->
@@ -60,6 +70,18 @@
 
 	<named-query name="Mecanico.findByDni">
 		<query>select m from Mecanico m where m.dni = ?1</query>
+	</named-query>
+
+	<!-- Averia queries -->
+	<named-query name="Averia.findWithUnusedBono3ByClienteId">
+		<query>
+			select a 
+			from Averia a
+				join a.vehiculo v
+				join v.cliente c
+			where a.usadaBono = false
+			and c.id = ?1
+		</query>
 	</named-query>
 
 	<!-- <named-query name="findItemsOnSaleByCategoryId"> <query> <![CDATA[ 

@@ -21,7 +21,7 @@ public class Averia {
 
 	private String descripcion;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
 
 	private double importe = 0.0;
@@ -48,7 +48,7 @@ public class Averia {
 	}
 
 	public Averia(Vehiculo vehiculo) throws BusinessException {
-		this(DateUtil.today(), vehiculo);
+		this(DateUtil.now(), vehiculo);
 	}
 
 	public Averia(Date fecha, Vehiculo vehiculo) throws BusinessException {
@@ -207,7 +207,7 @@ public class Averia {
 		if (status.equals(AveriaStatus.TERMINADA) && factura != null) {
 			setStatus(AveriaStatus.FACTURADA);
 		} else
-			throw new BusinessException();
+			throw new BusinessException("peta aqui");
 	}
 
 	public void desassign() throws BusinessException {
@@ -270,7 +270,7 @@ public class Averia {
 	}
 
 	public boolean isUsadaBono3() {
-		return esElegibleParaBono3();
+		return usadaBono;
 	}
 
 }

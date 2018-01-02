@@ -42,8 +42,9 @@ public class MedioPagoJpaRepository extends BaseRepository<MedioPago>
 
 	@Override
 	public List<Bono> findVouchersByClientId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return Jpa.getManager()
+				.createNamedQuery("Bono.findById", Bono.class)
+				.setParameter(1, id).getResultList();
 	}
 
 	@Override

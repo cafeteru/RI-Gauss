@@ -41,8 +41,8 @@ public abstract class BaseServiceTests {
 		assertTrue(entity.getAddress().getStreet().equals(dto.addressStreet));
 		assertTrue(entity.getAddress().getCity().equals(dto.addressCity));
 		assertTrue(entity.getAddress().getZipcode().equals(dto.addressZipcode));
-//		assertTrue(entity.getEmail().equals(dto.email));
-//		assertTrue(entity.getPhone().equals(dto.phone));
+		assertTrue(entity.getEmail().equals(dto.email));
+		assertTrue(entity.getPhone().equals(dto.phone));
 		assertTrue(entity.getNombre().equals(dto.name));
 		assertTrue(entity.getApellidos().equals(dto.surname));
 	}

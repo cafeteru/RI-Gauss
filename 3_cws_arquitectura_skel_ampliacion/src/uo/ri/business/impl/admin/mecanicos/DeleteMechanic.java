@@ -1,4 +1,4 @@
-package uo.ri.business.impl.admin;
+package uo.ri.business.impl.admin.mecanicos;
 
 import uo.ri.business.impl.Command;
 import uo.ri.business.repository.MecanicoRepository;

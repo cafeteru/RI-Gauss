@@ -46,9 +46,9 @@ public class ExceptionMenu implements Action {
 		} catch (IndexOutOfBoundsException e) {
 			throw new BusinessException("Opción no valida.");
 		} 
-		catch (NullPointerException e) {
-			throw new BusinessException("Opción nula.");
-		}
+		// catch (NullPointerException e) {
+		// throw new BusinessException("Opción nula.");
+		// }
 
 	}
 
