@@ -1,14 +1,16 @@
 package uo.ri.business.impl.admin.bonos;
 
-import uo.ri.business.impl.Command;
+import java.util.Set;
+
+import uo.ri.model.Bono;
+import uo.ri.model.Cliente;
 import uo.ri.util.exception.BusinessException;
 
-public class Bono3Recomendaciones implements Command<Integer> {
+public class Bono3Recomendaciones extends BonoAbstract {
 
 	@Override
-	public Integer execute() throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	protected Set<Bono> cargarBonos(Cliente c) throws BusinessException {
+		return c.getRecomendacion3();
 	}
 
 }

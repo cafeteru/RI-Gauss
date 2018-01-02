@@ -12,7 +12,8 @@ public class FacturaMenu extends ExceptionMenu {
 				{ "Buscar reparación por matrícula",
 						BuscarFacturaMatriculaAction.class },
 				{ "Facturar reparaciones", FacturarReparacionesAction.class },
-				{ "Liquidar factura", LiquidarFacturaAction.class }, };
+				{ "Liquidar factura", LiquidarFacturaAction.class },
+				{ "Buscar factura por número", BuscarFacturaNumeroAction.class }, };
 	}
 
 }

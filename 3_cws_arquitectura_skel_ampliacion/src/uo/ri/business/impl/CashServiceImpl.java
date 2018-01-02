@@ -5,7 +5,14 @@ import java.util.Map;
 
 import uo.ri.business.CashService;
 import uo.ri.business.dto.*;
-import uo.ri.business.impl.cash.*;
+import uo.ri.business.impl.cash.factura.BuscarFacturaNumero;
+import uo.ri.business.impl.cash.factura.CreateInvoiceFor;
+import uo.ri.business.impl.cash.factura.LiquidarFactura;
+import uo.ri.business.impl.cash.factura.ListarMediosFactura;
+import uo.ri.business.impl.cash.mediosPago.AddCard;
+import uo.ri.business.impl.cash.mediosPago.AddVoucher;
+import uo.ri.business.impl.cash.mediosPago.DeleteMedioPago;
+import uo.ri.business.impl.cash.mediosPago.ListMedios;
 import uo.ri.conf.Factory;
 import uo.ri.util.exception.BusinessException;
 
@@ -17,13 +24,6 @@ public class CashServiceImpl implements CashService {
 	public InvoiceDto createInvoiceFor(List<Long> idsAveria)
 			throws BusinessException {
 		return executor.execute(new CreateInvoiceFor(idsAveria));
-	}
-
-	@Override
-	public InvoiceDto findInvoice(Long numeroInvoiceDto)
-			throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -44,22 +44,19 @@ public class CashServiceImpl implements CashService {
 	@Override
 	public InvoiceDto findInvoiceByNumber(Long numeroFactura)
 			throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return executor.execute(new BuscarFacturaNumero(numeroFactura));
 	}
 
 	@Override
 	public List<PaymentMeanDto> findPaymentMeansForInvoice(Long idFactura)
 			throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return executor.execute(new ListarMediosFactura(idFactura));
 	}
 
 	@Override
 	public InvoiceDto settleInvoice(Long idFactura, Map<Long, Double> cargos)
 			throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		return executor.execute(new LiquidarFactura(idFactura, cargos));
 	}
 
 	@Override
@@ -81,7 +78,7 @@ public class CashServiceImpl implements CashService {
 	@Override
 	public List<PaymentMeanDto> findPaymentMeansByClientId(Long id)
 			throws BusinessException {
-		return (List<PaymentMeanDto>) executor.execute(new ListMedios(id));
+		return executor.execute(new ListMedios(id));
 	}
 
 }

@@ -6,8 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ uo.ri.amp.domain.AllTests.class,
-		uo.ri.amp.service.AllTests.class, uo.ri.amp.TestsForUoMod_0.class,
-		uo.ri.amp.TestsForUoMod_1.class, uo.ri.amp.TestsForUoMod_2.class, })
+		uo.ri.amp.service.AllTests.class })
 
 public class AllTests {
 

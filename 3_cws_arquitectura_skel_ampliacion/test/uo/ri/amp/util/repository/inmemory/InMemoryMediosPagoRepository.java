@@ -59,7 +59,7 @@ public class InMemoryMediosPagoRepository
 	@Override
 	public List<MedioPago> findPaymentMeansByClientId(Long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return findByClientId(id);
 	}
 
 	@Override
@@ -67,5 +67,7 @@ public class InMemoryMediosPagoRepository
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

@@ -3,10 +3,13 @@ package uo.ri.ui.util;
 import java.util.List;
 
 import alb.util.console.Console;
+import alb.util.date.DateUtil;
 import uo.ri.business.dto.BreakdownDto;
+import uo.ri.business.dto.CardDto;
 import uo.ri.business.dto.InvoiceDto;
 import uo.ri.business.dto.MechanicDto;
 import uo.ri.business.dto.PaymentMeanDto;
+import uo.ri.business.dto.VoucherDto;
 
 public class Printer {
 
@@ -28,27 +31,31 @@ public class Printer {
 		Console.println();
 		Console.println("Medios de pago disponibles");
 
-		Console.printf("\t%s \t%-8.8s \t%s \n", "ID", "Tipo", "Acumulado");
+		Console.printf("\t%s \t%-8.8s \t%s \t%s \t%s\n", "ID", "Tipo",
+				"Acumulado", "Disponible", "Válidez");
 		for (PaymentMeanDto medio : medios) {
-			printPaymentMean(medio);
+			printTypePaymentMean(medio);
 		}
 	}
 
-	private static void printPaymentMean(PaymentMeanDto medio) {
-		Console.printf("\t%s \t%-8.8s \t%s \n", medio.id,
-				printTypePaymentMean(medio), medio.accumulated);
-	}
-
-	private static String printTypePaymentMean(PaymentMeanDto medio) {
+	private static void printTypePaymentMean(PaymentMeanDto medio) {
 		switch (medio.getClass().getName()) {
 		case "uo.ri.business.dto.CashDto":
-			return "Metálico";
+			Console.printf("\t%s \t%-8.8s \t%s \n", medio.id, "Metálico",
+					medio.accumulated);
+			break;
 		case "uo.ri.business.dto.VoucherDto":
-			return "Bono";
+			Console.printf("\t%s \t%-8.8s \t%s \t\t%s €\n", medio.id, "Bono",
+					medio.accumulated, ((VoucherDto) medio).available);
+			break;
 		case "uo.ri.business.dto.CardDto":
-			return "Tarjeta de credito";
+			Console.printf("\t%s \t%-8.8s \t%s \t\t\t\t%s\n", medio.id, "Tarjeta",
+					medio.accumulated,
+					DateUtil.toString(((CardDto) medio).cardExpiration));
+			break;
 		default:
-			return "";
+			Console.print("");
+			break;
 		}
 	}
 

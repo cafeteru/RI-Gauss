@@ -14,6 +14,7 @@ public class FacturaJpaRepository extends BaseRepository<Factura>
 	public Factura findByNumber(Long numero) {
 		return Jpa.getManager()
 				.createNamedQuery("Factura.findByNumber", Factura.class)
+				.setParameter(1, numero)
 				.getSingleResult();
 	}
 

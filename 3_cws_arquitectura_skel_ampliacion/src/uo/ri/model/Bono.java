@@ -3,7 +3,6 @@ package uo.ri.model;
 import javax.persistence.*;
 
 import uo.ri.util.exception.BusinessException;
-import uo.ri.util.exception.Check;
 
 @Entity
 @Table(name = "TBONOS")
@@ -19,7 +18,8 @@ public class Bono extends MedioPago {
 	}
 
 	public Bono(Cliente cliente, String codigo) throws BusinessException {
-		this.codigo = Check.checkString(codigo, "Codigo");
+		// this.codigo = Check.checkString(codigo, "Codigo");
+		this.codigo = codigo;
 		Association.Pagar.link(cliente, this);
 	}
 

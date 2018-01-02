@@ -1,6 +1,4 @@
-package uo.ri.business.impl.cash;
-
-import java.util.List;
+package uo.ri.business.impl.cash.mediosPago;
 
 import uo.ri.business.dto.VoucherDto;
 import uo.ri.business.impl.Command;
@@ -9,6 +7,7 @@ import uo.ri.business.repository.MedioPagoRepository;
 import uo.ri.conf.Factory;
 import uo.ri.model.*;
 import uo.ri.util.exception.BusinessException;
+import uo.ri.util.exception.Check;
 
 public class AddVoucher implements Command<Void> {
 
@@ -22,7 +21,8 @@ public class AddVoucher implements Command<Void> {
 
 	public Void execute() throws BusinessException {
 		Cliente cliente = rCliente.findById(dto.clientId);
-		assertNotRepeatedMedioPago(cliente.getId());
+		Check.noEsNull(cliente);
+		assertNotRepeatedMedioPago(dto.code);
 		Bono m = new Bono(cliente, dto.code);
 		m.setDisponible(dto.available);
 		m.setDescripcion(dto.description);
@@ -30,12 +30,10 @@ public class AddVoucher implements Command<Void> {
 		return null;
 	}
 
-	private void assertNotRepeatedMedioPago(Long id) throws BusinessException {
-		List<MedioPago> m = rMedios.findPaymentMeansByClientId(id);
-		for (MedioPago p1 : m) {
-			if (p1 instanceof Bono && ((Bono) p1).getCodigo().equals(dto.code))
-				throw new BusinessException("Ya existe ese medio de pago");
-		}
+	private void assertNotRepeatedMedioPago(String code)
+			throws BusinessException {
+		Bono m = rMedios.findVoucherByCode(code);
+		Check.esNull(m);
 	}
 
 }

@@ -36,21 +36,24 @@ public class MedioPagoJpaRepository extends BaseRepository<MedioPago>
 
 	@Override
 	public TarjetaCredito findCreditCardByNumber(String pan) {
-		// TODO Auto-generated method stub
-		return null;
+		return Jpa.getManager()
+				.createNamedQuery("Tarjeta.findByNumber", TarjetaCredito.class)
+				.setParameter(1, pan).getResultList().stream().findFirst()
+				.orElse(null);
 	}
 
 	@Override
 	public List<Bono> findVouchersByClientId(Long id) {
-		return Jpa.getManager()
-				.createNamedQuery("Bono.findById", Bono.class)
+		return Jpa.getManager().createNamedQuery("Bono.findById", Bono.class)
 				.setParameter(1, id).getResultList();
 	}
 
 	@Override
 	public Bono findVoucherByCode(String code) {
-		// TODO Auto-generated method stub
-		return null;
+		return Jpa.getManager()
+				.createNamedQuery("Bono.findByCode", Bono.class)
+				.setParameter(1, code).getResultList().stream().findFirst()
+				.orElse(null);
 	}
 
 }

@@ -54,6 +54,7 @@ public class Factura {
 
 	public Factura(long numero, Date today) throws BusinessException {
 		this(numero);
+		DateUtil.isBefore(today, DateUtil.today());
 		this.fecha = new Date(today.getTime());
 	}
 
@@ -206,7 +207,6 @@ public class Factura {
 			for (Cargo c : getCargos()) {
 				sumaAverias += c.getImporte();
 			}
-
 			if (Math.abs(importe - sumaAverias) <= 0.01) {
 				this.setStatus(FacturaStatus.ABONADA);
 			} else {
@@ -229,20 +229,21 @@ public class Factura {
 		return false;
 	}
 
-	public void markAsBono500Used() throws BusinessException {
+	public Bono markAsBono500Used() throws BusinessException {
 		if (puedeGenerarBono500()) {
-			crearBono30();
+			return crearBono30();
 		} else {
 			throw new BusinessException("Donde vaaaas");
 		}
 	}
 
-	private void crearBono30() throws BusinessException {
+	private Bono crearBono30() throws BusinessException {
 		Bono bono = new Bono(Random.string(8), "Por factura superior a 500€",
 				30);
 		Iterator<Cargo> it = cargos.iterator();
 		Association.Pagar.link(it.next().getMedioPago().getCliente(), bono);
 		usadaBono = true;
+		return bono;
 	}
 
 	@Override

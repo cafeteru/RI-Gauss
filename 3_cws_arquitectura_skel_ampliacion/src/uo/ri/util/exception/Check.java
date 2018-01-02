@@ -55,8 +55,13 @@ public class Check {
 		throw new BusinessException("Fecha nula");
 	}
 
-	public static void notNull(Object object) throws BusinessException {
+	public static void noEsNull(Object object) throws BusinessException {
 		if (object == null)
+			throw new BusinessException("Parámetro nulo");
+	}
+
+	public static void esNull(Object object) throws BusinessException {
+		if (object != null)
 			throw new BusinessException("Parámetro nulo");
 	}
 

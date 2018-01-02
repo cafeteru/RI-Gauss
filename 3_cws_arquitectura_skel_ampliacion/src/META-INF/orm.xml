@@ -42,9 +42,18 @@
 			select mp 
 			from MedioPago mp  
 			where mp.cliente.id = ?1
+			order by mp.id asc
+		</query>
+	</named-query>
+	<named-query name="Tarjeta.findByNumber">
+		<query>
+			select b
+			from TarjetaCredito b
+			where b.numero = ?1
 		</query>
 	</named-query>
 	<!-- Bono queries -->
+
 	<named-query name="Bono.findById">
 		<query>
 			select b
@@ -53,7 +62,13 @@
 			and mp.cliente.id = ?1
 		</query>
 	</named-query>
-
+	<named-query name="Bono.findByCode">
+		<query>
+			select b
+			from Bono b
+			where b.codigo = ?1
+		</query>
+	</named-query>
 	<!-- Factura queries -->
 	<named-query name="Factura.findByNumber">
 		<query>select f from Factura f where f.numero = ?1</query>

@@ -6,9 +6,7 @@ import uo.ri.business.AdminService;
 import uo.ri.business.dto.MechanicDto;
 import uo.ri.business.dto.VoucherDto;
 import uo.ri.business.dto.VoucherSummary;
-import uo.ri.business.impl.admin.bonos.Bono3Recomendaciones;
-import uo.ri.business.impl.admin.bonos.BonoFacturaSuperior500;
-import uo.ri.business.impl.admin.bonos.Bono3Averias;
+import uo.ri.business.impl.admin.bonos.*;
 import uo.ri.business.impl.admin.mecanicos.AddMechanic;
 import uo.ri.business.impl.admin.mecanicos.DeleteMechanic;
 import uo.ri.business.impl.admin.mecanicos.FindAllMechanics;
@@ -52,8 +50,8 @@ public class AdminServiceImpl implements AdminService {
 	public int generateVouchers() throws BusinessException {
 		int count = 0;
 		count += executor.execute(new Bono3Averias());
-		// count += executor.execute(new BonoFacturaSuperior500());
-		// count += executor.execute(new Bono3Recomendaciones());
+		count += executor.execute(new BonoFacturaSuperior500());
+		count += executor.execute(new Bono3Recomendaciones());
 		return count;
 	}
 

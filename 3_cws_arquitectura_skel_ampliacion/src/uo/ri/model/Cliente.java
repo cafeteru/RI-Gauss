@@ -148,11 +148,10 @@ public class Cliente {
 		return averias;
 	}
 
-	public List<Bono> crearBonoAveria() throws BusinessException {
+	public Set<Bono> crearBonoAveria() throws BusinessException {
 		List<Averia> lista = getAveriasBono3NoUsadas();
 		int numBonos = lista.size() / 3;
 		if (numBonos > 0) {
-
 			for (int i = 0; i < numBonos * 3; i++) {
 				lista.get(i).markAsBono3Used();
 			}
@@ -192,11 +191,12 @@ public class Cliente {
 		return lista;
 	}
 
-	private List<Bono> crearBono(int numero, int cantidad, String descripcion)
+	private Set<Bono> crearBono(int numero, int cantidad, String descripcion)
 			throws BusinessException {
-		List<Bono> bonos = new ArrayList<>();
+		Set<Bono> bonos = new HashSet<>();
 		while (numero > 0) {
-			Bono bono = new Bono(Random.string(8), descripcion, cantidad);
+			String nombre = "B" + Random.string('0', '9', 4);
+			Bono bono = new Bono(nombre, descripcion, cantidad);
 			Association.Pagar.link(this, bono);
 			bonos.add(bono);
 			numero--;
@@ -240,6 +240,35 @@ public class Cliente {
 		return "Cliente [dni=" + dni + ", nombre=" + nombre + ", apellidos="
 				+ apellidos + ", address=" + address + ", email=" + email
 				+ ", phone=" + phone + "]";
+	}
+
+	public Set<Bono> getFacturasBono500() throws BusinessException {
+		Set<Factura> facturas = new HashSet<Factura>();
+		for (Vehiculo v : vehiculos) {
+			for (Averia a : v.getAverias()) {
+				if (a.getFactura() != null
+						&& a.getFactura().puedeGenerarBono500()) {
+					facturas.add(a.getFactura());
+				}
+			}
+		}
+		Set<Bono> bonos = new HashSet<Bono>();
+		for (Factura f : facturas) {
+			bonos.add(f.markAsBono500Used());
+		}
+		return bonos;
+	}
+
+	public Set<Bono> getRecomendacion3() throws BusinessException {
+		if (reparacionRealizada()) {
+			List<Recomendacion> lista = listarRecomendacionBono();
+			int bonos = lista.size() / 3;
+			if (bonos > 0) {
+				marcarRecomendaciones(lista, bonos * 3);
+				return crearBono(bonos, 25, "Por recomendación");
+			}
+		}
+		return null;
 	}
 
 }

@@ -1,4 +1,4 @@
-package uo.ri.business.impl.cash;
+package uo.ri.business.impl.cash.factura;
 
 import java.util.List;
 

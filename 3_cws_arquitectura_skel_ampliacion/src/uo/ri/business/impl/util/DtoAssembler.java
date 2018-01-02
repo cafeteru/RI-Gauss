@@ -129,7 +129,7 @@ public class DtoAssembler {
 		return list.stream().map(mp -> toDto(mp)).collect(Collectors.toList());
 	}
 
-	private static PaymentMeanDto toDto(MedioPago mp) {
+	public static PaymentMeanDto toDto(MedioPago mp) {
 		if (mp instanceof Bono) {
 			return toDto((Bono) mp);
 		} else if (mp instanceof TarjetaCredito) {

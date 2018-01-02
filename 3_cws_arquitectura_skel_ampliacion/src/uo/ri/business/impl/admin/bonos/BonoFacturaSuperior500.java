@@ -1,16 +1,16 @@
 package uo.ri.business.impl.admin.bonos;
 
-import uo.ri.business.impl.Command;
-import uo.ri.business.repository.MedioPagoRepository;
-import uo.ri.conf.Factory;
+import java.util.Set;
+
+import uo.ri.model.Bono;
+import uo.ri.model.Cliente;
 import uo.ri.util.exception.BusinessException;
 
-public class BonoFacturaSuperior500 implements Command<Integer> {
-	private MedioPagoRepository rMedios = Factory.repository.forMedioPago();
+public class BonoFacturaSuperior500 extends BonoAbstract {
+
 	@Override
-	public Integer execute() throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	protected Set<Bono> cargarBonos(Cliente c) throws BusinessException {
+		return c.getFacturasBono500();
 	}
 
 }
