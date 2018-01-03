@@ -87,7 +87,7 @@ public class Printer {
 
 	public static void printVoucherSummary(List<VoucherSummary> a) {
 		for (VoucherSummary v : a) {
-			Console.printf("\t%s %s %s %d %f %f %f\n", v.dni, v.name, v.surname,
+			Console.printf("\t%s %s %s %d %f %f\n", v.dni, v.name, v.surname,
 					v.emitted, v.consumed, v.available);
 		}
 	}

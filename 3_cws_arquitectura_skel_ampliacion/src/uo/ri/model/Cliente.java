@@ -5,13 +5,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import alb.util.random.Random;
+import uo.ri.model.types.Address;
 import uo.ri.util.exception.BusinessException;
 import uo.ri.util.exception.Check;
-import uo.ri.business.dto.VoucherSummary;
-import uo.ri.model.types.Address;
 
 @Entity
 @Table(name = "TCLIENTES")
@@ -270,24 +277,6 @@ public class Cliente {
 			}
 		}
 		return null;
-	}
-
-	public VoucherSummary realizarResumen() {
-		VoucherSummary v = new VoucherSummary();
-		v.dni = getDni();
-		v.name = getNombre();
-		v.surname = getApellidos();
-		int contador = 0;
-		for (MedioPago m : mediosPago) {
-			if (m instanceof Bono) {
-				contador++;
-				v.available += ((Bono) m).getDisponible();
-				v.consumed += m.getAcumulado();
-			}
-		}
-		v.emitted = contador;
-		v.totalAmount = v.available + v.consumed;
-		return v;
 	}
 
 	public void eliminarMetalico() throws BusinessException {

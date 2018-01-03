@@ -160,9 +160,4 @@ public class DtoAssembler {
 		return dto;
 	}
 
-	public static MedioPago toEntity(PaymentMeanDto dto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

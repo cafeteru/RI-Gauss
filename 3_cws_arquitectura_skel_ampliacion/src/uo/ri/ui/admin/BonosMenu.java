@@ -1,11 +1,11 @@
 package uo.ri.ui.admin;
 
-import alb.util.menu.BaseMenu;
 import uo.ri.ui.admin.action.bonos.GeneracionBonosAction;
 import uo.ri.ui.admin.action.bonos.ListarBonoClienteAction;
-import uo.ri.ui.admin.action.mecanicos.DeleteMechanicAction;
+import uo.ri.ui.admin.action.bonos.ResumenBonosClienteAction;
+import uo.ri.ui.util.ExceptionMenu;
 
-public class BonosMenu extends BaseMenu {
+public class BonosMenu extends ExceptionMenu {
 
 	public BonosMenu() {
 		menuOptions = new Object[][] {
@@ -16,7 +16,7 @@ public class BonosMenu extends BaseMenu {
 				{ "Listado de los bonos de un cliente dado",
 						ListarBonoClienteAction.class },
 				{ "Listado de información agregada de los bonos de cada cliente",
-						DeleteMechanicAction.class } };
+						ResumenBonosClienteAction.class } };
 	}
 
 }

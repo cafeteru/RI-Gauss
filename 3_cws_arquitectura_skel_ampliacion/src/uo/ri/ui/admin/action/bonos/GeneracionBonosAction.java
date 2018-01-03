@@ -9,6 +9,7 @@ import uo.ri.util.exception.BusinessException;
 public class GeneracionBonosAction extends ActionTemplate {
 
 	private AdminService as = Factory.service.forAdmin();
+	private int contador = 0;
 
 	@Override
 	protected void pedirDatos() {
@@ -16,11 +17,11 @@ public class GeneracionBonosAction extends ActionTemplate {
 
 	@Override
 	protected void procesarDatos() throws BusinessException {
-		as.generateVouchers();
+		contador = as.generateVouchers();
 	}
 
 	@Override
 	protected void imprimirMensaje() {
-		Console.print("Bonos creados");
+		Console.print("Bonos creados: " + contador);
 	}
 }
