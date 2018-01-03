@@ -34,11 +34,6 @@ public class InMemoryClienteRepository extends BaseMemoryRepository<Cliente>
 				.collect(Collectors.toList());
 	}
 
-	@Override
-	public List<Cliente> findRecomendedBy(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 }

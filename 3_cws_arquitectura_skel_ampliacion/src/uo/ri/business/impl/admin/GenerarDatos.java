@@ -1,0 +1,238 @@
+package uo.ri.business.impl.admin;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import alb.util.random.Random;
+import uo.ri.business.impl.Command;
+import uo.ri.business.repository.AveriaRepository;
+import uo.ri.business.repository.CargoRepository;
+import uo.ri.business.repository.ClienteRepository;
+import uo.ri.business.repository.FacturaRepository;
+import uo.ri.business.repository.MecanicoRepository;
+import uo.ri.business.repository.MedioPagoRepository;
+import uo.ri.business.repository.RecomendacionRepository;
+import uo.ri.business.repository.RepuestoRepository;
+import uo.ri.business.repository.VehiculoRepository;
+import uo.ri.conf.Factory;
+import uo.ri.model.Cliente;
+import uo.ri.model.Mecanico;
+import uo.ri.model.Recomendacion;
+import uo.ri.model.types.Address;
+import uo.ri.util.exception.BusinessException;
+
+/**
+ * Sin terminar, solo crea clientes, mecanicos y recomendaciones
+ * 
+ * @author igm1990
+ *
+ */
+public class GenerarDatos implements Command<Void> {
+	private Set<Cliente> clientes = new HashSet<>();
+	private Set<Mecanico> mecanicos = new HashSet<>();
+
+	private int numClientes = 50, numMecanicos = 10;
+
+	private String[] nombres = { "MARIA CARMEN", "MARIA", "CARMEN", "JOSEFA",
+			"ISABEL", "ANA MARIA", "MARIA PILAR", "MARIA DOLORES",
+			"MARIA TERESA", "ANA", "LAURA", "FRANCISCA", "MARIA ANGELES",
+			"CRISTINA", "ANTONIA", "MARTA", "DOLORES", "MARIA ISABEL",
+			"MARIA JOSE", "LUCIA", "MARIA LUISA", "PILAR", "ELENA",
+			"CONCEPCION", "ANTONIO", "JOSE", "MANUEL", "FRANCISCO", "JUAN",
+			"DAVID", "JOSE ANTONIO", "JOSE LUIS", "JAVIER", "FRANCISCO JAVIER",
+			"JESUS", "DANIEL", "CARLOS", "MIGUEL", "ALEJANDRO", "JOSE MANUEL",
+			"RAFAEL", "PEDRO", "ANGEL", "MIGUEL ANGEL", "JOSE MARIA",
+			"FERNANDO", "PABLO", "LUIS", "SERGIO", "JORGE", "ALBERTO",
+			"JUAN CARLOS", "JUAN JOSE", "ALVARO", "DIEGO", "ADRIAN",
+			"JUAN ANTONIO", "RAUL", "ENRIQUE", "RAMON", "VICENTE", "IVAN" };
+
+	private String[] apellidos = { "Aguilar", "Alonso", "Álvarez", "Arias",
+			"Benítez", "Blanco", "Blesa", "Bravo", "Caballero", "Cabrera",
+			"Calvo", "Cambil", "Campos", "Cano", "Carmona", "Carrasco",
+			"Castillo", "Castro", "Cortés", "Crespo", "Cruz", "Delgado", "Díaz",
+			"Díez", "Domínguez", "Durán", "Esteban", "Fernández", "Ferrer",
+			"Flores", "Fuentes", "Gallardo", "Gallego", "García", "Garrido",
+			"Gil", "Giménez", "Gómez", "González", "Guerrero", "Gutiérrez",
+			"Hernández", "Herrera", "Herrero", "Hidalgo", "Ibáñez", "Iglesias",
+			"Jiménez", "León", "López", "Lorenzo", "Lozano", "Marín", "Márquez",
+			"Martín", "Martínez", "Medina", "Méndez", "Molina", "Montero",
+			"Montoro", "Mora", "Morales", "Moreno", "Moya", "Muñoz", "Navarro",
+			"Nieto", "Núñez", "Ortega", "Ortiz", "Parra", "Pascual", "Pastor",
+			"Peña", "Pérez", "Prieto", "Ramírez", "Ramos", "Rey", "Reyes",
+			"Rodríguez", "Román", "Romero", "Rubio", "Ruiz", "Sáez", "Sánchez",
+			"Santana", "Santiago", "Santos", "Sanz", "Serrano", "Soler", "Soto",
+			"Suárez", "Torres", "Vargas", "Vázquez", "Vega", "Velasco",
+			"Vicente", "Vidal" };
+
+	private String[] ciudades = { "Oviedo", "Gijón", "Mieres", "Aviles",
+			"Grado", "Navia", "Lugones", "Colloto", "Nava" };
+
+	ClienteRepository c1 = Factory.repository.forCliente();
+	MecanicoRepository m1 = Factory.repository.forMechanic();
+	RecomendacionRepository r1 = Factory.repository.forRecomendacion();
+	MedioPagoRepository mp1 = Factory.repository.forMedioPago();
+	FacturaRepository f1 = Factory.repository.forFactura();
+	CargoRepository ca1 = Factory.repository.forCargo();
+	// TipoVehiculoRepository tv1 = Factory.repository.for;
+	VehiculoRepository v1 = Factory.repository.forVehiculo();
+	AveriaRepository a1 = Factory.repository.forAveria();
+	// IntervencionRepository i1 = Factory.repository.forR;
+	RepuestoRepository re1 = Factory.repository.forRepuesto();
+	// SustitucionRepository s1 = Factory.repository.forRecomendacion();
+
+	@Override
+	public Void execute() throws BusinessException {
+		for (int i = 0; i < numClientes; i++) {
+			crearCliente();
+		}
+		for (int i = 0; i < numMecanicos; i++) {
+			crearMecanico();
+		}
+
+		for (int i = 0; i < numClientes; i++) {
+			crearRecomendaciones();
+		}
+
+		for (int i = 0; i < numClientes; i++) {
+			crearMediosPago();
+		}
+
+		for (int i = 0; i < numClientes * 2; i++) {
+			crearFacturas();
+		}
+
+		for (int i = 0; i < numClientes * 1.3; i++) {
+			crearCargos();
+		}
+		for (int i = 0; i < numMecanicos * 2; i++) {
+			crearTiposVehiculo();
+		}
+
+		for (int i = 0; i < numClientes * 2; i++) {
+			crearVehiculos();
+		}
+
+		for (int i = 0; i < numClientes * 2; i++) {
+			crearAverias();
+		}
+
+		for (int i = 0; i < numClientes * 2; i++) {
+			crearIntervenciones();
+		}
+
+		for (int i = 0; i < numClientes * 2; i++) {
+			crearRepuestos();
+		}
+
+		for (int i = 0; i < numClientes * 2; i++) {
+			crearSustituciones();
+		}
+		return null;
+	}
+
+	private void crearCliente() throws BusinessException {
+		Cliente c = new Cliente(
+				"" + Random.integer(10_000_000, 99_999_999) + Random.string(1));
+		String nombre = nombres[Random.integer(0, nombres.length)];
+		c.setNombre(nombre);
+		String apellido = apellidos[Random.integer(0, apellidos.length)];
+		c.setApellidos(apellidos[Random.integer(0, apellidos.length)]
+				.toUpperCase() + " "
+				+ apellidos[Random.integer(0, apellidos.length)].toUpperCase());
+		String street = Random.string(15);
+		String city = ciudades[Random.integer(0, ciudades.length)]
+				.toUpperCase();
+		String zipCode = "" + Random.integer(10_000, 50_000);
+		Address a = new Address(street, city, zipCode);
+		c.setAddress(a);
+		String email = nombre.split(" ")[0].toLowerCase()
+				+ apellido.toLowerCase() + "@gmail.com";
+		c.setEmail(email);
+		c.setPhone("" + Random.integer(600_000_000, 699_999_999));
+		clientes.add(c);
+		c1.add(c);
+	}
+
+	private void crearMecanico() throws BusinessException {
+		Mecanico m = new Mecanico(
+				"" + Random.integer(10_000_000, 99_999_999) + Random.string(1));
+		String nombre = nombres[Random.integer(0, nombres.length)];
+		m.setNombre(nombre);
+		m.setApellidos(apellidos[Random.integer(0, apellidos.length)]
+				.toUpperCase() + " "
+				+ apellidos[Random.integer(0, apellidos.length)].toUpperCase());
+		mecanicos.add(m);
+		m1.add(m);
+	}
+
+	private void crearRecomendaciones() throws BusinessException {
+		Cliente cliente1 = null, cliente2 = null;
+		int tamaño = clientes.size();
+		int posicion1 = Random.integer(0, tamaño);
+		int posicion2 = 0;
+
+		do {
+			posicion2 = Random.integer(0, tamaño);
+		} while (posicion1 == posicion2);
+
+		int contador = 0;
+		for (Cliente cliente : clientes) {
+			if (contador == posicion1) {
+				cliente1 = cliente;
+			} else if (contador == posicion2)
+				cliente2 = cliente;
+			contador++;
+		}
+		if (cliente2.getRecomendacionRecibida() == null) {
+			Recomendacion r = new Recomendacion(cliente1, cliente2);
+
+			r1.add(r);
+		}
+	}
+
+	private void crearSustituciones() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void crearRepuestos() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void crearIntervenciones() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void crearCargos() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void crearAverias() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void crearVehiculos() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void crearTiposVehiculo() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void crearFacturas() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void crearMediosPago() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

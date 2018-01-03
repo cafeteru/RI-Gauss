@@ -3,6 +3,8 @@ package uo.ri.business.impl;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.PersistenceException;
+
 import uo.ri.business.CashService;
 import uo.ri.business.dto.*;
 import uo.ri.business.impl.cash.factura.BuscarFacturaNumero;
@@ -78,7 +80,11 @@ public class CashServiceImpl implements CashService {
 	@Override
 	public List<PaymentMeanDto> findPaymentMeansByClientId(Long id)
 			throws BusinessException {
-		return executor.execute(new ListMedios(id));
+		try {
+			return executor.execute(new ListMedios(id));
+		} catch (PersistenceException e) {
+			throw new BusinessException("La base de datos animaaaaaaaaaaal");
+		}
 	}
 
 }

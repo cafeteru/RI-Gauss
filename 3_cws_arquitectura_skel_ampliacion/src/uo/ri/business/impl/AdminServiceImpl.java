@@ -6,6 +6,7 @@ import uo.ri.business.AdminService;
 import uo.ri.business.dto.MechanicDto;
 import uo.ri.business.dto.VoucherDto;
 import uo.ri.business.dto.VoucherSummary;
+import uo.ri.business.impl.admin.GenerarDatos;
 import uo.ri.business.impl.admin.bonos.*;
 import uo.ri.business.impl.admin.mecanicos.AddMechanic;
 import uo.ri.business.impl.admin.mecanicos.DeleteMechanic;
@@ -64,6 +65,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<VoucherSummary> getVoucherSummary() throws BusinessException {
 		return executor.execute(new ResumenBonosCliente());
+	}
+
+	@Override
+	public void ejecutar() throws BusinessException {
+		executor.execute(new GenerarDatos());
 	}
 
 }

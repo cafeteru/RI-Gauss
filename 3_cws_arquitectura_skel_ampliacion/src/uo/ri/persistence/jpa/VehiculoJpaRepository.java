@@ -1,34 +1,10 @@
 package uo.ri.persistence.jpa;
 
-import java.util.List;
-
 import uo.ri.business.repository.VehiculoRepository;
 import uo.ri.model.Vehiculo;
+import uo.ri.persistence.jpa.util.BaseRepository;
 
-public class VehiculoJpaRepository implements VehiculoRepository {
-
-	@Override
-	public void add(Vehiculo t) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void remove(Vehiculo t) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Vehiculo findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Vehiculo> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public class VehiculoJpaRepository extends BaseRepository<Vehiculo>
+		implements VehiculoRepository {
 
 }
