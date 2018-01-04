@@ -30,8 +30,9 @@ public class MedioPagoJpaRepository extends BaseRepository<MedioPago>
 
 	@Override
 	public Object[] findAggregateVoucherDataByClientId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return (Object[]) Jpa.getManager()
+				.createNamedQuery("Bono.resumenByClienteId", Object.class)
+				.setParameter(1, id).getSingleResult();
 	}
 
 	@Override
@@ -50,8 +51,7 @@ public class MedioPagoJpaRepository extends BaseRepository<MedioPago>
 
 	@Override
 	public Bono findVoucherByCode(String code) {
-		return Jpa.getManager()
-				.createNamedQuery("Bono.findByCode", Bono.class)
+		return Jpa.getManager().createNamedQuery("Bono.findByCode", Bono.class)
 				.setParameter(1, code).getResultList().stream().findFirst()
 				.orElse(null);
 	}

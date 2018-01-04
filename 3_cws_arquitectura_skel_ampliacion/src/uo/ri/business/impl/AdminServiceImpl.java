@@ -72,4 +72,10 @@ public class AdminServiceImpl implements AdminService {
 		executor.execute(new GenerarDatos());
 	}
 
+	@Override
+	public VoucherSummary getVoucherSummaryByClientId(Long id)
+			throws BusinessException {
+		return executor.execute(new ResumenClienteId(id));
+	}
+
 }

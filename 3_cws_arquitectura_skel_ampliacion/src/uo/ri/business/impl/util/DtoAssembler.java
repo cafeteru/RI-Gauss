@@ -161,20 +161,14 @@ public class DtoAssembler {
 		return dto;
 	}
 
-	public static VoucherSummary calculateSumary(Cliente c) {
+	public static VoucherSummary toDto(Object[] resultados) {
 		VoucherSummary v = new VoucherSummary();
-		v.dni = c.getDni();
-		v.name = c.getNombre();
-		v.surname = c.getApellidos();
-		int contador = 0;
-		for (MedioPago m : c.getMediosPago()) {
-			if (m instanceof Bono) {
-				contador++;
-				v.available += ((Bono) m).getDisponible();
-				v.consumed += m.getAcumulado();
-			}
-		}
-		v.emitted = contador;
+		v.dni = (String) resultados[0];
+		v.name = (String) resultados[1];
+		v.surname = (String) resultados[2];
+		v.emitted = (int) (long) resultados[3];
+		v.available = (double) resultados[4];
+		v.consumed = (double) resultados[5];
 		v.totalAmount = v.available + v.consumed;
 		return v;
 	}

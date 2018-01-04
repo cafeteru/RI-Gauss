@@ -68,6 +68,18 @@
 			where b.codigo = ?1
 		</query>
 	</named-query>
+	<named-query name="Bono.resumenByClienteId">
+		<query>
+			<![CDATA[
+			select c.dni, c.nombre, c.apellidos, 
+				count(b.id), sum(b.disponible), sum(b.acumulado) 
+			from Bono b
+				join b.cliente c
+			where b.cliente.id = ?1
+			group by c.dni, c.nombre, c.apellidos
+			]]>
+		</query>
+	</named-query>
 	<!-- Factura queries -->
 	<named-query name="Factura.findByNumber">
 		<query>select f from Factura f where f.numero = ?1</query>
