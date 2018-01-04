@@ -15,8 +15,6 @@ public class ListarBonoClienteAction extends ActionTemplate {
 	private Long id;
 	private List<VoucherDto> dtos;
 
-
-
 	@Override
 	protected void pedirDatos() {
 		id = Console.readLong("Id del cliente");
@@ -30,6 +28,7 @@ public class ListarBonoClienteAction extends ActionTemplate {
 	@Override
 	protected void imprimirMensaje() {
 		Printer.printVoucherDtos(dtos);
+		
 	}
 
 }

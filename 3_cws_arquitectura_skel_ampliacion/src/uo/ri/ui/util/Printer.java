@@ -63,13 +63,13 @@ public class Printer {
 
 	public static void printVoucherDtos(List<VoucherDto> medios) {
 		Console.println();
-		Console.println("Medios de pago disponibles");
+		Console.println("Bonos disponibles");
 
 		Console.printf("\t%s \t%-8.8s \t%s \t%s \t%s\n", "ID", "Tipo",
 				"Acumulado", "Disponible", "Válidez");
 		for (VoucherDto medio : medios) {
 			Console.printf("\t%s \t%-8.8s \t%s \t\t%s €\n", medio.id, "Bono",
-					medio.accumulated, ((VoucherDto) medio).available);
+					medio.accumulated, medio.available);
 		}
 	}
 
@@ -85,11 +85,16 @@ public class Printer {
 				m.surname);
 	}
 
-	public static void printVoucherSummary(List<VoucherSummary> a) {
+	public static void printListVoucherSummary(List<VoucherSummary> a) {
 		for (VoucherSummary v : a) {
 			Console.printf("\t%s %s %s %d %f %f\n", v.dni, v.name, v.surname,
 					v.emitted, v.consumed, v.available);
 		}
+	}
+
+	public static void printVoucherSummary(VoucherSummary v) {
+		Console.printf("\t%s %s %s %d %f %f\n", v.dni, v.name, v.surname,
+				v.emitted, v.consumed, v.available);
 	}
 
 	public static void printCliente(ClientDto c) {

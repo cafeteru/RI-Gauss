@@ -57,9 +57,8 @@
 	<named-query name="Bono.findById">
 		<query>
 			select b
-			from Bono b, MedioPago mp
-			where mp.id = b.id
-			and mp.cliente.id = ?1
+			from Bono b
+			where b.cliente.id = ?1
 		</query>
 	</named-query>
 	<named-query name="Bono.findByCode">

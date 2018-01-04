@@ -12,6 +12,7 @@ import uo.ri.business.dto.InvoiceDto;
 import uo.ri.business.dto.MechanicDto;
 import uo.ri.business.dto.PaymentMeanDto;
 import uo.ri.business.dto.VoucherDto;
+import uo.ri.business.dto.VoucherSummary;
 import uo.ri.model.Averia;
 import uo.ri.model.Bono;
 import uo.ri.model.Cliente;
@@ -158,6 +159,24 @@ public class DtoAssembler {
 		dto.total = a.getImporte();
 		dto.status = a.getStatus().toString();
 		return dto;
+	}
+
+	public static VoucherSummary calculateSumary(Cliente c) {
+		VoucherSummary v = new VoucherSummary();
+		v.dni = c.getDni();
+		v.name = c.getNombre();
+		v.surname = c.getApellidos();
+		int contador = 0;
+		for (MedioPago m : c.getMediosPago()) {
+			if (m instanceof Bono) {
+				contador++;
+				v.available += ((Bono) m).getDisponible();
+				v.consumed += m.getAcumulado();
+			}
+		}
+		v.emitted = contador;
+		v.totalAmount = v.available + v.consumed;
+		return v;
 	}
 
 }

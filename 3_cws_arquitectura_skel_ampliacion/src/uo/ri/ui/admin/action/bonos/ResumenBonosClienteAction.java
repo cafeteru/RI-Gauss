@@ -25,7 +25,7 @@ public class ResumenBonosClienteAction extends ActionTemplate {
 
 	@Override
 	protected void imprimirMensaje() {
-		Printer.printVoucherSummary(lista);
+		Printer.printListVoucherSummary(lista);
 	}
 
 }

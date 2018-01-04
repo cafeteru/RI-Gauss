@@ -145,8 +145,8 @@ public class Factura {
 		// calcular el importe
 		if (averia.getStatus().equals(AveriaStatus.TERMINADA)
 				&& getStatus().equals(FacturaStatus.SIN_ABONAR)) {
-			averia.setStatus(AveriaStatus.FACTURADA);
 			Association.Facturar.link(this, averia);
+			averia.markAsInvoiced();
 			calcularImporte();
 		} else {
 			throw new BusinessException("No se puede añadir la avería a"
