@@ -36,4 +36,6 @@ public interface AdminService {
 	 * @throws BusinessException
 	 */
 	List<VoucherSummary> getVoucherSummary() throws BusinessException;
+
+	void ejecutar() throws BusinessException;
 }

@@ -88,7 +88,8 @@ public class GenerarDatos {
 		String zipCode = "" + Random.integer(10_000, 50_000);
 		Address a = new Address(street, city, zipCode);
 		c.setAddress(a);
-		String email = nombre + apellido + "@gmail.com";
+		String email = nombre.split(" ")[0].toLowerCase()
+				+ apellido.toLowerCase() + "@gmail.com";
 		c.setEmail(email);
 		c.setPhone("" + Random.integer(600_000_000, 699_999_999));
 		clientes.add(c);
@@ -110,11 +111,11 @@ public class GenerarDatos {
 		int tamaño = clientes.size();
 		int posicion1 = Random.integer(0, tamaño);
 		int posicion2 = 0;
-		
+
 		do {
 			posicion2 = Random.integer(0, tamaño);
 		} while (posicion1 == posicion2);
-		
+
 		int contador = 0;
 		for (Cliente cliente : clientes) {
 			if (contador == posicion1) {
