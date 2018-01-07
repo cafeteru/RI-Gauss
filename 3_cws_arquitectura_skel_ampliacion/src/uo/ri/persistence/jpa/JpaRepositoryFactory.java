@@ -4,14 +4,27 @@ import uo.ri.business.repository.AveriaRepository;
 import uo.ri.business.repository.CargoRepository;
 import uo.ri.business.repository.ClienteRepository;
 import uo.ri.business.repository.FacturaRepository;
+import uo.ri.business.repository.IntervencionRepository;
 import uo.ri.business.repository.MecanicoRepository;
 import uo.ri.business.repository.MedioPagoRepository;
 import uo.ri.business.repository.RecomendacionRepository;
 import uo.ri.business.repository.RepositoryFactory;
 import uo.ri.business.repository.RepuestoRepository;
+import uo.ri.business.repository.SustitucionRepository;
+import uo.ri.business.repository.TipoVehiculoRepository;
 import uo.ri.business.repository.VehiculoRepository;
 
 public class JpaRepositoryFactory implements RepositoryFactory {
+
+	@Override
+	public VehiculoRepository forVehiculo() {
+		return new VehiculoJpaRepository();
+	}
+
+	@Override
+	public TipoVehiculoRepository forTipo() {
+		return new TipoVehiculoJpaRepository();
+	}
 
 	@Override
 	public MecanicoRepository forMechanic() {
@@ -54,8 +67,13 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public VehiculoRepository forVehiculo() {
-		return new VehiculoJpaRepository();
+	public IntervencionRepository forIntervencion() {
+		return new IntervencionJpaRepository();
+	}
+
+	@Override
+	public SustitucionRepository forSustitucion() {
+		return new SustitucionJpaRepository();
 	}
 
 }

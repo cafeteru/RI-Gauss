@@ -2,6 +2,12 @@ package uo.ri.business.repository;
 
 public interface RepositoryFactory {
 
+	TipoVehiculoRepository forTipo();
+
+	IntervencionRepository forIntervencion();
+
+	SustitucionRepository forSustitucion();
+
 	MecanicoRepository forMechanic();
 
 	AveriaRepository forAveria();

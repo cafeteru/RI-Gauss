@@ -22,9 +22,10 @@ public abstract class BonoAbstract implements Command<Integer> {
 		for (Cliente c : clientes) {
 			Set<Bono> lista = cargarBonos(c);
 			if (lista != null) {
-				for (Bono b : lista)
+				for (Bono b : lista) {
 					rMedios.add(b);
-				contador += lista.size();
+					contador++;
+				}
 			}
 		}
 		return contador;

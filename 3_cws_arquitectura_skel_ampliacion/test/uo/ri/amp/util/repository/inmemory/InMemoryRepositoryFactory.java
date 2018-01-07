@@ -4,11 +4,14 @@ import uo.ri.business.repository.AveriaRepository;
 import uo.ri.business.repository.CargoRepository;
 import uo.ri.business.repository.ClienteRepository;
 import uo.ri.business.repository.FacturaRepository;
+import uo.ri.business.repository.IntervencionRepository;
 import uo.ri.business.repository.MecanicoRepository;
 import uo.ri.business.repository.MedioPagoRepository;
 import uo.ri.business.repository.RecomendacionRepository;
 import uo.ri.business.repository.RepositoryFactory;
 import uo.ri.business.repository.RepuestoRepository;
+import uo.ri.business.repository.SustitucionRepository;
+import uo.ri.business.repository.TipoVehiculoRepository;
 import uo.ri.business.repository.VehiculoRepository;
 
 public class InMemoryRepositoryFactory implements RepositoryFactory {
@@ -23,7 +26,6 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public MecanicoRepository forMechanic() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -49,7 +51,6 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public RepuestoRepository forRepuesto() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -66,6 +67,21 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	@Override
 	public VehiculoRepository forVehiculo() {
 		return vehiculos;
+	}
+
+	@Override
+	public TipoVehiculoRepository forTipo() {
+		return null;
+	}
+
+	@Override
+	public IntervencionRepository forIntervencion() {
+		return null;
+	}
+
+	@Override
+	public SustitucionRepository forSustitucion() {
+		return null;
 	}
 
 }

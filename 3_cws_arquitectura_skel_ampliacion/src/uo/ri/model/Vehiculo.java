@@ -44,6 +44,12 @@ public class Vehiculo {
 		this.matricula = Check.checkString(matricula, "Matricula");
 	}
 
+	public Vehiculo(String matricula, TipoVehiculo tipo)
+			throws BusinessException {
+		this(matricula);
+		Association.Clasificar.link(tipo, this);
+	}
+
 	public Vehiculo(String matricula, String marca) throws BusinessException {
 		this(matricula);
 		this.marca = marca;

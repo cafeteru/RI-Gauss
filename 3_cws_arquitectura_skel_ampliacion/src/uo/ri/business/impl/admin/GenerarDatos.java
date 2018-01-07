@@ -1,8 +1,9 @@
 package uo.ri.business.impl.admin;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+import alb.util.date.DateUtil;
 import alb.util.random.Random;
 import uo.ri.business.impl.Command;
 import uo.ri.business.repository.AveriaRepository;
@@ -11,13 +12,18 @@ import uo.ri.business.repository.ClienteRepository;
 import uo.ri.business.repository.FacturaRepository;
 import uo.ri.business.repository.MecanicoRepository;
 import uo.ri.business.repository.MedioPagoRepository;
-import uo.ri.business.repository.RecomendacionRepository;
-import uo.ri.business.repository.RepuestoRepository;
+import uo.ri.business.repository.TipoVehiculoRepository;
 import uo.ri.business.repository.VehiculoRepository;
 import uo.ri.conf.Factory;
+import uo.ri.model.Association;
+import uo.ri.model.Averia;
+import uo.ri.model.Cargo;
 import uo.ri.model.Cliente;
+import uo.ri.model.Factura;
 import uo.ri.model.Mecanico;
-import uo.ri.model.Recomendacion;
+import uo.ri.model.Metalico;
+import uo.ri.model.TipoVehiculo;
+import uo.ri.model.Vehiculo;
 import uo.ri.model.types.Address;
 import uo.ri.util.exception.BusinessException;
 
@@ -28,10 +34,12 @@ import uo.ri.util.exception.BusinessException;
  *
  */
 public class GenerarDatos implements Command<Void> {
-	private Set<Cliente> clientes = new HashSet<>();
-	private Set<Mecanico> mecanicos = new HashSet<>();
+	private List<Cliente> clientes = new ArrayList<>();
+	private List<Mecanico> mecanicos = new ArrayList<>();
 
 	private int numClientes = 50, numMecanicos = 10;
+	private Long numFactura = 0L;
+	private TipoVehiculo t;
 
 	private String[] nombres = { "MARIA CARMEN", "MARIA", "CARMEN", "JOSEFA",
 			"ISABEL", "ANA MARIA", "MARIA PILAR", "MARIA DOLORES",
@@ -67,67 +75,46 @@ public class GenerarDatos implements Command<Void> {
 	private String[] ciudades = { "Oviedo", "Gijón", "Mieres", "Aviles",
 			"Grado", "Navia", "Lugones", "Colloto", "Nava" };
 
+	private String[] marcas = { "Seat", "Opel", "Ford", "Fiat", "Nissan",
+			"Hyundai", "Saab", "Ferrari", "Mercedes" };
+
 	ClienteRepository c1 = Factory.repository.forCliente();
 	MecanicoRepository m1 = Factory.repository.forMechanic();
-	RecomendacionRepository r1 = Factory.repository.forRecomendacion();
+	// RecomendacionRepository r1 = Factory.repository.forRecomendacion();
 	MedioPagoRepository mp1 = Factory.repository.forMedioPago();
 	FacturaRepository f1 = Factory.repository.forFactura();
 	CargoRepository ca1 = Factory.repository.forCargo();
-	// TipoVehiculoRepository tv1 = Factory.repository.for;
+	TipoVehiculoRepository tv1 = Factory.repository.forTipo();
 	VehiculoRepository v1 = Factory.repository.forVehiculo();
 	AveriaRepository a1 = Factory.repository.forAveria();
-	// IntervencionRepository i1 = Factory.repository.forR;
-	RepuestoRepository re1 = Factory.repository.forRepuesto();
-	// SustitucionRepository s1 = Factory.repository.forRecomendacion();
+	// IntervencionRepository i1 = Factory.repository.forIntervencion();
+	// RepuestoRepository re1 = Factory.repository.forRepuesto();
+	// SustitucionRepository s1 = Factory.repository.forSustitucion();
 
 	@Override
 	public Void execute() throws BusinessException {
-		for (int i = 0; i < numClientes; i++) {
-			crearCliente();
-		}
+		t = new TipoVehiculo("Muycarooo", 696969);
+		tv1.add(t);
 		for (int i = 0; i < numMecanicos; i++) {
 			crearMecanico();
 		}
-
 		for (int i = 0; i < numClientes; i++) {
-			crearRecomendaciones();
+			crearCliente();
 		}
 
-		for (int i = 0; i < numClientes; i++) {
-			crearMediosPago();
-		}
-
-		for (int i = 0; i < numClientes * 2; i++) {
-			crearFacturas();
-		}
-
-		for (int i = 0; i < numClientes * 1.3; i++) {
-			crearCargos();
-		}
-		for (int i = 0; i < numMecanicos * 2; i++) {
-			crearTiposVehiculo();
-		}
-
-		for (int i = 0; i < numClientes * 2; i++) {
-			crearVehiculos();
-		}
-
-		for (int i = 0; i < numClientes * 2; i++) {
-			crearAverias();
-		}
-
-		for (int i = 0; i < numClientes * 2; i++) {
-			crearIntervenciones();
-		}
-
-		for (int i = 0; i < numClientes * 2; i++) {
-			crearRepuestos();
-		}
-
-		for (int i = 0; i < numClientes * 2; i++) {
-			crearSustituciones();
-		}
 		return null;
+	}
+
+	private void crearMecanico() throws BusinessException {
+		Mecanico m = new Mecanico(
+				"" + Random.integer(10_000_000, 99_999_999) + Random.string(1));
+		String nombre = nombres[Random.integer(0, nombres.length)];
+		m.setNombre(nombre);
+		m.setApellidos(apellidos[Random.integer(0, apellidos.length)]
+				.toUpperCase() + " "
+				+ apellidos[Random.integer(0, apellidos.length)].toUpperCase());
+		mecanicos.add(m);
+		m1.add(m);
 	}
 
 	private void crearCliente() throws BusinessException {
@@ -151,88 +138,42 @@ public class GenerarDatos implements Command<Void> {
 		c.setPhone("" + Random.integer(600_000_000, 699_999_999));
 		clientes.add(c);
 		c1.add(c);
+		Metalico m = new Metalico(c);
+		mp1.add(m);
+		crearVehiculos(c);
 	}
 
-	private void crearMecanico() throws BusinessException {
-		Mecanico m = new Mecanico(
-				"" + Random.integer(10_000_000, 99_999_999) + Random.string(1));
-		String nombre = nombres[Random.integer(0, nombres.length)];
-		m.setNombre(nombre);
-		m.setApellidos(apellidos[Random.integer(0, apellidos.length)]
-				.toUpperCase() + " "
-				+ apellidos[Random.integer(0, apellidos.length)].toUpperCase());
-		mecanicos.add(m);
-		m1.add(m);
-	}
-
-	private void crearRecomendaciones() throws BusinessException {
-		Cliente cliente1 = null, cliente2 = null;
-		int tamaño = clientes.size();
-		int posicion1 = Random.integer(0, tamaño);
-		int posicion2 = 0;
-
-		do {
-			posicion2 = Random.integer(0, tamaño);
-		} while (posicion1 == posicion2);
-
-		int contador = 0;
-		for (Cliente cliente : clientes) {
-			if (contador == posicion1) {
-				cliente1 = cliente;
-			} else if (contador == posicion2)
-				cliente2 = cliente;
-			contador++;
-		}
-		if (cliente2.getRecomendacionRecibida() == null) {
-			Recomendacion r = new Recomendacion(cliente1, cliente2);
-
-			r1.add(r);
+	private void crearVehiculos(Cliente cliente) throws BusinessException {
+		Vehiculo v = new Vehiculo("mat-" + Random.integer(1000, 9999999));
+		v.setMarca(marcas[Random.integer(0, marcas.length)]);
+		v.setModelo("B" + Random.integer(1, 99));
+		Association.Poseer.link(cliente, v);
+		Association.Clasificar.link(t, v);
+		v1.add(v);
+		for (int i = 0; i < 5; i++) {
+			crearAverias(v);
 		}
 	}
 
-	private void crearSustituciones() {
-		// TODO Auto-generated method stub
+	int contador = 0;
 
-	}
+	private void crearAverias(Vehiculo v) throws BusinessException {
+		Averia a = new Averia(DateUtil.addDays(DateUtil.now(), -(++contador)),
+				v);
+		a1.add(a);
 
-	private void crearRepuestos() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void crearIntervenciones() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void crearCargos() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void crearAverias() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void crearVehiculos() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void crearTiposVehiculo() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void crearFacturas() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void crearMediosPago() {
-		// TODO Auto-generated method stub
-
+		Mecanico m = mecanicos.get(Random.integer(0, mecanicos.size()));
+		a.assignTo(m);
+		a.markAsFinished();
+		a.setImporte(Random.integer(525, 1000));
+		Factura f = new Factura(++numFactura);
+		f.addAveria(a);
+		f1.add(f);
+		Metalico m1 = (Metalico) v.getCliente().getMediosPago().iterator()
+				.next();
+		Cargo c = new Cargo(f, m1, f.getImporte());
+		f.settle();
+		ca1.add(c);
 	}
 
 }
