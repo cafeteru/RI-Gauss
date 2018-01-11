@@ -51,7 +51,6 @@ public interface CashService {
 	List<PaymentMeanDto> findPaymentMeansByClientId(Long id)
 			throws BusinessException;
 
-
 	List<PaymentMeanDto> findPayMethodsForInvoice(Long idInvoiceDto)
 			throws BusinessException;
 

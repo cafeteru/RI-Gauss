@@ -121,6 +121,11 @@ public class Vehiculo {
 		return new String(matricula);
 	}
 
+	/**
+	 * Comprueba que el vehiculo tiene averias para generar bonos.
+	 * 
+	 * @return Una lista con las averias que se pueden usar.
+	 */
 	public List<Averia> getAveriasBono3NoUsadas() {
 		List<Averia> averias = new ArrayList<>();
 		for (Averia a : this.averias) {

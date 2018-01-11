@@ -18,7 +18,7 @@ public class GeneracionBonosAction extends ActionTemplate {
 	@Override
 	protected void procesarDatos() throws BusinessException {
 		contador = as.generateVouchers();
-//		as.ejecutar();
+		// as.ejecutar();
 	}
 
 	@Override

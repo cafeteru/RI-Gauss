@@ -19,7 +19,6 @@ public class AveriaJpaRepository extends BaseRepository<Averia>
 
 	@Override
 	public List<Averia> findNoFacturadasByDni(String dni) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -34,6 +34,4 @@ public class InMemoryClienteRepository extends BaseMemoryRepository<Cliente>
 				.collect(Collectors.toList());
 	}
 
-
-
 }

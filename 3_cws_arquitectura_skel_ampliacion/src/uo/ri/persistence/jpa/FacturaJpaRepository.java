@@ -14,8 +14,7 @@ public class FacturaJpaRepository extends BaseRepository<Factura>
 	public Factura findByNumber(Long numero) {
 		return Jpa.getManager()
 				.createNamedQuery("Factura.findByNumber", Factura.class)
-				.setParameter(1, numero)
-				.getSingleResult();
+				.setParameter(1, numero).getSingleResult();
 	}
 
 	@Override
@@ -27,7 +26,6 @@ public class FacturaJpaRepository extends BaseRepository<Factura>
 
 	@Override
 	public List<Factura> findUnusedWithBono500() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

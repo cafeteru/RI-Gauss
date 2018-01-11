@@ -115,6 +115,14 @@ public class Factura {
 		this.status = status;
 	}
 
+	public boolean isUsadaBono() {
+		return usadaBono;
+	}
+
+	public void setUsadaBono(boolean usadaBono) {
+		this.usadaBono = usadaBono;
+	}
+
 	public Set<Averia> getAverias() {
 		return new HashSet<>(averias);
 	}
@@ -181,7 +189,6 @@ public class Factura {
 		// verificar que la factura está sin abonar
 		// desenlazar factura y averia
 		// la averia vuelve al estado FINALIZADA ( averia.markBackToFinished() )
-		// TODO Auto-generated method stub
 		// volver a calcular el importe
 		if (getStatus().equals(FacturaStatus.SIN_ABONAR)) {
 			Association.Facturar.unlink(this, averia);
@@ -195,12 +202,17 @@ public class Factura {
 	}
 
 	private void calcularIva() {
-		if (this.fecha.after(DateUtil.fromString("1/7/2012")))
-			this.iva = 21.0;
+		if (getFecha().after(DateUtil.fromString("1/7/2012")))
+			setIva(21.0);
 		else
-			this.iva = 18.0;
+			setIva(18.0);
 	}
 
+	/**
+	 * Comprueba que concuerdan los cargos de una factura con su importe.
+	 * 
+	 * @throws BusinessException
+	 */
 	public void settle() throws BusinessException {
 		if (this.getAverias().size() > 0) {
 			double sumaAverias = 0;
@@ -208,7 +220,7 @@ public class Factura {
 				sumaAverias += c.getImporte();
 			}
 			if (Math.abs(importe - sumaAverias) <= 0.01) {
-				this.setStatus(FacturaStatus.ABONADA);
+				setStatus(FacturaStatus.ABONADA);
 			} else {
 				throw new BusinessException("Los cargos no igualan el importe");
 			}
@@ -217,33 +229,53 @@ public class Factura {
 		}
 	}
 
+	/**
+	 * Indica si una factura esta abonada.
+	 * 
+	 * @return True en caso afirmativo. False en caso contrario.
+	 */
 	public boolean isSettled() {
-		if (this.getStatus() == FacturaStatus.ABONADA)
-			return true;
-		return false;
+		return getStatus() == FacturaStatus.ABONADA;
 	}
 
+	/**
+	 * Indica si con esta factura se puede generar un bono.
+	 * 
+	 * @return
+	 */
 	public boolean puedeGenerarBono500() {
-		if (!usadaBono && importe >= 500 && isSettled())
-			return true;
-		return false;
+		return !usadaBono && importe >= 500 && isSettled();
 	}
 
+	/**
+	 * Comprueba si se puede generar el bono y en caso afirmativo lo crea.
+	 * 
+	 * @return
+	 * @throws BusinessException
+	 */
 	public Bono markAsBono500Used() throws BusinessException {
-		if (puedeGenerarBono500()) {
+		if (puedeGenerarBono500())
 			return crearBono30();
-		} else {
-			throw new BusinessException("Donde vaaaas");
-		}
+		throw new BusinessException("Donde vaaaas");
 	}
 
+	/**
+	 * Crear el bono y marca la factura.
+	 * 
+	 * @return
+	 * @throws BusinessException
+	 */
 	private Bono crearBono30() throws BusinessException {
 		Bono bono = new Bono(Random.string(8), "Por factura superior a 500€",
 				30);
 		Iterator<Cargo> it = cargos.iterator();
 		Association.Pagar.link(it.next().getMedioPago().getCliente(), bono);
-		usadaBono = true;
+		setUsadaBono(true);
 		return bono;
+	}
+
+	public boolean isBono500Used() {
+		return isUsadaBono();
 	}
 
 	@Override
@@ -276,18 +308,6 @@ public class Factura {
 		return "Factura [numero=" + numero + ", fecha=" + fecha + ", importe="
 				+ importe + ", iva=" + iva + ", status=" + status + ", averias="
 				+ averias + "]";
-	}
-
-	public boolean isBono500Used() {
-		return isUsadaBono();
-	}
-
-	public boolean isUsadaBono() {
-		return usadaBono;
-	}
-
-	public void setUsadaBono(boolean usadaBono) {
-		this.usadaBono = usadaBono;
 	}
 
 }

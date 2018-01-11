@@ -11,19 +11,19 @@
 
 	<named-query name="Averia.findNoFacturadasByDni">
 		<query>
-			select a 
-			from Averia a 
-			where a.vehiculo.cliente.dni = ?1 
-				and a.status = uo.ri.model.types.AveriaStatus.TERMINADA 
+			select a
+			from Averia a
+			where a.vehiculo.cliente.dni = ?1
+			and a.status = uo.ri.model.types.AveriaStatus.TERMINADA
 		</query>
 	</named-query>
 	<!-- Cliente queries -->
 	<named-query name="Cliente.findByID">
 		<query>
-			select c 
+			select c
 			from Cliente c
 			where c.id = ?1
-	   </query>
+		</query>
 	</named-query>
 	<named-query name="Cliente.findByDni">
 		<query>
@@ -39,8 +39,8 @@
 		where f.id = ?1 </query> </named-query> -->
 	<named-query name="MedioPago.findById">
 		<query>
-			select mp 
-			from MedioPago mp  
+			select mp
+			from MedioPago mp
 			where mp.cliente.id = ?1
 			order by mp.id asc
 		</query>
@@ -68,15 +68,14 @@
 			where b.codigo = ?1
 		</query>
 	</named-query>
-	<named-query name="Bono.resumenByClienteId">
+	<named-query name="Bono.resumenByClienteI">
 		<query>
 			<![CDATA[
-			select c.dni, c.nombre, c.apellidos, 
-				count(b.id), sum(b.disponible), sum(b.acumulado) 
+			select count(b.id), sum(b.disponible), sum(b.acumulado) 
 			from Bono b
 				join b.cliente c
 			where b.cliente.id = ?1
-			group by c.dni, c.nombre, c.apellidos
+			group by b.id
 			]]>
 		</query>
 	</named-query>
@@ -101,10 +100,10 @@
 	<!-- Averia queries -->
 	<named-query name="Averia.findWithUnusedBono3ByClienteId">
 		<query>
-			select a 
+			select a
 			from Averia a
-				join a.vehiculo v
-				join v.cliente c
+			join a.vehiculo v
+			join v.cliente c
 			where a.usadaBono = false
 			and c.id = ?1
 		</query>

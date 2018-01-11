@@ -55,6 +55,14 @@ public abstract class MedioPago {
 		this.acumulado = acumulado;
 	}
 
+	/**
+	 * Método abstracto que calcula si se puede pagar una factura con este medio
+	 * de pago.
+	 * 
+	 * @param importe
+	 *            Importe de la factura.
+	 * @throws BusinessException
+	 */
 	public abstract void pagar(double importe) throws BusinessException;
 
 	@Override

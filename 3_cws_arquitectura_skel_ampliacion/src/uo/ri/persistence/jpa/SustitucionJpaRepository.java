@@ -7,5 +7,4 @@ import uo.ri.persistence.jpa.util.BaseRepository;
 public class SustitucionJpaRepository extends BaseRepository<Sustitucion>
 		implements SustitucionRepository {
 
-
 }

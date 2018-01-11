@@ -20,13 +20,11 @@ public class ClienteJpaRepository extends BaseRepository<Cliente>
 
 	@Override
 	public List<Cliente> findWithThreeUnusedBreakdowns() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Cliente> findWithRecomendations() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

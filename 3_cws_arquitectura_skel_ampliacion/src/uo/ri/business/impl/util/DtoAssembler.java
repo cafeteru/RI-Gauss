@@ -161,14 +161,14 @@ public class DtoAssembler {
 		return dto;
 	}
 
-	public static VoucherSummary toDto(Object[] resultados) {
+	public static VoucherSummary toDto(Cliente c, Object[] resultados) {
 		VoucherSummary v = new VoucherSummary();
-		v.dni = (String) resultados[0];
-		v.name = (String) resultados[1];
-		v.surname = (String) resultados[2];
-		v.emitted = (int) (long) resultados[3];
-		v.available = (double) resultados[4];
-		v.consumed = (double) resultados[5];
+		v.dni = c.getDni();
+		v.name = c.getNombre();
+		v.surname = c.getApellidos();
+		v.emitted = (int) resultados[0];
+		v.available = (double) resultados[1];
+		v.consumed = (double) resultados[2];
 		v.totalAmount = v.available + v.consumed;
 		return v;
 	}

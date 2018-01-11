@@ -7,5 +7,4 @@ import uo.ri.persistence.jpa.util.BaseRepository;
 public class TipoVehiculoJpaRepository extends BaseRepository<TipoVehiculo>
 		implements TipoVehiculoRepository {
 
-
 }

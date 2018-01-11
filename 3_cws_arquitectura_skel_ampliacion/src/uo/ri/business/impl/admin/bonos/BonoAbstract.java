@@ -11,6 +11,13 @@ import uo.ri.model.Bono;
 import uo.ri.model.Cliente;
 import uo.ri.util.exception.BusinessException;
 
+/**
+ * Clase abstracta que introduce los bonos creados automaticamente en la base de
+ * datos.
+ * 
+ * @author Iván González Mahagamage
+ *
+ */
 public abstract class BonoAbstract implements Command<Integer> {
 	private ClienteRepository rCliente = Factory.repository.forCliente();
 	private MedioPagoRepository rMedios = Factory.repository.forMedioPago();
@@ -31,6 +38,16 @@ public abstract class BonoAbstract implements Command<Integer> {
 		return contador;
 	}
 
+	/**
+	 * Método abstracto que crea los bonos dependiendo del tipo que sea. (Por
+	 * tres recomendaciones, tres averias o facturas mayores de 500 €)
+	 * 
+	 * @param c
+	 *            Cliente al que se le generan los bonos.
+	 * @return Una lista con todos los bonos creados.
+	 * @throws BusinessException
+	 *             Si falla algo devuelve una excepción.
+	 */
 	protected abstract Set<Bono> cargarBonos(Cliente c)
 			throws BusinessException;
 

@@ -21,7 +21,7 @@ public class ResumenBonosCliente implements Command<List<VoucherSummary>> {
 		List<Cliente> clientes = rCliente.findAll();
 		List<VoucherSummary> lista = new ArrayList<>();
 		for (Cliente c : clientes) {
-			lista.add(DtoAssembler.toDto(
+			lista.add(DtoAssembler.toDto(c,
 					rMedio.findAggregateVoucherDataByClientId(c.getId())));
 		}
 		return lista;

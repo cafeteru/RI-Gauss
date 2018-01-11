@@ -31,7 +31,7 @@ public class LiquidarFactura implements Command<InvoiceDto> {
 	@Override
 	public InvoiceDto execute() throws BusinessException {
 		Factura f = rFactura.findById(idFactura);
-		if(f == null)
+		if (f == null)
 			throw new BusinessException("No existe la factura");
 		if (!f.getStatus().equals(FacturaStatus.ABONADA)) {
 			for (Map.Entry<Long, Double> pair : cargos.entrySet()) {

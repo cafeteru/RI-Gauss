@@ -24,7 +24,6 @@ public class MedioPagoJpaRepository extends BaseRepository<MedioPago>
 
 	@Override
 	public List<MedioPago> findPaymentMeansByInvoiceId(Long idFactura) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -204,9 +204,9 @@ public class Averia {
 	}
 
 	public void markAsInvoiced() throws BusinessException {
-		if (status.equals(AveriaStatus.TERMINADA) && factura != null) {
+		if (status.equals(AveriaStatus.TERMINADA) && factura != null)
 			setStatus(AveriaStatus.FACTURADA);
-		} else
+		else
 			throw new BusinessException("peta aqui");
 	}
 
@@ -214,15 +214,39 @@ public class Averia {
 		Association.Asignar.unlink(mecanico, this);
 	}
 
+	/**
+	 * Indica si la averia se puede usar para generar bonos.
+	 * 
+	 * @return
+	 */
 	public boolean esElegibleParaBono3() {
-		if (!usadaBono && status.equals(AveriaStatus.FACTURADA)
-				&& factura.getStatus().equals(FacturaStatus.ABONADA))
-			return true;
-		return false;
+		return !usadaBono && status.equals(AveriaStatus.FACTURADA)
+				&& factura.getStatus().equals(FacturaStatus.ABONADA);
 	}
 
+	/**
+	 * Marca la avería para no usarla más para generar bonos.
+	 */
 	public void markAsBono3Used() {
 		usadaBono = true;
+	}
+
+	/**
+	 * Indica si la averìa esta facturada.
+	 * 
+	 * @return
+	 */
+	public boolean isInvoiced() {
+		return getStatus().equals(AveriaStatus.FACTURADA);
+	}
+
+	/**
+	 * Indica si la avería ha sido usada para generar un bono.
+	 * 
+	 * @return
+	 */
+	public boolean isUsadaBono3() {
+		return usadaBono;
 	}
 
 	@Override
@@ -261,16 +285,6 @@ public class Averia {
 	public String toString() {
 		return "Averia [descripcion=" + descripcion + ", fecha=" + fecha
 				+ ", importe=" + importe + ", status=" + status + "]";
-	}
-
-	public boolean isInvoiced() {
-		if (status.equals(AveriaStatus.FACTURADA))
-			return true;
-		return false;
-	}
-
-	public boolean isUsadaBono3() {
-		return usadaBono;
 	}
 
 }
