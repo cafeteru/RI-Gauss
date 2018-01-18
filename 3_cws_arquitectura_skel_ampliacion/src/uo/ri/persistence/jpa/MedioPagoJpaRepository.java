@@ -3,7 +3,9 @@ package uo.ri.persistence.jpa;
 import java.util.List;
 
 import uo.ri.business.repository.MedioPagoRepository;
-import uo.ri.model.*;
+import uo.ri.model.Bono;
+import uo.ri.model.MedioPago;
+import uo.ri.model.TarjetaCredito;
 import uo.ri.persistence.jpa.util.BaseRepository;
 import uo.ri.persistence.jpa.util.Jpa;
 

@@ -12,7 +12,7 @@ public class Metalico extends MedioPago {
 	Metalico() {
 	}
 
-	public Metalico(Cliente cliente) throws BusinessException {
+	public Metalico(Cliente cliente)  {
 		Association.Pagar.link(cliente, this);
 	}
 

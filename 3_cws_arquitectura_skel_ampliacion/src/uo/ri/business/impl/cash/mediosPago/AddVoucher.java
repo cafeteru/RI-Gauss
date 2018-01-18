@@ -5,7 +5,8 @@ import uo.ri.business.impl.Command;
 import uo.ri.business.repository.ClienteRepository;
 import uo.ri.business.repository.MedioPagoRepository;
 import uo.ri.conf.Factory;
-import uo.ri.model.*;
+import uo.ri.model.Bono;
+import uo.ri.model.Cliente;
 import uo.ri.util.exception.BusinessException;
 import uo.ri.util.exception.Check;
 

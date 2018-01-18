@@ -1,9 +1,15 @@
 package uo.ri.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-import uo.ri.util.exception.BusinessException;
 import uo.ri.model.types.FacturaStatus;
+import uo.ri.util.exception.BusinessException;
 
 @Entity
 @Table(name = "TCARGOS", uniqueConstraints = {

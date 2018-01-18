@@ -6,13 +6,11 @@ import uo.ri.business.AdminService;
 import uo.ri.business.dto.MechanicDto;
 import uo.ri.business.dto.VoucherDto;
 import uo.ri.business.dto.VoucherSummary;
-import uo.ri.business.impl.admin.GenerarDatos;
 import uo.ri.business.impl.admin.bonos.Bono3Averias;
 import uo.ri.business.impl.admin.bonos.Bono3Recomendaciones;
 import uo.ri.business.impl.admin.bonos.BonoFacturaSuperior500;
 import uo.ri.business.impl.admin.bonos.ListadoBonoCliente;
 import uo.ri.business.impl.admin.bonos.ResumenBonosCliente;
-import uo.ri.business.impl.admin.bonos.ResumenClienteId;
 import uo.ri.business.impl.admin.mecanicos.AddMechanic;
 import uo.ri.business.impl.admin.mecanicos.DeleteMechanic;
 import uo.ri.business.impl.admin.mecanicos.FindAllMechanics;
@@ -28,12 +26,7 @@ public class AdminServiceImpl implements AdminService {
 	private CommandExecutor executor = Factory.executor.forExecutor();
 
 	@Override
-	public void ejecutar() throws BusinessException {
-		executor.execute(new GenerarDatos());
-	}
-
-	@Override
-	public void newMechanic(MechanicDto mecanico) throws BusinessException {
+	public void addMechanic(MechanicDto mecanico) throws BusinessException {
 		executor.execute(new AddMechanic(mecanico));
 	}
 
@@ -75,12 +68,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<VoucherSummary> getVoucherSummary() throws BusinessException {
 		return executor.execute(new ResumenBonosCliente());
-	}
-
-	@Override
-	public VoucherSummary getVoucherSummaryByClientId(Long id)
-			throws BusinessException {
-		return executor.execute(new ResumenClienteId(id));
 	}
 
 }

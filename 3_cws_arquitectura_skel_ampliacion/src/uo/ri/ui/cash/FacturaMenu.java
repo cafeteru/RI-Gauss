@@ -1,6 +1,10 @@
 package uo.ri.ui.cash;
 
-import uo.ri.ui.cash.action.factura.*;
+import uo.ri.ui.cash.action.factura.BuscarFacturaMatriculaAction;
+import uo.ri.ui.cash.action.factura.BuscarFacturaNumeroAction;
+import uo.ri.ui.cash.action.factura.FacturarReparacionesAction;
+import uo.ri.ui.cash.action.factura.LiquidarFacturaAction;
+import uo.ri.ui.cash.action.factura.ReparacionesNoFacturadasUnClienteAction;
 import uo.ri.ui.util.ExceptionMenu;
 
 public class FacturaMenu extends ExceptionMenu {

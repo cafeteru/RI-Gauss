@@ -21,8 +21,8 @@ import uo.ri.model.Mecanico;
 import uo.ri.model.MedioPago;
 import uo.ri.model.Metalico;
 import uo.ri.model.TarjetaCredito;
-import uo.ri.util.exception.BusinessException;
 import uo.ri.model.types.Address;
+import uo.ri.util.exception.BusinessException;
 
 public class DtoAssembler {
 
@@ -163,6 +163,7 @@ public class DtoAssembler {
 
 	public static VoucherSummary toDto(Cliente c, Object[] resultados) {
 		VoucherSummary v = new VoucherSummary();
+		v.id = c.getId();
 		v.dni = c.getDni();
 		v.name = c.getNombre();
 		v.surname = c.getApellidos();

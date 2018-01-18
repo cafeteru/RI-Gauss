@@ -1,6 +1,8 @@
 package uo.ri.ui.cash;
 
-import uo.ri.ui.cash.action.mediosPago.*;
+import uo.ri.ui.cash.action.mediosPago.AddMedioPagoAction;
+import uo.ri.ui.cash.action.mediosPago.DeleteMedioPagoAction;
+import uo.ri.ui.cash.action.mediosPago.ListMedioPagoAction;
 import uo.ri.ui.util.ExceptionMenu;
 
 public class MediosPagoMenu extends ExceptionMenu {

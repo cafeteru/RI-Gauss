@@ -2,11 +2,14 @@ package uo.ri.model;
 
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import alb.util.date.DateUtil;
 import uo.ri.util.exception.BusinessException;
-import uo.ri.util.exception.Check;
 
 @Entity
 @Table(name = "TTARJETASCREDITO")
@@ -23,20 +26,18 @@ public class TarjetaCredito extends MedioPago {
 	TarjetaCredito() {
 	}
 
-	public TarjetaCredito(Cliente cliente, String numero)
-			throws BusinessException {
+	public TarjetaCredito(Cliente cliente, String numero) {
 		this(numero);
 		Association.Pagar.link(cliente, this);
 	}
 
-	public TarjetaCredito(String numero) throws BusinessException {
-		this.numero = Check.checkString(numero, "Número");
+	public TarjetaCredito(String numero) {
+		this.numero = numero;
 		this.validez = DateUtil.tomorrow();
 		this.tipo = "UNKNOWN";
 	}
 
-	public TarjetaCredito(String numero, String tipo, Date validez)
-			throws BusinessException {
+	public TarjetaCredito(String numero, String tipo, Date validez) {
 		this(numero);
 		this.tipo = tipo;
 		this.validez = validez;

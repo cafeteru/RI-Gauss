@@ -27,4 +27,9 @@ public class ClienteJpaRepository extends BaseRepository<Cliente>
 	public List<Cliente> findWithRecomendations() {
 		return null;
 	}
+
+	@Override
+	public List<Cliente> findRecomendedBy(Long id) {
+		return null;
+	}
 }

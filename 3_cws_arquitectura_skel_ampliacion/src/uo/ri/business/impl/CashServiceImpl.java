@@ -6,7 +6,11 @@ import java.util.Map;
 import javax.persistence.PersistenceException;
 
 import uo.ri.business.CashService;
-import uo.ri.business.dto.*;
+import uo.ri.business.dto.BreakdownDto;
+import uo.ri.business.dto.CardDto;
+import uo.ri.business.dto.InvoiceDto;
+import uo.ri.business.dto.PaymentMeanDto;
+import uo.ri.business.dto.VoucherDto;
 import uo.ri.business.impl.cash.factura.BuscarFacturaNumero;
 import uo.ri.business.impl.cash.factura.CreateInvoiceFor;
 import uo.ri.business.impl.cash.factura.LiquidarFactura;
@@ -29,17 +33,8 @@ public class CashServiceImpl implements CashService {
 	}
 
 	@Override
-	public List<PaymentMeanDto> findPayMethodsForInvoice(Long idInvoiceDto)
-			throws BusinessException {
-
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<BreakdownDto> findRepairsByClient(String dni)
 			throws BusinessException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

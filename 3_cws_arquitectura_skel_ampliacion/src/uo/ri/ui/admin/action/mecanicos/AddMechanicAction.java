@@ -20,7 +20,7 @@ public class AddMechanicAction implements Action {
 
 		// Procesar
 		AdminService as = Factory.service.forAdmin();
-		as.newMechanic(m);
+		as.addMechanic(m);
 
 		// Mostrar resultado
 		Console.println("Nuevo mecánico añadido");

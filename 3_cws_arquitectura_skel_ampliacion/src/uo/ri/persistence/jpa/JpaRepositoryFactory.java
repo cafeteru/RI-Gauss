@@ -21,7 +21,6 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 		return new VehiculoJpaRepository();
 	}
 
-	@Override
 	public TipoVehiculoRepository forTipo() {
 		return new TipoVehiculoJpaRepository();
 	}
@@ -66,12 +65,10 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 		return new CargoJpaRepository();
 	}
 
-	@Override
 	public IntervencionRepository forIntervencion() {
 		return new IntervencionJpaRepository();
 	}
 
-	@Override
 	public SustitucionRepository forSustitucion() {
 		return new SustitucionJpaRepository();
 	}

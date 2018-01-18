@@ -1,6 +1,6 @@
 package uo.ri.business.impl;
 
-public interface ComandExecutorFactory {
+public interface CommandExecutorFactory {
 
 	CommandExecutor forExecutor();
 

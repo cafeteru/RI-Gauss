@@ -3,10 +3,13 @@ package uo.ri.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-
-import uo.ri.util.exception.BusinessException;
-import uo.ri.util.exception.Check;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "TREPUESTOS")
@@ -27,13 +30,12 @@ public class Repuesto {
 	Repuesto() {
 	}
 
-	public Repuesto(String codigo) throws BusinessException {
+	public Repuesto(String codigo) {
 		super();
-		this.codigo = Check.checkString(codigo, "Codigo");
+		this.codigo = codigo;
 	}
 
-	public Repuesto(String codigo, String descripcion, double precio)
-			throws BusinessException {
+	public Repuesto(String codigo, String descripcion, double precio) {
 		this(codigo);
 		this.descripcion = descripcion;
 		this.precio = precio;

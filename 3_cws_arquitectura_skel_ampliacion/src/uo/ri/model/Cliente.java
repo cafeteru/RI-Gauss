@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import alb.util.random.Random;
 import uo.ri.model.types.Address;
 import uo.ri.util.exception.BusinessException;
-import uo.ri.util.exception.Check;
 
 @Entity
 @Table(name = "TCLIENTES")
@@ -55,12 +54,11 @@ public class Cliente {
 	Cliente() {
 	}
 
-	public Cliente(String dni) throws BusinessException {
-		this.dni = Check.checkString(dni, "Dni");
+	public Cliente(String dni) {
+		this.dni = dni;
 	}
 
-	public Cliente(String dni, String nombre, String apellidos)
-			throws BusinessException {
+	public Cliente(String dni, String nombre, String apellidos) {
 		this(dni);
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -231,8 +229,13 @@ public class Cliente {
 	 * @return True si se ha creado algún bono. En caso contrario false.
 	 * @throws BusinessException
 	 */
-	public boolean elegibleBonoPorRecomendaciones() throws BusinessException {
-		return crearBono3Recomendacion() != null;
+	public boolean elegibleBonoPorRecomendaciones() {
+		try {
+			return crearBono3Recomendacion() != null;
+		} catch (BusinessException e) {
+			System.out.println("Error en " + this.getClass());
+		}
+		return false;
 	}
 
 	/**

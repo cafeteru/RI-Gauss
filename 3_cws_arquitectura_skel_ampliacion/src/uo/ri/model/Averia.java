@@ -1,14 +1,27 @@
 package uo.ri.model;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import alb.util.date.DateUtil;
-import uo.ri.util.exception.BusinessException;
-import uo.ri.util.exception.Check;
 import uo.ri.model.types.AveriaStatus;
 import uo.ri.model.types.FacturaStatus;
+import uo.ri.util.exception.BusinessException;
 
 @Entity
 @Table(name = "TAVERIAS", uniqueConstraints = {
@@ -47,18 +60,17 @@ public class Averia {
 	Averia() {
 	}
 
-	public Averia(Vehiculo vehiculo) throws BusinessException {
+	public Averia(Vehiculo vehiculo) {
 		this(DateUtil.now(), vehiculo);
 	}
 
-	public Averia(Date fecha, Vehiculo vehiculo) throws BusinessException {
-		this.fecha = Check.notNullDate(fecha);
+	public Averia(Date fecha, Vehiculo vehiculo) {
+		this.fecha = fecha;
 		Association.Averiar.link(vehiculo, this);
 		vehiculo.incrementarAverias();
 	}
 
-	public Averia(Vehiculo vehiculo, String descripcion)
-			throws BusinessException {
+	public Averia(Vehiculo vehiculo, String descripcion) {
 		this(new Date(), vehiculo);
 		this.descripcion = descripcion;
 	}

@@ -5,8 +5,9 @@ import java.util.List;
 import uo.ri.business.repository.AveriaRepository;
 import uo.ri.model.Averia;
 
-public class InMemoryAveriaRepository extends BaseMemoryRepository<Averia>
-		implements AveriaRepository {
+public class InMemoryAveriaRepository 
+	extends BaseMemoryRepository<Averia> 
+	implements AveriaRepository {
 
 	@Override
 	public List<Averia> findByIds(List<Long> idsAveria) {

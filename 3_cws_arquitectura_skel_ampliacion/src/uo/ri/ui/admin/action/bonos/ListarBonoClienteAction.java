@@ -1,5 +1,6 @@
 package uo.ri.ui.admin.action.bonos;
 
+import java.util.Iterator;
 import java.util.List;
 
 import alb.util.console.Console;
@@ -25,7 +26,14 @@ public class ListarBonoClienteAction extends ActionTemplate {
 	@Override
 	protected void procesarDatos() throws BusinessException {
 		dtos = as.findVouchersByClientId(id);
-		dto = as.getVoucherSummaryByClientId(id);
+		Iterator<VoucherSummary> i = as.getVoucherSummary().iterator();
+		while (i.hasNext()) {
+			VoucherSummary resumen = i.next();
+			if (resumen.id.equals(id)) {
+				dto = resumen;
+				break;
+			}
+		}
 	}
 
 	@Override

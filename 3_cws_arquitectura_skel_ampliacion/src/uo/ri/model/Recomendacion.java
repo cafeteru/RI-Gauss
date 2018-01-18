@@ -1,8 +1,13 @@
 package uo.ri.model;
 
-import javax.persistence.*;
-
-import uo.ri.util.exception.BusinessException;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "TRECOMENDACIONES")
@@ -23,8 +28,7 @@ public class Recomendacion {
 	Recomendacion() {
 	}
 
-	public Recomendacion(Cliente recomendador, Cliente recomendado)
-			throws BusinessException {
+	public Recomendacion(Cliente recomendador, Cliente recomendado) {
 		Association.Recomendar.link(recomendador, this, recomendado);
 		this.usadaBono = false;
 	}
@@ -33,7 +37,7 @@ public class Recomendacion {
 		return recomendados;
 	}
 
-	void _setRecomendador(Cliente recomendador) throws BusinessException {
+	void _setRecomendador(Cliente recomendador) {
 		this.recomendados = recomendador;
 	}
 
@@ -53,7 +57,7 @@ public class Recomendacion {
 		this.usadaBono = usadaBono;
 	}
 
-	public void unlink() throws BusinessException {
+	public void unlink() {
 		Association.Recomendar.unlink(this);
 	}
 

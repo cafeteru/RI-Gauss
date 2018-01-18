@@ -15,32 +15,29 @@ public class MetalicoTests {
 	public void setUp() throws Exception {
 	}
 
-	/**
+	/** 
 	 * A new cash object has no accumulated
-	 * 
-	 * @throws BusinessException
 	 */
 	@Test
-	public void testConstructor() throws BusinessException {
+	public void testConstructor() {
 		Cliente c = new Cliente("123", "nombre", "apellidos");
-		Metalico m = new Metalico(c);
+		Metalico m = new Metalico( c );
 
-		assertTrue(m.getCliente().equals(c));
-		assertTrue(m.getAcumulado() == 0.0);
+		assertTrue( m.getCliente().equals( c ) );
+		assertTrue( m.getAcumulado() == 0.0 );
 	}
 
 	/**
 	 * After paying with cash its accumulated increases
-	 * 
-	 * @throws BusinessException
+	 * @throws BusinessException 
 	 */
 	@Test
 	public void testPagoMetalico() throws BusinessException {
 		Cliente c = new Cliente("123", "nombre", "apellidos");
-		Metalico m = new Metalico(c);
-		m.pagar(10);
-
-		assertTrue(m.getAcumulado() == 10.0);
+		Metalico m = new Metalico( c );
+		m.pagar( 10 );
+		
+		assertTrue( m.getAcumulado() == 10.0 );
 	}
 
 }

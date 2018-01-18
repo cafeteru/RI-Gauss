@@ -12,7 +12,7 @@ import uo.ri.model.Recomendacion;
 import uo.ri.util.exception.BusinessException;
 
 public class RecomendarTests {
-
+	
 	private Cliente recomendador;
 	private Cliente recomendado;
 
@@ -24,59 +24,53 @@ public class RecomendarTests {
 
 	/**
 	 * Un cliente recomienda a otro (link)
-	 * 
-	 * @throws BusinessException
 	 */
 	@Test
-	public void testRecomendarLink() throws BusinessException {
+	public void testRecomendarLink() {
 		Recomendacion r = new Recomendacion(recomendador, recomendado);
-
-		assertTrue(r.getRecomendado() == recomendado);
-		assertTrue(r.getRecomendador() == recomendador);
-
-		assertTrue(recomendador.getRecomendacionesHechas().contains(r));
-		assertTrue(recomendador.getRecomendacionRecibida() == null);
-
-		assertTrue(recomendado.getRecomendacionRecibida() == r);
-		assertTrue(recomendado.getRecomendacionesHechas().isEmpty());
+		
+		assertTrue( r.getRecomendado() == recomendado );
+		assertTrue( r.getRecomendador() == recomendador );
+		
+		assertTrue( recomendador.getRecomendacionesHechas().contains( r ) );
+		assertTrue( recomendador.getRecomendacionRecibida() == null );
+		
+		assertTrue( recomendado.getRecomendacionRecibida() == r );
+		assertTrue( recomendado.getRecomendacionesHechas().isEmpty() );
 	}
-
+	
 	/**
 	 * Recomendar.unlink
-	 * 
-	 * @throws BusinessException
 	 */
 	@Test
-	public void testRecomendarUnlink() throws BusinessException {
+	public void testRecomendarUnlink() {
 		Recomendacion r = new Recomendacion(recomendador, recomendado);
 		r.unlink();
-
-		assertTrue(r.getRecomendado() == null);
-		assertTrue(r.getRecomendador() == null);
-
-		assertTrue(recomendador.getRecomendacionesHechas().isEmpty());
-		assertTrue(recomendador.getRecomendacionRecibida() == null);
-
-		assertTrue(recomendado.getRecomendacionRecibida() == null);
-		assertTrue(recomendado.getRecomendacionesHechas().isEmpty());
+		
+		assertTrue( r.getRecomendado() == null );
+		assertTrue( r.getRecomendador() == null );
+		
+		assertTrue( recomendador.getRecomendacionesHechas().isEmpty() );
+		assertTrue( recomendador.getRecomendacionRecibida() == null );
+		
+		assertTrue( recomendado.getRecomendacionRecibida() == null );
+		assertTrue( recomendado.getRecomendacionesHechas().isEmpty() );		
 	}
-
+	
 	/**
 	 * Safe return
-	 * 
-	 * @throws BusinessException
 	 */
 	@Test
-	public void testSafeReturn() throws BusinessException {
+	public void testSafeReturn() {
 		Recomendacion r = new Recomendacion(recomendador, recomendado);
 		Set<Recomendacion> rs = recomendador.getRecomendacionesHechas();
-
+		
 		rs.clear();
-		assertTrue(rs.isEmpty());
-		assertTrue(
-				"Se debe retornar copia de la coleccion o hacerla de solo lectura",
-				recomendador.getRecomendacionesHechas().size() == 1);
-		assertTrue(recomendador.getRecomendacionesHechas().contains(r));
+		assertTrue( rs.isEmpty() );
+		assertTrue( "Se debe retornar copia de la coleccion o hacerla de solo lectura",
+				recomendador.getRecomendacionesHechas().size() == 1 );
+		assertTrue( recomendador.getRecomendacionesHechas().contains( r ));
 	}
+
 
 }

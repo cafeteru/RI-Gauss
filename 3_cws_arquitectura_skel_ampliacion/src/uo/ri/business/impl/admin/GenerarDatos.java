@@ -25,6 +25,7 @@ import uo.ri.model.Metalico;
 import uo.ri.model.TipoVehiculo;
 import uo.ri.model.Vehiculo;
 import uo.ri.model.types.Address;
+import uo.ri.persistence.jpa.JpaRepositoryFactory;
 import uo.ri.util.exception.BusinessException;
 
 /**
@@ -39,8 +40,12 @@ public class GenerarDatos implements Command<Void> {
 
 	private int numClientes = 50, numMecanicos = 10;
 	private Long numFactura = 0L;
-	private TipoVehiculo t;
+	private JpaRepositoryFactory repo = new JpaRepositoryFactory();
 
+	// IntervencionRepository i1 = Factory.repository.forIntervencion();
+	// RepuestoRepository re1 = Factory.repository.forRepuesto();
+	// SustitucionRepository s1 = Factory.repository.forSustitucion();
+	private TipoVehiculo t;
 	private String[] nombres = { "MARIA CARMEN", "MARIA", "CARMEN", "JOSEFA",
 			"ISABEL", "ANA MARIA", "MARIA PILAR", "MARIA DOLORES",
 			"MARIA TERESA", "ANA", "LAURA", "FRANCISCA", "MARIA ANGELES",
@@ -84,12 +89,9 @@ public class GenerarDatos implements Command<Void> {
 	MedioPagoRepository mp1 = Factory.repository.forMedioPago();
 	FacturaRepository f1 = Factory.repository.forFactura();
 	CargoRepository ca1 = Factory.repository.forCargo();
-	TipoVehiculoRepository tv1 = Factory.repository.forTipo();
+	TipoVehiculoRepository tv1 = repo.forTipo();
 	VehiculoRepository v1 = Factory.repository.forVehiculo();
 	AveriaRepository a1 = Factory.repository.forAveria();
-	// IntervencionRepository i1 = Factory.repository.forIntervencion();
-	// RepuestoRepository re1 = Factory.repository.forRepuesto();
-	// SustitucionRepository s1 = Factory.repository.forSustitucion();
 
 	@Override
 	public Void execute() throws BusinessException {

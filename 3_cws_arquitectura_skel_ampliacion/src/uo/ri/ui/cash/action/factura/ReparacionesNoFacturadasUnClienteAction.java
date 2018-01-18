@@ -3,12 +3,12 @@ package uo.ri.ui.cash.action.factura;
 import java.util.List;
 
 import alb.util.console.Console;
-import uo.ri.util.exception.BusinessException;
 import uo.ri.business.CashService;
 import uo.ri.business.dto.BreakdownDto;
 import uo.ri.conf.Factory;
 import uo.ri.ui.util.Action;
 import uo.ri.ui.util.Printer;
+import uo.ri.util.exception.BusinessException;
 
 public class ReparacionesNoFacturadasUnClienteAction implements Action {
 

@@ -5,10 +5,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import uo.ri.util.exception.BusinessException;
-import uo.ri.util.exception.Check;
 
 @Entity
 @Table(name = "TVEHICULOS")
@@ -40,8 +46,9 @@ public class Vehiculo {
 	Vehiculo() {
 	}
 
-	public Vehiculo(String matricula) throws BusinessException {
-		this.matricula = Check.checkString(matricula, "Matricula");
+	public Vehiculo(String matricula) {
+		this.matricula = matricula;
+
 	}
 
 	public Vehiculo(String matricula, TipoVehiculo tipo)
@@ -50,13 +57,12 @@ public class Vehiculo {
 		Association.Clasificar.link(tipo, this);
 	}
 
-	public Vehiculo(String matricula, String marca) throws BusinessException {
+	public Vehiculo(String matricula, String marca) {
 		this(matricula);
 		this.marca = marca;
 	}
 
-	public Vehiculo(String matricula, String marca, String modelo)
-			throws BusinessException {
+	public Vehiculo(String matricula, String marca, String modelo) {
 		this(matricula, marca);
 		this.modelo = modelo;
 	}

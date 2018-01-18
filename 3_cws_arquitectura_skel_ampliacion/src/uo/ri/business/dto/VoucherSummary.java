@@ -12,5 +12,6 @@ public class VoucherSummary {
 	public double totalAmount; // the total amount "voucherized" (money)
 	public double available; // how much remains available for the client
 	public double consumed; // how much has been
+	public Long id;
 
 }

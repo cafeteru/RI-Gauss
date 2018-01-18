@@ -1,8 +1,12 @@
 package uo.ri.model;
 
-import javax.persistence.*;
-
-import uo.ri.util.exception.BusinessException;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "TSUSTITUCIONES", uniqueConstraints = {
@@ -23,8 +27,7 @@ public class Sustitucion {
 	Sustitucion() {
 	}
 
-	public Sustitucion(Repuesto repuesto, Intervencion intervencion)
-			throws BusinessException {
+	public Sustitucion(Repuesto repuesto, Intervencion intervencion) {
 		Association.Sustituir.link(repuesto, this, intervencion);
 	}
 

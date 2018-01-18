@@ -1,6 +1,8 @@
 package uo.ri.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import uo.ri.util.exception.BusinessException;
 
@@ -8,7 +10,7 @@ import uo.ri.util.exception.BusinessException;
 @Table(name = "TBONOS")
 public class Bono extends MedioPago {
 
-	private double disponible = 0.0;
+	private Double disponible = 0.0;
 	private String descripcion;
 
 	@Column(unique = true)
@@ -17,8 +19,7 @@ public class Bono extends MedioPago {
 	Bono() {
 	}
 
-	public Bono(Cliente cliente, String codigo) throws BusinessException {
-		// this.codigo = Check.checkString(codigo, "Codigo");
+	public Bono(Cliente cliente, String codigo) {
 		this.codigo = codigo;
 		Association.Pagar.link(cliente, this);
 	}
@@ -34,11 +35,11 @@ public class Bono extends MedioPago {
 		this.descripcion = descripcion;
 	}
 
-	public double getDisponible() {
+	public Double getDisponible() {
 		return disponible;
 	}
 
-	public void setDisponible(double disponible) {
+	public void setDisponible(Double disponible) {
 		this.disponible = disponible;
 	}
 
