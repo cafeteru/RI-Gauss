@@ -1,9 +1,10 @@
 package uo.ri.amp.service.util;
 
 import static org.junit.Assert.assertTrue;
-import static uo.ri.amp.service.util.FixtureRepository.findVouchersByClientId;
 
 import java.util.List;
+
+import static uo.ri.amp.service.util.FixtureRepository.findVouchersByClientId;
 
 import uo.ri.amp.util.repository.inmemory.InMemoryCommandExecutorFactory;
 import uo.ri.amp.util.repository.inmemory.InMemoryRepositoryFactory;
