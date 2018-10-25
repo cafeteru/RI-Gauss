@@ -1,5 +1,7 @@
 package uo.ri.model;
 
+import uo.ri.model.types.FacturaStatus;
+
 public class Cargo {
 
 	private Factura factura;
@@ -10,13 +12,6 @@ public class Cargo {
 		// incrementar el importe en el acumulado del medio de pago
 		// guardar el importe
 		// enlazar (link) factura, este cargo y medioDePago
-//		if (medioPago instanceof Bono
-//				&& ((Bono) medioPago).getDisponible() < importe) {
-//			throw new IllegalStateException("No hay dinero suficiente el bono");
-//		} else if (medioPago instanceof TarjetaCredito && Dates.isAfter(
-//				Dates.today(), ((TarjetaCredito) medioPago).getValidez())) {
-//			throw new IllegalStateException("Tarjeta de credito expirada");
-//		}
 		medioPago.isValid(importe);
 		medioPago.setAcumulado(medioPago.getAcumulado() + importe);
 		this.setImporte(importe);
@@ -34,25 +29,19 @@ public class Cargo {
 		// verificar que la factura no esta ABONADA
 		// decrementar acumulado en medio de pago (medioPago.pagar( -importe ))
 		// desenlazar factura, cargo y medio de pago
+		if (!factura.getStatus().equals(FacturaStatus.ABONADA)) {
+			medioPago.pagar(importe);
+			Association.Cargar.unlink(this);
+		} else {
+			throw new IllegalStateException("El cargo no esta abonado");
+		}
 	}
 
 	public Factura getFactura() {
-		// TODO Auto-generated method stub
 		return factura;
 	}
 
 	public MedioPago getMedioPago() {
-		// TODO Auto-generated method stub
-		return medioPago;
-	}
-
-	Factura _getFactura() {
-		// TODO Auto-generated method stub
-		return factura;
-	}
-
-	MedioPago _getMedioPago() {
-		// TODO Auto-generated method stub
 		return medioPago;
 	}
 

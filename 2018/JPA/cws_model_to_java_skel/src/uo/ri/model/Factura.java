@@ -204,7 +204,7 @@ public class Factura {
 	 *                               cover the total of the invoice
 	 */
 	public void settle() {
-		if (this.getAverias().size() > 0) {
+		if (getAverias().size() > 0) {
 			double sumaAverias = 0;
 			for (Cargo c : getCargos()) {
 				sumaAverias += c.getImporte();

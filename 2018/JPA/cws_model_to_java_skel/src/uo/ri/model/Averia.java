@@ -105,7 +105,7 @@ public class Averia {
 		// Solo se puede asignar una averia que está ABIERTA
 		// linkado de averia y mecanico
 		// la averia pasa a ASIGNADA
-		if (status.equals(AveriaStatus.ABIERTA) || mecanico == null) {
+		if (status.equals(AveriaStatus.ABIERTA) && this.mecanico == null) {
 			Association.Asignar.link(mecanico, this);
 			status = AveriaStatus.ASIGNADA;
 		} else {
@@ -132,7 +132,8 @@ public class Averia {
 	 *                               mecánico
 	 */
 	public void markAsFinished() {
-		if (getStatus().equals(AveriaStatus.ASIGNADA)) {
+		if (getStatus().equals(AveriaStatus.ASIGNADA)
+				&& getMecanico() != null) {
 			Association.Asignar.unlink(mecanico, this);
 			setStatus(AveriaStatus.TERMINADA);
 			calcularImporte();
@@ -170,7 +171,8 @@ public class Averia {
 	 *                               factura
 	 */
 	public void markBackToFinished() {
-		if (getStatus().equals(AveriaStatus.FACTURADA)) {
+		if (getStatus().equals(AveriaStatus.FACTURADA)
+				&& getFactura() != null) {
 			Association.Facturar.unlink(factura, this);
 			setStatus(AveriaStatus.TERMINADA);
 		} else

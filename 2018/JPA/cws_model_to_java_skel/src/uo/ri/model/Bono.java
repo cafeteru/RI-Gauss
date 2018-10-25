@@ -32,6 +32,12 @@ public class Bono extends MedioPago {
 	}
 
 	@Override
+	public void pagar(double importe) {
+		super.pagar(importe);
+		disponible -= importe;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
