@@ -8,10 +8,11 @@ public class Mecanico {
 	private String dni;
 	private String apellidos;
 	private String nombre;
-	
+
 	private Set<Averia> averias = new HashSet<>();
 	private Set<Intervencion> intervenciones = new HashSet<>();
-	
+	private Set<Contract> contracts = new HashSet<>();
+
 	public Mecanico(String dni) {
 		super();
 		this.dni = dni;
@@ -62,34 +63,36 @@ public class Mecanico {
 
 	@Override
 	public String toString() {
-		return "Mecanico [dni=" + dni + ", apellidos=" + apellidos + ", nombre=" + nombre + "]";
+		return "Mecanico [dni=" + dni + ", apellidos=" + apellidos + ", nombre="
+				+ nombre + "]";
 	}
 
 	Set<Averia> _getAverias() {
-		// TODO Auto-generated method stub
 		return averias;
 	}
 
 	Set<Intervencion> _getIntervenciones() {
-		// TODO Auto-generated method stub
 		return intervenciones;
 	}
 
 	public Set<Intervencion> getIntervenciones() {
-		// TODO Auto-generated method stub
 		return new HashSet<>(intervenciones);
 	}
 
 	Set<Averia> _getAsignadas() {
-		// TODO Auto-generated method stub
 		return averias;
 	}
-	
+
 	public Set<Averia> getAsignadas() {
-		// TODO Auto-generated method stub
 		return new HashSet<>(averias);
 	}
-	
-	
-	
+
+	public Set<Contract> getContracts() {
+		return new HashSet<>(contracts);
+	}
+
+	Set<Contract> _getContracts() {
+		return contracts;
+	}
+
 }
