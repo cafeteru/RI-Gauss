@@ -30,7 +30,7 @@ public class ContractBuilder {
 	}
 
 	public ContractBuilder withBaseSalary(double baseSalary) {
-		contract.setBaseSalary(baseSalary);
+		contract.setBaseSalaryPerYear(baseSalary);
 		return this;
 	}
 

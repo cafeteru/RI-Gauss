@@ -14,6 +14,10 @@ public class ContractCategory {
 	public ContractCategory() {
 	}
 
+	Set<Contract> _getContracts() {
+		return contracts;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -42,8 +46,37 @@ public class ContractCategory {
 		return new HashSet<>(contracts);
 	}
 
-	Set<Contract> _getContracts() {
-		return contracts;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((contracts == null) ? 0 : contracts.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ContractCategory other = (ContractCategory) obj;
+		if (contracts == null) {
+			if (other.contracts != null)
+				return false;
+		} else if (!contracts.equals(other.contracts))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "ContractCategory [name=" + name + ", trieniumSalary="
+				+ trieniumSalary + ", productivityPlus=" + productivityPlus
+				+ ", contracts=" + contracts + "]";
 	}
 
 }

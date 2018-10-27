@@ -61,7 +61,8 @@ public class Repuesto {
 
 	@Override
 	public String toString() {
-		return "Repuesto [codigo=" + codigo + ", descripcion=" + descripcion + ", precio=" + precio + "]";
+		return "Repuesto [codigo=" + codigo + ", descripcion=" + descripcion
+				+ ", precio=" + precio + "]";
 	}
 
 	Set<Sustitucion> _getSustituciones() {

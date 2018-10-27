@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import alb.util.date.Dates;
-import alb.util.math.Round;
 
 public class Payroll {
 
@@ -27,7 +26,7 @@ public class Payroll {
 
 	public Payroll(Contract contract, Date date, double numberInterventions) {
 		date = Dates.lastDayOfMonth(Dates.addMonths(date, -1));
-		if (!Dates.isAfter(contract.getStartDate(), date)) {
+		if (Dates.isBefore(contract.getStartDate(), date)) {
 			Association.Percibir.link(contract, this);
 			this.date = date;
 			this.baseSalary = contract.getBaseSalaryPerYear() / 14;
@@ -50,12 +49,20 @@ public class Payroll {
 		}
 	}
 
+	Date _getDate() {
+		return date;
+	}
+
+	void _setContract(Contract contract) {
+		this.contract = contract;
+	}
+
 	public Date getDate() {
 		return new Date(date.getTime());
 	}
 
-	Date _getDate() {
-		return date;
+	public void setDate(Date date) {
+		this.date = Dates.lastDayOfMonth(Dates.addMonths(date, -1));
 	}
 
 	public double getBaseSalary() {
@@ -93,22 +100,7 @@ public class Payroll {
 	}
 
 	public double getIrpfPercent() {
-		double anual = Round.twoCents(baseSalary * 14);
-		double percent = 0;
-		if (anual < 12000) {
-			percent = 0;
-		} else if (anual < 30000) {
-			percent = 10;
-		} else if (anual < 40000) {
-			percent = 15;
-		} else if (anual < 50000) {
-			percent = 20;
-		} else if (anual < 60000) {
-			percent = 30;
-		} else {
-			percent = 40;
-		}
-		return percent / 100;
+		return contract.getIrpfPercent();
 	}
 
 	public double getSocialSecurity() {
@@ -116,16 +108,8 @@ public class Payroll {
 		return socialSecurity;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
 	public Contract getContract() {
 		return contract;
-	}
-
-	void _setContract(Contract contract) {
-		this.contract = contract;
 	}
 
 	public double getIrpf() {
@@ -145,6 +129,47 @@ public class Payroll {
 
 	public double getDiscountTotal() {
 		return getIrpf() + getSocialSecurity();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((contract == null) ? 0 : contract.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Payroll other = (Payroll) obj;
+		if (contract == null) {
+			if (other.contract != null)
+				return false;
+		} else if (!contract.equals(other.contract))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Payroll [date=" + date + ", baseSalary=" + baseSalary
+				+ ", extraSalary=" + extraSalary + ", productivity="
+				+ productivity + ", triennium=" + triennium + ", irpf=" + irpf
+				+ ", socialSecurity=" + socialSecurity + ", netTotal="
+				+ netTotal + ", contract=" + contract + "]";
 	}
 
 }
