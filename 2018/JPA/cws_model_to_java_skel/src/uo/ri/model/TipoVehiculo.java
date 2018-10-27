@@ -4,17 +4,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TipoVehiculo {
-	
+
 	private String nombre;
 	private double precioHora;
-	
+
 	private Set<Vehiculo> vehiculos = new HashSet<>();
-	
+
 	public TipoVehiculo(String nombre) {
 		super();
 		this.nombre = nombre;
 	}
-	
+
 	public TipoVehiculo(String nombre, double precio) {
 		// TODO Auto-generated constructor stub
 		this(nombre);
@@ -24,6 +24,7 @@ public class TipoVehiculo {
 	public String getNombre() {
 		return nombre;
 	}
+
 	public double getPrecioHora() {
 		return precioHora;
 	}
@@ -55,7 +56,8 @@ public class TipoVehiculo {
 
 	@Override
 	public String toString() {
-		return "TipoVehiculo [nombre=" + nombre + ", precioHora=" + precioHora + "]";
+		return "TipoVehiculo [nombre=" + nombre + ", precioHora=" + precioHora
+				+ "]";
 	}
 
 	public Set<Vehiculo> getVehiculos() {
@@ -67,5 +69,5 @@ public class TipoVehiculo {
 		// TODO Auto-generated method stub
 		return vehiculos;
 	}
-	
+
 }

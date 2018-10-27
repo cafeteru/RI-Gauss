@@ -4,18 +4,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Vehiculo {
-	
+
 	private String marca;
 	private String matricula;
 	private String modelo;
-	
+
 	private int numAverias = 0;
 
 	private Cliente cliente;
 	private TipoVehiculo tipoVehiculo;
-	
+
 	private Set<Averia> averias = new HashSet<>();
-	
+
 	public Vehiculo(String matricula) {
 		super();
 		this.matricula = matricula;
@@ -48,7 +48,8 @@ public class Vehiculo {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
+		result = prime * result
+				+ ((matricula == null) ? 0 : matricula.hashCode());
 		return result;
 	}
 
@@ -71,14 +72,14 @@ public class Vehiculo {
 
 	@Override
 	public String toString() {
-		return "Vehiculo [marca=" + marca + ", matricula=" + matricula + ", modelo=" + modelo + ", numAverias="
-				+ numAverias + "]";
+		return "Vehiculo [marca=" + marca + ", matricula=" + matricula
+				+ ", modelo=" + modelo + ", numAverias=" + numAverias + "]";
 	}
 
 	void _setCliente(Cliente c) {
 		this.cliente = c;
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public Cliente getCliente() {
@@ -100,11 +101,9 @@ public class Vehiculo {
 		// TODO Auto-generated method stub
 		return averias;
 	}
-	
-	public Set<Averia> getAverias(){
+
+	public Set<Averia> getAverias() {
 		return new HashSet<>(averias);
 	}
-	
-	
-	
+
 }

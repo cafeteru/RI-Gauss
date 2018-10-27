@@ -9,5 +9,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 	uo.ri.associations.AllTests.class,
 	uo.ri.domain.AllTests.class,
+	uo.ri.domainextended.AllTests.class,
 })
 public class AllTests { }
