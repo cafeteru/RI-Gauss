@@ -24,6 +24,9 @@ public class Mecanico {
 		this.apellidos = apellidos;
 	}
 
+	public Mecanico() {
+	}
+
 	public String getDni() {
 		return dni;
 	}
@@ -93,6 +96,14 @@ public class Mecanico {
 
 	Set<Contract> _getContracts() {
 		return contracts;
+	}
+
+	public Contract getActiveContract() {
+		for (Contract contract : contracts) {
+			if (!contract.isFinished())
+				return contract;
+		}
+		return null;
 	}
 
 }

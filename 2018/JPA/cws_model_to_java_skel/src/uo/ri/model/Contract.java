@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import alb.util.date.Dates;
 import uo.ri.model.types.ContractStatus;
 
 public class Contract {
@@ -18,20 +19,34 @@ public class Contract {
 
 	private ContractStatus contractStatus;
 
-	private Mecanico mecanico;
+	private Mecanico mechanic;
 
 	private Set<Payroll> payrolls = new HashSet<>();
 
 	private ContractType contractType;
 
-	public Contract(Mecanico mechanic, Date startDate, Date endDate,
-			double baseSalaryPerYear) {
-		// TODO Auto-generated constructor stub
+	private ContractCategory contractCategory;
+
+	public Contract() {
+		this.startDate = Dates.firstDayOfMonth(Dates.today());
+	}
+
+	public Contract(Mecanico mecanico) {
+		this();
+		Association.Vincular.link(mecanico, this);
 	}
 
 	public Contract(Mecanico mechanic, Date startDate,
 			double baseSalaryPerYear) {
-		// TODO Auto-generated constructor stub
+		this(mechanic);
+		this.startDate = Dates.firstDayOfMonth(startDate);
+		this.baseSalaryPerYear = baseSalaryPerYear;
+	}
+
+	public Contract(Mecanico mechanic, Date startDate, Date endDate,
+			double baseSalaryPerYear) {
+		this(mechanic, startDate, baseSalaryPerYear);
+		markAsFinished(endDate);
 	}
 
 	public Date getStartDate() {
@@ -70,7 +85,7 @@ public class Contract {
 		return baseSalaryPerYear;
 	}
 
-	public void setBaseSalaryPerYear(double baseSalaryPerYear) {
+	public void setBaseSalary(double baseSalaryPerYear) {
 		this.baseSalaryPerYear = baseSalaryPerYear;
 	}
 
@@ -82,20 +97,20 @@ public class Contract {
 		this.contractStatus = contractStatus;
 	}
 
-	public Mecanico getMecanico() {
-		return mecanico;
+	public Mecanico getMechanic() {
+		return mechanic;
 	}
 
-	public void setMecanico(Mecanico mecanico) {
-		this.mecanico = mecanico;
+	public void _setMechanic(Mecanico mecanico) {
+		this.mechanic = mecanico;
 	}
 
 	public Set<Payroll> getPayrolls() {
-		return payrolls;
+		return new HashSet<>(payrolls);
 	}
 
-	public void setPayrolls(Set<Payroll> payrolls) {
-		this.payrolls = payrolls;
+	Set<Payroll> _getPayrolls() {
+		return payrolls;
 	}
 
 	public ContractType getContractType() {
@@ -106,9 +121,38 @@ public class Contract {
 		this.contractType = contractType;
 	}
 
-	public void markAsFinished(Date addDays) {
-		// TODO Auto-generated method stub
+	public void markAsFinished(Date date) {
+		this.endDate = Dates.lastDayOfMonth(date);
+		this.finished = true;
+	}
 
+	public Payroll getLastPayroll() {
+		Payroll result = null;
+		Date date = Dates.fromDdMmYyyy(1, 1, 1970);
+		for (Payroll payroll : payrolls) {
+			if (Dates.isAfter(payroll.getDate(), date)) {
+				date = payroll.getDate();
+				result = payroll;
+			}
+		}
+		return result;
+	}
+
+	public ContractCategory getContractCategory() {
+		return contractCategory;
+	}
+
+	public void setContractCategory(ContractCategory contractCategory) {
+		this.contractCategory = contractCategory;
+	}
+
+	public void setBaseSalaryPerYear(double baseSalaryPerYear) {
+		this.baseSalaryPerYear = baseSalaryPerYear;
+	}
+
+	public double getIrpfPercent() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -10,14 +10,7 @@ public class ContractType {
 
 	private Set<Contract> contract = new HashSet<>();
 
-	public ContractType(String name, double compensationDays) {
-		this.name = name;
-		this.compensationDays = compensationDays;
-	}
-
-	private ContractType(String name, double compensationDaysPerYear,
-			Contract contract) {
-
+	public ContractType() {
 	}
 
 	public String getName() {

@@ -4,9 +4,14 @@ import uo.ri.model.Mecanico;
 
 public class MechanicBuilder {
 
+	private Mecanico mecanico;
+
+	public MechanicBuilder() {
+		this.mecanico = new Mecanico();
+	}
+
 	public Mecanico build() {
-		// TODO Auto-generated method stub
-		return null;
+		return mecanico;
 	}
 
 }

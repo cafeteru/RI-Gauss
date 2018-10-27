@@ -18,14 +18,12 @@ public class Association {
 	public static class Clasificar {
 
 		public static void link(TipoVehiculo tipoVehiculo, Vehiculo vehiculo) {
-			// TODO Auto-generated method stub
 			vehiculo._setTipoVehiculo(tipoVehiculo);
 			tipoVehiculo._getTiposVehiculo().add(vehiculo);
 		}
 
 		public static void unlink(TipoVehiculo tipoVehiculo,
 				Vehiculo vehiculo) {
-			// TODO Auto-generated method stub
 			tipoVehiculo._getTiposVehiculo().remove(vehiculo);
 			vehiculo._setTipoVehiculo(null);
 		}
@@ -153,6 +151,61 @@ public class Association {
 
 			sustitucion._setIntervencion(null);
 			sustitucion._setRepuesto(null);
+		}
+	}
+
+	public static class Vincular {
+
+		public static void link(Mecanico mecanico, Contract contract) {
+			mecanico._getContracts().add(contract);
+			contract._setMechanic(mecanico);
+		}
+
+		public static void unlink(Mecanico mecanico, Contract contract) {
+			mecanico._getContracts().remove(contract);
+			contract._setMechanic(null);
+		}
+	}
+
+	public static class Percibir {
+
+		public static void link(Contract contract, Payroll payroll) {
+			contract._getPayrolls().add(payroll);
+			payroll._setContract(contract);
+		}
+
+		public static void unlink(Contract contract, Payroll payroll) {
+			contract._getPayrolls().remove(payroll);
+			payroll._setContract(null);
+		}
+	}
+
+	public static class Categorizar {
+
+		public static void link(Contract contract,
+				ContractCategory contractCategory) {
+			contract.setContractCategory(contractCategory);
+			contractCategory._getContracts().add(contract);
+		}
+
+		public static void unlink(Contract contract,
+				ContractCategory contractCategory) {
+			contract.setContractCategory(null);
+			contractCategory._getContracts().remove(contract);
+		}
+	}
+
+	public static class Tipificar {
+
+		public static void link(Contract contract, ContractType contractType) {
+			contract.setContractType(contractType);
+			contractType._getContract().add(contract);
+		}
+
+		public static void unlink(Contract contract,
+				ContractType contractType) {
+			contract.setContractType(null);
+			contractType._getContract().remove(contract);
 		}
 	}
 

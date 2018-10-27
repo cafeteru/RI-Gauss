@@ -27,11 +27,9 @@ public class MechanicTests {
 	 */
 	@Test
 	public void testOneContractActive() {
-		Contract contract = new ContractBuilder()
-				.forMechanic(mechanic)
-				.build();
-		
-		assertTrue( mechanic.getActiveContract() == contract );
+		Contract contract = new ContractBuilder().forMechanic(mechanic).build();
+
+		assertTrue(mechanic.getActiveContract() == contract);
 	}
 
 	/**
@@ -39,12 +37,10 @@ public class MechanicTests {
 	 */
 	@Test
 	public void testNoContractActive() {
-		Contract contract = new ContractBuilder()
-				.forMechanic(mechanic)
-				.build();
-		
-		contract.markAsFinished( Dates.addDays(contract.getStartDate(), 1) );
-		assertTrue( mechanic.getActiveContract() == null );
+		Contract contract = new ContractBuilder().forMechanic(mechanic).build();
+
+		contract.markAsFinished(Dates.addDays(contract.getStartDate(), 1));
+		assertTrue(mechanic.getActiveContract() == null);
 	}
 
 	/**
@@ -53,20 +49,16 @@ public class MechanicTests {
 	@Test
 	public void testRightActiveContract() {
 		Date today = Dates.today();
-		Date inOneMonth = Dates.addMonths( today , 1);
-		
-		Contract contract = new ContractBuilder()
-				.forMechanic(mechanic)
-				.withStartDate( today )
-				.build();
-		contract.markAsFinished( Dates.addDays(contract.getStartDate(), 1) );
+		Date inOneMonth = Dates.addMonths(today, 1);
 
-		Contract newContract = new ContractBuilder()
-				.forMechanic(mechanic)
-				.withStartDate( inOneMonth )
-				.build();
+		Contract contract = new ContractBuilder().forMechanic(mechanic)
+				.withStartDate(today).build();
+		contract.markAsFinished(Dates.addDays(contract.getStartDate(), 1));
 
-		assertTrue( mechanic.getActiveContract() == newContract );
+		Contract newContract = new ContractBuilder().forMechanic(mechanic)
+				.withStartDate(inOneMonth).build();
+
+		assertTrue(mechanic.getActiveContract() == newContract);
 	}
 
 }
