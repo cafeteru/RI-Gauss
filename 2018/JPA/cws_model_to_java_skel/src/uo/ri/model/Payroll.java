@@ -29,23 +29,34 @@ public class Payroll {
 		if (Dates.isBefore(contract.getStartDate(), date)) {
 			Association.Percibir.link(contract, this);
 			this.date = date;
-			this.baseSalary = contract.getBaseSalaryPerYear() / 14;
-			int month = Dates.month(date);
-			if (month == 6 || month == 12) {
-				this.extraSalary = this.baseSalary;
-			}
-			if (contract.getContractCategory() != null
-					&& numberInterventions > 0) {
-				this.productivity = numberInterventions
-						* contract.getContractCategory().getProductivityPlus();
-			}
-			getIrpf();
-			getNetTotal();
-			getGrossTotal();
-			getDiscountTotal();
+			calculatePrices(numberInterventions);
 		} else {
 			throw new IllegalArgumentException(" No se puede crear una nómina "
 					+ "para un mes antes de la fecha de inicio del contrato");
+		}
+	}
+
+	private void calculatePrices(double numberInterventions) {
+		this.baseSalary = contract.getBaseSalaryPerYear() / 14;
+		calculateExtraSalary();
+		calculateProductivity(numberInterventions);
+		getIrpf();
+		getNetTotal();
+		getGrossTotal();
+		getDiscountTotal();
+	}
+
+	private void calculateExtraSalary() {
+		int month = Dates.month(date);
+		if (month == 6 || month == 12) {
+			this.extraSalary = this.baseSalary;
+		}
+	}
+
+	private void calculateProductivity(double numberInterventions) {
+		if (contract.getContractCategory() != null && numberInterventions > 0) {
+			this.productivity = numberInterventions
+					* contract.getContractCategory().getProductivityPlus();
 		}
 	}
 
@@ -75,10 +86,6 @@ public class Payroll {
 
 	public double getExtraSalary() {
 		return extraSalary;
-	}
-
-	public void setExtraSalary(double extraSalary) {
-		this.extraSalary = extraSalary;
 	}
 
 	public double getProductivity() {
