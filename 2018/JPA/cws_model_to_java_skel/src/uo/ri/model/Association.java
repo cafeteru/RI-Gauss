@@ -180,7 +180,7 @@ public class Association {
 		}
 	}
 
-	public static class Categorizar {
+	public static class Categorize {
 
 		public static void link(Contract contract,
 				ContractCategory contractCategory) {
@@ -195,7 +195,7 @@ public class Association {
 		}
 	}
 
-	public static class Tipificar {
+	public static class Typefy {
 
 		public static void link(Contract contract, ContractType contractType) {
 			contract.setContractType(contractType);

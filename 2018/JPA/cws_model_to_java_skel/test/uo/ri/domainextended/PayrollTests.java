@@ -208,65 +208,73 @@ public class PayrollTests {
 			};
 				
 		Payroll payrollOfNovember2017 = new Payroll(c, beginningOfDecember, 0.0);
-
-		assertRightValues(expected, payrollOfNovember2017);
+		
+		assertRightValues( expected, payrollOfNovember2017 );
 	}
-
+		
 	/**
-	 * Payroll for a 3 year old contract has: - base salary - social security -
-	 * AND triennium
+	 * Payroll for a 3 year old contract has:
+	 * 	- base salary
+	 *  - social security
+	 * 	- AND triennium
 	 */
 	@Test
 	public void testPayrollWithTriennium() {
 		Date february = Dates.fromDdMmYyyy(10, 02, 2015);
 		Date march2018 = Dates.fromDdMmYyyy(01, 03, 2018);
-		Contract c = new ContractBuilder().withStartDate(february)
-				.withBaseSalary(BASE_SALARY).withCategory(category).build();
+		Contract c = new ContractBuilder()
+				.withStartDate( february )
+				.withBaseSalary( BASE_SALARY )
+				.withCategory( category )
+				.build();
 
-		double[] expected = new double[] { 
-				/* base salary */ BASE_SALARY / 14,
-				/* extra salary */ 0.0, 
-				/* productivity */ 0.0,
-				/* trienniums */ 1 * TRIENNIUM_SALARY, 
-				/* irpf */ 0.0,
-				/* social security */ BASE_SALARY / 12 * 0.05, 
-				};
-
+		double[] expected = new double[] {
+				/*base salary    */	BASE_SALARY / 14,
+				/*extra salary   */	0.0,
+				/*productivity   */	0.0,
+				/*trienniums     */	1 * TRIENNIUM_SALARY,
+				/*irpf           */	0.0,
+				/*social security*/	BASE_SALARY / 12 * 0.05,
+			};
+				
 		Payroll payrollOfFebruary2018 = new Payroll(c, march2018, 0.0);
-
-		assertRightValues(expected, payrollOfFebruary2018);
-	}
-
+		
+		assertRightValues( expected, payrollOfFebruary2018 );
+	}		
+	
 	/**
-	 * A payroll of December, for a 10 year old contract, with 30.000 €/year of
-	 * base year salary, and a total by interventions of 10.000 €, has: - base
-	 * salary - extra pay (December) - productivity plus - three trienniums -
-	 * irpf discount (>= 30.000, < 40.000 €/year => 15%) - social security
-	 * discount
+	 * A payroll of December, for a 10 year old contract, with 30.000 €/year
+	 * of base year salary, and a total by interventions of 10.000 €, has: 
+	 *  - base salary
+	 *  - extra pay (December)
+	 *  - productivity plus
+	 * 	- three trienniums
+	 *  - irpf discount (>= 30.000, < 40.000 €/year => 15%)
+	 *  - social security discount
 	 */
 	@Test
 	public void testForCompletePayroll() {
 		Date january = Dates.fromDdMmYyyy(10, 01, 2010);
 		Date january2020 = Dates.fromDdMmYyyy(02, 01, 2020);
-		Contract c = new ContractBuilder().withStartDate(january)
-				.withBaseSalary(BETTER_BASE_SALARY).withCategory(category)
+		Contract c = new ContractBuilder()
+				.withStartDate( january )
+				.withBaseSalary( BETTER_BASE_SALARY )
+				.withCategory( category )
 				.build();
-
+		
 		double[] expected = new double[] {
-				/* base salary */ BETTER_BASE_SALARY / 14,
-				/* extra salary */ BETTER_BASE_SALARY / 14,
-				/* productivity */ TOTAL_BY_INTERVENTIONS * PRODUCTIVITY_PLUS,
-				/* trienniums */ 3 * TRIENNIUM_SALARY, /* irpf */ 0.0, // assigned
-																		// below
-																		// (15%)
-				/* social security */ BETTER_BASE_SALARY / 12 * 0.05, };
-		/* irpf */ expected[4] = 0.15
-				* (expected[0] + expected[1] + expected[2] + expected[3]);
-
-		Payroll payrollOfDecember2019 = new Payroll(c, january2020,
-				TOTAL_BY_INTERVENTIONS);
-
-		assertRightValues(expected, payrollOfDecember2019);
+			/*base salary    */	BETTER_BASE_SALARY / 14,
+			/*extra salary   */	BETTER_BASE_SALARY / 14,
+			/*productivity   */	TOTAL_BY_INTERVENTIONS * PRODUCTIVITY_PLUS,
+			/*trienniums     */	3 * TRIENNIUM_SALARY,
+			/*irpf           */	0.0, // assigned below (15%)
+			/*social security*/	BETTER_BASE_SALARY / 12 * 0.05,
+		};
+		/*irpf */ expected[4] = 0.15 * (expected[0] + expected[1] + expected[2] + expected[3]);
+		
+		Payroll payrollOfDecember2019 = new Payroll(c, january2020, TOTAL_BY_INTERVENTIONS );
+		
+		assertRightValues( expected, payrollOfDecember2019 );
 	}
 
 	/**
@@ -276,33 +284,32 @@ public class PayrollTests {
 	public void testPayrollTotals() {
 		Date january = Dates.fromDdMmYyyy(10, 01, 2010);
 		Date january2020 = Dates.fromDdMmYyyy(02, 01, 2020);
-		Contract c = new ContractBuilder().withStartDate(january)
-				.withBaseSalary(BETTER_BASE_SALARY).withCategory(category)
+		Contract c = new ContractBuilder()
+				.withStartDate( january )
+				.withBaseSalary( BETTER_BASE_SALARY )
+				.withCategory( category )
 				.build();
-
+		
 		double[] expected = new double[] {
-				/* base salary */ BETTER_BASE_SALARY / 14,
-				/* extra salary */ BETTER_BASE_SALARY / 14,
-				/* productivity */ TOTAL_BY_INTERVENTIONS * PRODUCTIVITY_PLUS,
-				/* trienniums */ 3 * TRIENNIUM_SALARY, 
-				/* irpf */ 0.0, // assigned below (15%)
-				/* social security */ BETTER_BASE_SALARY / 12 * 0.05, 
-				};
-		/* irpf */ expected[4] = 0.15
-				* (expected[0] + expected[1] + expected[2] + expected[3]);
-
-		Payroll payrollOfDecember2019 = new Payroll(c, january2020,
-				TOTAL_BY_INTERVENTIONS);
-
-		assertRightTotals(expected, payrollOfDecember2019);
+			/*base salary    */	BETTER_BASE_SALARY / 14,
+			/*extra salary   */	BETTER_BASE_SALARY / 14,
+			/*productivity   */	TOTAL_BY_INTERVENTIONS * PRODUCTIVITY_PLUS,
+			/*trienniums     */	3 * TRIENNIUM_SALARY,
+			/*irpf           */	0.0, // assigned below (15%)
+			/*social security*/	BETTER_BASE_SALARY / 12 * 0.05,
+		};
+		/*irpf */ expected[4] = 0.15 * (expected[0] + expected[1] + expected[2] + expected[3]);
+		
+		Payroll payrollOfDecember2019 = new Payroll(c, january2020, TOTAL_BY_INTERVENTIONS );
+		
+		assertRightTotals( expected, payrollOfDecember2019 );
 	}
-
+	
 	private void assertRightTotals(double[] expected, Payroll p) {
-		double grossTotal = expected[0] + expected[1] + expected[2]
-				+ expected[3];
+		double grossTotal = expected[0] + expected[1] + expected[2] + expected[3];
 		double discountTotal = expected[4] + expected[5];
 		double netTotal = grossTotal - discountTotal;
-
+		
 		assertEquals(grossTotal, p.getGrossTotal(), 0.01);
 		assertEquals(discountTotal, p.getDiscountTotal(), 0.01);
 		assertEquals(netTotal, p.getNetTotal(), 0.01);
@@ -310,13 +317,13 @@ public class PayrollTests {
 
 	private void assertRightValues(double[] expected, Payroll p) {
 		int i = 0;
-		assertEquals(expected[i++], p.getBaseSalary(), 0.01);
-		assertEquals(expected[i++], p.getExtraSalary(), 0.01);
-		assertEquals(expected[i++], p.getProductivity(), 0.01);
-		assertEquals(expected[i++], p.getTriennium(), 0.01);
-
-		assertEquals(expected[i++], p.getIrpf(), 0.01);
-		assertEquals(expected[i++], p.getSocialSecurity(), 0.01);
+		assertEquals( expected[i++], p.getBaseSalary(), 0.01 );
+		assertEquals( expected[i++], p.getExtraSalary(), 0.01 );
+		assertEquals( expected[i++], p.getProductivity(), 0.01 );
+		assertEquals( expected[i++], p.getTriennium(), 0.01 );
+		
+		assertEquals( expected[i++], p.getIrpf(), 0.01 );
+		assertEquals( expected[i++], p.getSocialSecurity(), 0.01 );
 	}
 
 }

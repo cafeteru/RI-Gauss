@@ -39,7 +39,6 @@ public class ContractTests {
 	 */
 	@Test
 	public void testContructorLinks() {
-		Contract contract = new Contract( mechanic, START_DATE, BASE_SALARY );
 		assertTrue( mechanic.getContracts().contains( contract )  );
 		assertTrue( contract.getMechanic() == mechanic );
 	}
@@ -322,15 +321,6 @@ public class ContractTests {
 		ldom.setDate(15);
 		
 		assertTrue( ! ldom.equals( c.getEndDate() ) );
-	}
-	
-	/**
-	 * Nothing happens when endDate is null
-	 */
-	public void testGetEndDateWhenNull() {
-		Contract c = new Contract(mechanic, Dates.today(), 10000);
-
-		assertTrue( c.getEndDate() == null );
 	}
 	
 }

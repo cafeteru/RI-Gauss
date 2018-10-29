@@ -13,6 +13,11 @@ public class ContractType {
 	public ContractType() {
 	}
 
+	public ContractType(String name, int compensationDays) {
+		this.name = name;
+		this.compensationDays = compensationDays;
+	}
+
 	Set<Contract> _getContract() {
 		return contract;
 	}

@@ -2,31 +2,29 @@ package uo.ri.util;
 
 import uo.ri.model.Mecanico;
 
-public class MechanicBuilder {
+public class MechanicBuilder implements Builder<Mecanico> {
+	private String dni = Values.newDni();
+	private String name = Values.newName();
+	private String surname = Values.newSurname();
 
-	private Mecanico mecanico;
-
-	public MechanicBuilder() {
-		this.mecanico = new Mecanico();
-	}
-
-	public MechanicBuilder withDni(String dni) {
-		mecanico.setDni(dni);
-		return this;
-	}
-
-	public MechanicBuilder withNombre(String nombre) {
-		mecanico.setNombre(nombre);
-		return this;
-	}
-
-	public MechanicBuilder withApellidos(String apellidos) {
-		mecanico.setApellidos(apellidos);
-		return this;
-	}
-
+	@Override
 	public Mecanico build() {
-		return mecanico;
+		return new Mecanico( dni, name, surname);
+	}
+	
+	public MechanicBuilder withDni(String dni) {
+		this.dni = dni;
+		return this;
+	}
+
+	public MechanicBuilder withName(String name) {
+		this.name = name;
+		return this;
+	}
+
+	public MechanicBuilder withSurname(String surname) {
+		this.surname = surname;
+		return this;
 	}
 
 }

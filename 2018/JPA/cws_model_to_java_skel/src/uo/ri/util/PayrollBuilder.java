@@ -2,29 +2,34 @@ package uo.ri.util;
 
 import java.util.Date;
 
-import uo.ri.model.Association;
+import alb.util.date.Dates;
 import uo.ri.model.Contract;
 import uo.ri.model.Payroll;
 
-public class PayrollBuilder {
-	private Payroll payroll;
+public class PayrollBuilder implements Builder<Payroll> {
 
-	public PayrollBuilder() {
-		payroll = new Payroll();
+	private Contract contract = new ContractBuilder().build();
+	private Date date = Dates.addMonths(contract.getStartDate(), 1);
+	private double totalOfInterventions = 0.0;
+
+	@Override
+	public Payroll build() {
+		return new Payroll(contract, date, totalOfInterventions);
 	}
 
 	public PayrollBuilder forContract(Contract contract) {
-		Association.Percibir.link(contract, payroll);
+		this.contract = contract;
 		return this;
 	}
 
 	public PayrollBuilder withDate(Date date) {
-		payroll.setDate(date);
+		this.date = date;
 		return this;
 	}
 
-	public Payroll build() {
-		return payroll;
+	public PayrollBuilder withTotalOfInterventions(double totalOfInterventions) {
+		this.totalOfInterventions = totalOfInterventions;
+		return this;
 	}
 
 }

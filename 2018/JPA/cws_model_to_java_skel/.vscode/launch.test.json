@@ -1,0 +1,30 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "cws_model_to_java_skel",
+                "projectName": "cws_model_to_java_skel",
+                "workingDirectory": "c:\\Users\\igm1990\\Desktop\\Repositorios\\Gauss\\RI-Gauss\\2018\\JPA\\cws_model_to_java_skel",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "cws_model_to_java_skel",
+                "projectName": "cws_model_to_java_skel",
+                "workingDirectory": "c:\\Users\\igm1990\\Desktop\\Repositorios\\Gauss\\RI-Gauss\\2018\\JPA\\cws_model_to_java_skel",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}

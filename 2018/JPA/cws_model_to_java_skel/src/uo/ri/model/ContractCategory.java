@@ -14,6 +14,13 @@ public class ContractCategory {
 	public ContractCategory() {
 	}
 
+	public ContractCategory(String name, double trienniumSalary,
+			double productivityPlus) {
+		this.name = name;
+		this.trieniumSalary = trienniumSalary;
+		this.productivityPlus = productivityPlus;
+	}
+
 	Set<Contract> _getContracts() {
 		return contracts;
 	}
