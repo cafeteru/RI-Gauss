@@ -1,10 +1,9 @@
 package uo.ri.model;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import alb.util.date.Dates;
+import uo.ri.util.DateUtil;
 
 public class Payroll {
 
@@ -25,10 +24,11 @@ public class Payroll {
 	}
 
 	public Payroll(Contract contract, Date date, double numberInterventions) {
-		date = Dates.lastDayOfMonth(Dates.addMonths(date, -1));
-		if (Dates.isBefore(contract.getStartDate(), date)) {
+		date = Dates.lastDayOfMonth(date);
+		if (Dates.isBefore(contract.getStartDate(),
+				Dates.addMonths(date, -1))) {
 			Association.Percibir.link(contract, this);
-			this.date = date;
+			setDate(date);
 			calculatePrices(numberInterventions);
 		} else {
 			throw new IllegalArgumentException(" No se puede crear una nómina "
@@ -93,13 +93,7 @@ public class Payroll {
 	}
 
 	public double getTriennium() {
-		Calendar fin = new GregorianCalendar();
-		Calendar inicio = new GregorianCalendar();
-		fin.setTime(date);
-		inicio.setTime(contract.getStartDate());
-		int difA = fin.get(Calendar.YEAR) - inicio.get(Calendar.YEAR);
-		triennium = difA * 12 + fin.get(Calendar.MONTH)
-				- inicio.get(Calendar.MONTH);
+		triennium = DateUtil.getNumMonths(contract._getStartDate(), date);
 		if (contract.getContractCategory() != null)
 			return ((int) triennium / 36)
 					* contract.getContractCategory().getTrieniumSalary();

@@ -7,6 +7,7 @@ import java.util.Set;
 import alb.util.date.Dates;
 import alb.util.math.Round;
 import uo.ri.model.types.ContractStatus;
+import uo.ri.util.DateUtil;
 
 public class Contract {
 
@@ -53,7 +54,8 @@ public class Contract {
 	public Contract(Mecanico mechanic, Date startDate, Date endDate,
 			double baseSalaryPerYear) {
 		this(mechanic, startDate, baseSalaryPerYear);
-		markAsFinished(endDate);
+		if (endDate != null)
+			markAsFinished(endDate);
 	}
 
 	public Date getStartDate() {
@@ -97,9 +99,13 @@ public class Contract {
 	}
 
 	public double getCompensation() {
-		compensation = baseSalaryPerYear / 365
-				* getContractType().getCompensationDays();
-		return compensation;
+		int months = DateUtil.getNumMonths(startDate, endDate);
+		if (months >= 11) {
+			compensation = baseSalaryPerYear / 365
+					* getContractType().getCompensationDays();
+			return compensation;
+		}
+		return 0;
 	}
 
 	public double getBaseSalaryPerYear() {

@@ -123,7 +123,6 @@ public class ContractTests {
 		endDate = Dates.subDays(endDate, 10);
 		
 		contract.markAsFinished(endDate);
-		
 		assertTrue( contract.getCompensation() == 0.0 );
 		assertTrue( contract.isFinished() );
 	}
