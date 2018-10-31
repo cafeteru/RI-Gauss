@@ -10,6 +10,7 @@ public class Bono extends MedioPago {
 
 	@Column(unique = true)
 	private String codigo;
+	
 	private double disponible = 0.0;
 	private String descripcion;
 

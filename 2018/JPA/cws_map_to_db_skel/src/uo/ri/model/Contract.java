@@ -65,6 +65,7 @@ public class Contract {
 		setStartDate(Dates.today());
 		type = new ContractType();
 		Association.Vincular.link(mecanico, this);
+		setContractStatus(ContractStatus.ACTIVE);
 	}
 
 	public Contract(Mecanico mechanic, Date startDate,
@@ -85,7 +86,19 @@ public class Contract {
 		if (endDate != null)
 			markAsFinished(endDate);
 	}
-	
+
+	public Contract(Mecanico mechanic, Date startDate, double baseSalaryPerYear,
+			ContractType contractType) {
+		this(mechanic, startDate, baseSalaryPerYear);
+		Association.Typefy.link(this, contractType);
+	}
+
+	public Contract(Mecanico mechanic, Date startDate, double baseSalaryPerYear,
+			ContractType contractType, ContractCategory contractCategory) {
+		this(mechanic, startDate, baseSalaryPerYear, contractType);
+		Association.Categorize.link(this, contractCategory);
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -115,7 +128,9 @@ public class Contract {
 	}
 
 	public Date getEndDate() {
-		return new Date(endDate.getTime());
+		if (endDate != null)
+			return new Date(endDate.getTime());
+		return null;
 	}
 
 	public void setEndDate(Date endDate) {
@@ -131,11 +146,13 @@ public class Contract {
 	}
 
 	public double getCompensation() {
-		int months = DateUtil.getNumMonths(startDate, endDate);
-		if (months >= 11) {
-			compensation = baseSalaryPerYear / 365
-					* getContractType().getCompensationDays();
-			return compensation;
+		if (startDate != null && endDate != null) {
+			int months = DateUtil.getNumMonths(startDate, endDate);
+			if (months >= 11) {
+				compensation = baseSalaryPerYear / 365
+						* getContractType().getCompensationDays();
+				return compensation;
+			}
 		}
 		return 0;
 	}
@@ -268,12 +285,10 @@ public class Contract {
 
 	@Override
 	public String toString() {
-		return "Contract [startDate=" + startDate + ", endDate=" + endDate
-				+ ", finished=" + finished + ", compensation=" + compensation
-				+ ", baseSalaryPerYear=" + baseSalaryPerYear
-				+ ", contractStatus=" + status + ", mechanic=" + mechanic
-				+ ", payrolls=" + payrolls + ", contractType=" + type
-				+ ", contractCategory=" + category + "]";
+		return "Contract [id=" + id + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", finished=" + finished + ", compensation="
+				+ compensation + ", baseSalaryPerYear=" + baseSalaryPerYear
+				+ ", status=" + status + "]";
 	}
 
 }

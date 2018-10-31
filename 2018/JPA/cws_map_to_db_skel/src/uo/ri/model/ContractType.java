@@ -32,7 +32,7 @@ public class ContractType {
 		this.name = name;
 		this.compensationDays = compensationDays;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

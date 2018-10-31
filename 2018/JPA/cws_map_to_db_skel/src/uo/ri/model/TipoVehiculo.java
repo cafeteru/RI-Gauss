@@ -20,9 +20,10 @@ public class TipoVehiculo {
 
 	@Column(unique = true)
 	private String nombre;
+	
 	private double precioHora;
 
-	@OneToMany(mappedBy = "tipoVehiculo")
+	@OneToMany(mappedBy = "tipo")
 	private Set<Vehiculo> vehiculos = new HashSet<>();
 
 	TipoVehiculo() {

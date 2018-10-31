@@ -33,7 +33,7 @@ public class Vehiculo {
 	private Cliente cliente;
 
 	@ManyToOne
-	private TipoVehiculo tipoVehiculo;
+	private TipoVehiculo tipo;
 
 	@OneToMany(mappedBy = "vehiculo")
 	private Set<Averia> averias = new HashSet<>();
@@ -114,11 +114,11 @@ public class Vehiculo {
 	}
 
 	void _setTipoVehiculo(TipoVehiculo tipoVehiculo) {
-		this.tipoVehiculo = tipoVehiculo;
+		this.tipo = tipoVehiculo;
 	}
 
 	public TipoVehiculo getTipo() {
-		return tipoVehiculo;
+		return tipo;
 	}
 
 	Set<Averia> _getAverias() {

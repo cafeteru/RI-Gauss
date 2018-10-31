@@ -35,7 +35,7 @@ public class ContractCategory {
 		this.trieniumSalary = trienniumSalary;
 		this.productivityPlus = productivityPlus;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -102,7 +102,7 @@ public class ContractCategory {
 	public String toString() {
 		return "ContractCategory [name=" + name + ", trieniumSalary="
 				+ trieniumSalary + ", productivityPlus=" + productivityPlus
-				+ ", contracts=" + contracts + "]";
+				+ "]";
 	}
 
 }
