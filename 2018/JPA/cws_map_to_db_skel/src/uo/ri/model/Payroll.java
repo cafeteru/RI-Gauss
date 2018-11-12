@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import alb.util.date.Dates;
@@ -22,6 +24,7 @@ public class Payroll {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	private double baseSalary;
@@ -42,7 +45,7 @@ public class Payroll {
 		date = Dates.lastDayOfMonth(date);
 		if (Dates.isBefore(contract.getStartDate(),
 				Dates.addMonths(date, -1))) {
-			Association.Percibir.link(contract, this);
+			Association.Perceive.link(contract, this);
 			setDate(date);
 			calculatePrices(numberInterventions);
 		} else {

@@ -64,7 +64,7 @@ public class Contract {
 	public Contract(Mecanico mecanico) {
 		setStartDate(Dates.today());
 		type = new ContractType();
-		Association.Vincular.link(mecanico, this);
+		Association.Link.link(mecanico, this);
 		setContractStatus(ContractStatus.ACTIVE);
 	}
 
@@ -185,7 +185,7 @@ public class Contract {
 		return type;
 	}
 
-	public void setContractType(ContractType contractType) {
+	public void _setContractType(ContractType contractType) {
 		this.type = contractType;
 	}
 
@@ -221,7 +221,7 @@ public class Contract {
 		return category;
 	}
 
-	public void setContractCategory(ContractCategory contractCategory) {
+	public void _setContractCategory(ContractCategory contractCategory) {
 		this.category = contractCategory;
 	}
 

@@ -25,7 +25,6 @@ public class Vehiculo {
 		this(mat);
 		this.marca = marca;
 		this.modelo = modelo;
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getMarca() {

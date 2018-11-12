@@ -216,7 +216,7 @@ public class Averia {
 							+ "está enlazada con un mecanico");
 	}
 
-	public void _setVehiculo(Vehiculo v) {
+	void _setVehiculo(Vehiculo v) {
 		this.vehiculo = v;
 
 	}
@@ -225,7 +225,7 @@ public class Averia {
 		return factura;
 	}
 
-	public void _setMecanico(Mecanico mecanico) {
+	void _setMecanico(Mecanico mecanico) {
 		this.mecanico = mecanico;
 
 	}

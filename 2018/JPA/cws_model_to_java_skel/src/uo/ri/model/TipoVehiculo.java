@@ -16,7 +16,6 @@ public class TipoVehiculo {
 	}
 
 	public TipoVehiculo(String nombre, double precio) {
-		// TODO Auto-generated constructor stub
 		this(nombre);
 		this.precioHora = precio;
 	}

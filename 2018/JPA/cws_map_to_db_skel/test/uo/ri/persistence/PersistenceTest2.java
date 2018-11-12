@@ -136,7 +136,7 @@ public class PersistenceTest2 {
 
 		contract = new Contract(mechanic, january, BETTER_BASE_SALARY, type,
 				category);
-		contract.setContractCategory(category);
+		contract._setContractCategory(category);
 		
 		mechanic = new Mecanico("dni2", "nombre", "apellidos");
 		

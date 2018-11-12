@@ -248,6 +248,7 @@ public class Averia {
 	 */
 	public void desassign() {
 		if (status.equals(AveriaStatus.ASIGNADA) && mecanico != null) {
+			Association.Asignar.unlink(mecanico, this);
 			setStatus(AveriaStatus.ABIERTA);
 		} else
 			throw new IllegalStateException(

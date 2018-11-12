@@ -154,20 +154,7 @@ public class Association {
 		}
 	}
 
-	public static class Vincular {
-
-		public static void link(Mecanico mecanico, Contract contract) {
-			mecanico._getContracts().add(contract);
-			contract._setMechanic(mecanico);
-		}
-
-		public static void unlink(Mecanico mecanico, Contract contract) {
-			mecanico._getContracts().remove(contract);
-			contract._setMechanic(null);
-		}
-	}
-
-	public static class Percibir {
+	public static class Perceive {
 
 		public static void link(Contract contract, Payroll payroll) {
 			contract._getPayrolls().add(payroll);
@@ -180,17 +167,30 @@ public class Association {
 		}
 	}
 
+	public static class Link {
+
+		public static void link(Mecanico mecanico, Contract contract) {
+			mecanico._getContracts().add(contract);
+			contract._setMechanic(mecanico);
+		}
+
+		public static void unlink(Mecanico mecanico, Contract contract) {
+			mecanico._getContracts().remove(contract);
+			contract._setMechanic(null);
+		}
+	}
+
 	public static class Categorize {
 
 		public static void link(Contract contract,
 				ContractCategory contractCategory) {
-			contract.setContractCategory(contractCategory);
+			contract._setContractCategory(contractCategory);
 			contractCategory._getContracts().add(contract);
 		}
 
 		public static void unlink(Contract contract,
 				ContractCategory contractCategory) {
-			contract.setContractCategory(null);
+			contract._setContractCategory(null);
 			contractCategory._getContracts().remove(contract);
 		}
 	}
@@ -198,13 +198,13 @@ public class Association {
 	public static class Typefy {
 
 		public static void link(Contract contract, ContractType contractType) {
-			contract.setContractType(contractType);
+			contract._setContractType(contractType);
 			contractType._getContract().add(contract);
 		}
 
 		public static void unlink(Contract contract,
 				ContractType contractType) {
-			contract.setContractType(null);
+			contract._setContractType(null);
 			contractType._getContract().remove(contract);
 		}
 	}

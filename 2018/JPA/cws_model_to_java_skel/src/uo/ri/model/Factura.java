@@ -42,16 +42,6 @@ public class Factura {
 		añadirAverias(averias);
 	}
 
-	private void añadirAverias(List<Averia> averias) {
-		for (Averia averia : averias) {
-			if (averia.getStatus().equals(AveriaStatus.TERMINADA)) {
-				addAveria(averia);
-			} else {
-				throw new IllegalStateException("averia no terminada");
-			}
-		}
-	}
-
 	public Long getNumero() {
 		return numero;
 	}
@@ -120,6 +110,16 @@ public class Factura {
 				+ importe + ", iva=" + iva + ", status=" + status + "]";
 	}
 
+	private void añadirAverias(List<Averia> averias) {
+		for (Averia averia : averias) {
+			if (averia.getStatus().equals(AveriaStatus.TERMINADA)) {
+				addAveria(averia);
+			} else {
+				throw new IllegalStateException("averia no terminada");
+			}
+		}
+	}
+
 	/**
 	 * Añade la averia a la factura y actualiza el importe e iva de la factura
 	 * 
@@ -139,6 +139,9 @@ public class Factura {
 				Association.Facturar.link(this, averia);
 				calcularImporte();
 				averia.markAsInvoiced();
+			} else {
+				throw new IllegalStateException(
+						"La Averia no tiene estado TERMINADA");
 			}
 		} else {
 			throw new IllegalStateException(

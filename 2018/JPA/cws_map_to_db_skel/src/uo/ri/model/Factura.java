@@ -71,7 +71,7 @@ public class Factura {
 		this(numero, fecha);
 		añadirAverias(averias);
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -173,6 +173,9 @@ public class Factura {
 				Association.Facturar.link(this, averia);
 				calcularImporte();
 				averia.markAsInvoiced();
+			} else {
+				throw new IllegalStateException(
+						"La averia no tiene el estado TERMINADA");
 			}
 		} else {
 			throw new IllegalStateException(
