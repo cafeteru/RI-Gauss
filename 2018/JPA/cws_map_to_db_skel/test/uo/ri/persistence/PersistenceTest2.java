@@ -134,12 +134,12 @@ public class PersistenceTest2 {
 		
 		type = new ContractType("name", 3);	
 
+		mechanic = new Mecanico("dni2", "nombre", "apellidos");
+		
 		contract = new Contract(mechanic, january, BETTER_BASE_SALARY, type,
 				category);
 		contract._setContractCategory(category);
-		
-		mechanic = new Mecanico("dni2", "nombre", "apellidos");
-		
+				
 		payroll = new Payroll(contract, january2020, TOTAL_BY_INTERVENTIONS);
 
 		List<Object> res = new LinkedList<Object>();
