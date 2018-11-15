@@ -16,7 +16,7 @@ import alb.util.date.Dates;
 import uo.ri.util.DateUtil;
 
 @Entity
-@Table(name = "TCONTRACTS", uniqueConstraints = {
+@Table(name = "TPAYROLLS", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "CONTRACT_ID, DATE") })
 public class Payroll {
 

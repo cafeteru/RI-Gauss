@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TCONTRACTCATEGORYS")
+@Table(name = "TCONTRACTCATEGORIES")
 public class ContractType {
 
 	@Id
